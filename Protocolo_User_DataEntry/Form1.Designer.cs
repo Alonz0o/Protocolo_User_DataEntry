@@ -43,14 +43,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.aafPanel1.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
             this.pnlPendientes.SuspendLayout();
+            this.pnlContenedor.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lueOP.Properties)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
             this.SuspendLayout();
             // 
             // aafPanel1
@@ -97,10 +103,11 @@
             // 
             // pnlContenedor
             // 
+            this.pnlContenedor.Controls.Add(this.lueOP);
             this.pnlContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContenedor.Location = new System.Drawing.Point(0, 91);
+            this.pnlContenedor.Location = new System.Drawing.Point(0, 130);
             this.pnlContenedor.Name = "pnlContenedor";
-            this.pnlContenedor.Size = new System.Drawing.Size(377, 191);
+            this.pnlContenedor.Size = new System.Drawing.Size(377, 152);
             this.pnlContenedor.TabIndex = 79;
             // 
             // tableLayoutPanel5
@@ -167,15 +174,14 @@
             this.groupControl1.Appearance.Options.UseBorderColor = true;
             this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Libre Franklin SemiBold", 11F, System.Drawing.FontStyle.Bold);
             this.groupControl1.AppearanceCaption.Options.UseFont = true;
+            this.groupControl1.Controls.Add(this.tableLayoutPanel1);
             this.groupControl1.Controls.Add(this.rbUltimoSeleccionado);
             this.groupControl1.Controls.Add(this.rbEnProduccion);
-            this.groupControl1.Controls.Add(this.lueOP);
-            this.groupControl1.Controls.Add(this.tbOP);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 30);
             this.groupControl1.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(377, 61);
+            this.groupControl1.Size = new System.Drawing.Size(377, 100);
             this.groupControl1.TabIndex = 78;
             this.groupControl1.Text = "OP *";
             // 
@@ -211,9 +217,8 @@
             // 
             // lueOP
             // 
-            this.lueOP.Dock = System.Windows.Forms.DockStyle.Top;
             this.lueOP.EditValue = "";
-            this.lueOP.Location = new System.Drawing.Point(2, 59);
+            this.lueOP.Location = new System.Drawing.Point(7, 98);
             this.lueOP.Name = "lueOP";
             this.lueOP.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.lueOP.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
@@ -235,17 +240,16 @@
             this.tbOP.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.tbOP.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.tbOP.BorderSize = 2;
-            this.tbOP.Dock = System.Windows.Forms.DockStyle.Top;
             this.tbOP.Font = new System.Drawing.Font("Libre Franklin SemiBold", 10F, System.Drawing.FontStyle.Bold);
             this.tbOP.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.tbOP.Location = new System.Drawing.Point(2, 23);
+            this.tbOP.Location = new System.Drawing.Point(-28, 27);
             this.tbOP.Margin = new System.Windows.Forms.Padding(4);
             this.tbOP.Multiline = false;
             this.tbOP.Name = "tbOP";
             this.tbOP.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
             this.tbOP.PasswordChar = false;
             this.tbOP.SelectionStart = 0;
-            this.tbOP.Size = new System.Drawing.Size(373, 36);
+            this.tbOP.Size = new System.Drawing.Size(233, 36);
             this.tbOP.TabIndex = 67;
             this.tbOP.Texts = "";
             this.tbOP.UnderlinedStyle = true;
@@ -280,6 +284,36 @@
             this.panel11.Size = new System.Drawing.Size(7, 325);
             this.panel11.TabIndex = 1;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.groupControl2, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 23);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(373, 75);
+            this.tableLayoutPanel1.TabIndex = 67;
+            // 
+            // groupControl2
+            // 
+            this.groupControl2.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.groupControl2.Appearance.Options.UseBorderColor = true;
+            this.groupControl2.AppearanceCaption.Font = new System.Drawing.Font("Libre Franklin SemiBold", 11F, System.Drawing.FontStyle.Bold);
+            this.groupControl2.AppearanceCaption.Options.UseFont = true;
+            this.groupControl2.Controls.Add(this.tbOP);
+            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl2.Location = new System.Drawing.Point(0, 0);
+            this.groupControl2.Margin = new System.Windows.Forms.Padding(0);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(186, 75);
+            this.groupControl2.TabIndex = 79;
+            this.groupControl2.Text = "OP *";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -294,6 +328,7 @@
             this.aafPanel1.ResumeLayout(false);
             this.tlpRealizados.ResumeLayout(false);
             this.pnlPendientes.ResumeLayout(false);
+            this.pnlContenedor.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
@@ -301,6 +336,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.lueOP.Properties)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -322,6 +360,8 @@
         private System.Windows.Forms.RadioButton rbUltimoSeleccionado;
         private ScrapKP.AAFControles.AAFTextBox tbOP;
         private System.Windows.Forms.Panel pnlContenedor;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private DevExpress.XtraEditors.GroupControl groupControl2;
     }
 }
 
