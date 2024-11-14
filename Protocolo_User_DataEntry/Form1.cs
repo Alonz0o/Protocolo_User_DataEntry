@@ -1,4 +1,6 @@
 ﻿using DevExpress.XtraEditors;
+using IniParser.Model;
+using IniParser;
 using Protocolo_User_DataEntry.Model;
 using Protocolo_User_DataEntry.Repository;
 using ProtoculoSLF.Repository;
@@ -8,10 +10,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Protocolo_User_DataEntry
 {
@@ -20,20 +24,46 @@ namespace Protocolo_User_DataEntry
         public BaseRepository br = new BaseRepository();
         int numDeControl = 1;
         int orden = 0, codigo = 0, idProtocolo = 0;
+        string sector = "";
         Codigo codigoDatos = new Codigo();
+        string archivoINI = Directory.GetCurrentDirectory() + @"\config.ini";
+        List<AAFTextBox> textBoxes = new List<AAFTextBox>();
         public Form1()
         {
             InitializeComponent();
+            if (!File.Exists(archivoINI)) File.Create(archivoINI).Close();
 
 
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            sector = Program.argumentos[0];
             orden = Convert.ToInt32(Program.argumentos[1]);
             codigo = Convert.ToInt32(Program.argumentos[2]);
             codigoDatos = br.GetDatosDelCodigo(codigo);
             lblTitulo.Text = "Ensayo para: " + orden + "/" + codigo;
-            switch (Program.argumentos[0])
+            CrearComponentesPorSector(sector,codigo);
+            lueMaquina.Properties.DataSource = br.GetMaquinasConfeccion();
+        }
+        private string LeerConfigUltimaOP()
+        {
+            var op = "";
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadFile(archivoINI);
+            op = data["UltimaOP"]["OP"];
+            return op;
+        }
+        private void GuardarUltimaOP(string op)
+        {
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadFile(archivoINI);
+            data["UltimaOP"]["OP"] = op;
+            parser.WriteFile(archivoINI, data);
+        }
+
+        void CrearComponentesPorSector(string sector,int codigo) {
+            switch (sector)
             {
                 case "confeccion":
                     foreach (var i in br.GetItemsPorProceso("Confección", codigo))
@@ -53,6 +83,8 @@ namespace Protocolo_User_DataEntry
                         textBox.Size = new Size(457, 36);
                         textBox.UnderlinedStyle = true;
                         textBox.Tag = i.IdProtocoloItem;
+                        textBox.KeyDown += new KeyEventHandler(tbControl_KeyDown);
+                        textBoxes.Add(textBox);
 
                         ProtoculoSLF.AAFControles.AAFBoton btnEsp = new ProtoculoSLF.AAFControles.AAFBoton();
                         btnEsp.BackColor = Color.Transparent;
@@ -82,7 +114,7 @@ namespace Protocolo_User_DataEntry
                         btnMed.ForeColor = Color.FromArgb(63, 81, 181);
                         btnMed.Name = "btnMed" + numDeControl;
                         btnMed.Size = new Size(47, 36);
-                        btnMed.Text = i.Medida=="Milimetro" ? "MM": "N";
+                        btnMed.Text = i.Medida == "Milimetro" ? "MM" : "N";
                         btnMed.TextColor = Color.FromArgb(63, 81, 181);
                         btnMed.Dock = DockStyle.Right;
 
@@ -100,6 +132,7 @@ namespace Protocolo_User_DataEntry
                         groupControl.Text = i.Nombre + " *";
                         Height = Height + groupControl.Height;
                         tableLayoutPanel2.Visible = true;
+                        numDeControl++;                        
                     }
                     break;
                 case "extrusion":
@@ -166,31 +199,57 @@ namespace Protocolo_User_DataEntry
                         groupControl.Size = new Size(461, 61);
                         groupControl.Text = i.Nombre + " *";
                         Size = new Size(450, 255);
-                        //Height = Height + groupControl.Height;
                     }
                     break;
                 default:
                     break;
             }
+            numDeControl = 1;
         }
+        int contadorTB = 0;
+        private void tbControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                if (contadorTB < textBoxes.Count - 1)
+                {
+                    textBoxes[contadorTB].Focus();
+                    contadorTB++;
+                }
+                else
+                {
+                    btnAgregarEnsayo.Focus();
+                    contadorTB = 0;
+                }
+
+            }
+
+        }
+
         private void rbUltimoSeleccionado_CheckedChanged(object sender, EventArgs e)
         {
             pnlContenedor.Controls.Clear();
-            Size = new Size(412, 182);
+            Size = new Size(427, 377);
             if (rbUltimoSeleccionado.Checked) {
-                tbOP.Texts = "1343606";
-               
-                groupControl1.SendToBack();
-                panel1.SendToBack();
-            }   
-            tbOP.Visible = rbUltimoSeleccionado.Checked;
-            lueOP.Visible = !rbUltimoSeleccionado.Checked;
+                var op = LeerConfigUltimaOP();
+                tbOP.Texts = op;
+                if (!Utils.IsSoloNumOP(op)) return;             
+                CrearComponentesPorSector(sector, Convert.ToInt32(op.Split('/')[1]));
+                lblTitulo.Text = "Ensayo para: " + op;
+
+            }
+
+            groupControl2.Visible = rbUltimoSeleccionado.Checked;
+            groupControl6.Visible = !rbUltimoSeleccionado.Checked;
         }
 
         private void rbEnProduccion_CheckedChanged(object sender, EventArgs e)
         {
-            tbOP.Visible = rbUltimoSeleccionado.Checked;
-            lueOP.Visible = !rbUltimoSeleccionado.Checked;
+            pnlContenedor.Controls.Clear();
+            Size = new Size(427, 377);
+            groupControl2.Visible = rbUltimoSeleccionado.Checked;
+            groupControl6.Visible = !rbUltimoSeleccionado.Checked;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -198,6 +257,51 @@ namespace Protocolo_User_DataEntry
             Close();
         }
 
+        private void tbOP_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                if (!Utils.IsSoloNumOP(tbOP.Texts))
+                {
+                    MessageBox.Show("Solo numeros separados por (/), ejemplo 0120/1993");
+                    return;
+                }
+                GuardarUltimaOP(tbOP.Texts);
+                int codigo = Convert.ToInt32(tbOP.Texts.Split('/')[1]);
+                pnlContenedor.Controls.Clear();
+                Size = new Size(427, 377);
+                CrearComponentesPorSector(sector,codigo);
+                if (pnlContenedor.Controls.Count > 0) {
+                    BuscarPrimerTextBox(pnlContenedor).Focus();
+                }
+
+            }
+        }
+        private AAFTextBox BuscarPrimerTextBox(Control panel)
+        {
+            foreach (Control control in panel.Controls)
+            {
+                // Si es TextBox, lo retorna inmediatamente
+                if (control is AAFTextBox textBox)
+                {
+                    return textBox;
+                }
+
+                // Si el control tiene hijos (es un panel anidado), busca recursivamente
+                if (control.HasChildren)
+                {
+                    AAFTextBox encontrado = BuscarPrimerTextBox(control);
+                    if (encontrado != null)
+                    {
+                        return encontrado;
+                    }
+                }
+            }
+
+            // Retorna null si no encuentra ningún TextBox
+            return null;
+        }
         private void btnAgregarEnsayo_Click(object sender, EventArgs e)
         {
             string sqlInsertarProtocoloItem = "INSERT INTO formato_ensayo (op,id_protocolo_item,valor_ensayo,creado) VALUES ";
@@ -214,12 +318,19 @@ namespace Protocolo_User_DataEntry
                     var idProtocolo_item = Convert.ToInt32(tb.Tag);
                     sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{orden + "/" + codigo}','{idProtocolo_item}','{valorEnsayo}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'),";
 
-            
+                    contador++;
                 }
             }
             sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
             sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
+            contador = 1;
             if (br.InsertEnsayoLote(sqlInsertarProtocoloItem)) {
+                foreach (Control control in pnlContenedor.Controls)
+                {
+                    control.Controls.OfType<AAFTextBox>().FirstOrDefault(txt => txt.Name == "tbControl" + contador).Texts = "";
+                    contador++;
+
+                }
                 MessageBox.Show("Ensayo agregado correctamente");
             }
 

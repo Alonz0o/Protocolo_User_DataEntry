@@ -27,7 +27,7 @@ namespace Protocolo_User_DataEntry.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @" SELECT e.IdCodigo,fl.Razon_Social ,e.id_formato_protocolo,fp.nombre,fp.disposicion
+                command.CommandText = @"SELECT e.IdCodigo,fl.Razon_Social ,e.id_formato_protocolo,fp.nombre,fp.disposicion
                                         FROM extrusion e 
                                         JOIN formato_protocolo fp ON e.id_formato_protocolo=fp.id
                                         JOIN ficha_logistica fl ON e.NumeroCliente = fl.Num_Cliente
@@ -158,6 +158,32 @@ namespace Protocolo_User_DataEntry.Repository
                 }
             }
             return res;
+        }
+        internal List<Maquina> GetMaquinasConfeccion()
+        {
+            List<Maquina> ms = new List<Maquina>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT maquina,sector
+                                        FROM ponderaciones 
+                                        WHERE sector = 'Confeccion' AND Maquina NOT IN ('Wick1','Wick2','Wick3');";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Maquina m = new Maquina
+                        {
+                            Nombre = reader.IsDBNull(0) ? "" : reader.GetString(0),
+                            Sector = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                        };
+                        ms.Add(m);
+                    }
+                }
+            }
+            return ms;
         }
     }
 }

@@ -43,6 +43,9 @@
     <Reference Include="FontAwesome.Sharp">
       <HintPath>Ref\FontAwesome.Sharp.dll</HintPath>
     </Reference>
+    <Reference Include="INIFileParser">
+      <HintPath>Ref\INIFileParser.dll</HintPath>
+    </Reference>
     <Reference Include="MySqlConnector">
       <HintPath>Ref\MySqlConnector.dll</HintPath>
     </Reference>
@@ -99,6 +102,7 @@
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Codigo.cs" />
+    <Compile Include="Model\Maquina.cs" />
     <Compile Include="Model\ProtocoloItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,6 +129,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -138,6 +143,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom_32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
