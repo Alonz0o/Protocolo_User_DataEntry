@@ -18,7 +18,60 @@ namespace Protocolo_User_DataEntry.Repository
         {
             connectionString = ConfigurationManager.ConnectionStrings["conexionAriel"].ToString();
         }
+        internal Especificacion GetFichaLogisticaConfeccionAncho(int idCodigo)
+        {
+            Especificacion esp = new Especificacion();
 
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT ancho,ancho_min,ancho_max
+                                        FROM confeccion 
+                                        WHERE idcodigo = @pIdCodigo;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
+                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                    }
+
+                }
+
+                return esp;
+            }
+        }
+        internal Especificacion GetFichaLogisticaConfeccionLargo(int idCodigo)
+        {
+            Especificacion esp = new Especificacion();
+
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT largo,largo_min,largo_max
+                                        FROM confeccion 
+                                        WHERE idcodigo = @pIdCodigo;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
+                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                    }
+
+                }
+
+                return esp;
+            }
+        }
         internal Codigo GetDatosDelCodigo(int idCodigo)
         {
             Codigo pis = new Codigo();
@@ -48,7 +101,37 @@ namespace Protocolo_User_DataEntry.Repository
             }
             return pis;
         }
-
+        internal List<OrdenCodigo> GetCodigosEnProduccion(string maquina)
+        {
+            List<OrdenCodigo> ops = new List<OrdenCodigo>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT pc.NumeroOrden, pc.CodigoOrden, pc.PrioridadMaquina, pc.cantidad_bolsa_conf, pc.cantidad_realizada, pc.MaquinaAlternativa, pc.CantidadDeproduccion
+                                        FROM produccion_confeccion pc
+                                        WHERE pc.cantidad_bolsa_conf>pc.cantidad_realizada AND pc.MaquinaAlternativa=@pMaquina
+                                        ORDER BY pc.PrioridadMaquina limit 10;";
+                command.Parameters.Add("@pMaquina", MySqlDbType.String).Value = maquina;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var orden = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+                        var codigo = reader.IsDBNull(1) ? 0 : Convert.ToInt32(reader.GetDouble(1));
+                        OrdenCodigo op = new OrdenCodigo
+                        {
+                            Orden = orden,
+                            Codigo = codigo,
+                            O_P = orden+"/"+codigo,
+                        };
+                        ops.Add(op);
+                    }
+                }
+            }
+            return ops;
+        }
         internal List<ProtocoloItem> GetItemsPorProceso(string sector, int idCodigo)
         {
             List<ProtocoloItem> pis = new List<ProtocoloItem>();

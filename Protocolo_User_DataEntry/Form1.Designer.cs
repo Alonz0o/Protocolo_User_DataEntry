@@ -550,6 +550,8 @@
             this.lueOP.Properties.AutoHeight = false;
             this.lueOP.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lueOP.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("O_P", "OP")});
             this.lueOP.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.lueOP.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
             this.lueOP.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
@@ -590,6 +592,7 @@
             this.btnBuscar.Size = new System.Drawing.Size(32, 32);
             this.btnBuscar.TabIndex = 34;
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Visible = false;
             // 
             // tbOP
             // 

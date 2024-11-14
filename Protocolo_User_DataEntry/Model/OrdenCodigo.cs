@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Protocolo_User_DataEntry.Model
 {
-    internal class Maquina
+    internal class OrdenCodigo
     {
-        public string Sector { get; set; }
-        public string Nombre { get; set; }
+        public int Id { get; set; }
+        public int Orden { get; set; }
+        public int Codigo { get; set; }
+        public string O_P { get; set; }
         public override string ToString()
         {
-            return Nombre;
+            return O_P;
         }
-
     }
-
 }

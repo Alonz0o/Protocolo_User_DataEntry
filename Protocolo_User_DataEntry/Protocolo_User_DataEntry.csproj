@@ -102,7 +102,9 @@
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Codigo.cs" />
+    <Compile Include="Model\Especificacion.cs" />
     <Compile Include="Model\Maquina.cs" />
+    <Compile Include="Model\OrdenCodigo.cs" />
     <Compile Include="Model\ProtocoloItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

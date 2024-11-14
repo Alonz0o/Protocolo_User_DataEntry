@@ -45,6 +45,8 @@ namespace Protocolo_User_DataEntry
             lblTitulo.Text = "Ensayo para: " + orden + "/" + codigo;
             CrearComponentesPorSector(sector,codigo);
             lueMaquina.Properties.DataSource = br.GetMaquinasConfeccion();
+            lueMaquina.ItemIndex = BuscarMaquinaIndex(Program.argumentos[3]);
+            lueOP.Properties.DataSource = br.GetCodigosEnProduccion(Program.argumentos[3]);
         }
         private string LeerConfigUltimaOP()
         {
@@ -62,7 +64,8 @@ namespace Protocolo_User_DataEntry
             parser.WriteFile(archivoINI, data);
         }
 
-        void CrearComponentesPorSector(string sector,int codigo) {
+        void CrearComponentesPorSector(string sector, int codigo)
+        {
             switch (sector)
             {
                 case "confeccion":
@@ -131,8 +134,7 @@ namespace Protocolo_User_DataEntry
                         groupControl.Size = new Size(461, 61);
                         groupControl.Text = i.Nombre + " *";
                         Height = Height + groupControl.Height;
-                        tableLayoutPanel2.Visible = true;
-                        numDeControl++;                        
+                        numDeControl++;
                     }
                     break;
                 case "extrusion":
@@ -204,6 +206,7 @@ namespace Protocolo_User_DataEntry
                 default:
                     break;
             }
+            tableLayoutPanel2.Visible = true;
             numDeControl = 1;
         }
         int contadorTB = 0;
@@ -234,6 +237,7 @@ namespace Protocolo_User_DataEntry
             if (rbUltimoSeleccionado.Checked) {
                 var op = LeerConfigUltimaOP();
                 tbOP.Texts = op;
+                if(tbOP.Texts == "") return; 
                 if (!Utils.IsSoloNumOP(op)) return;             
                 CrearComponentesPorSector(sector, Convert.ToInt32(op.Split('/')[1]));
                 lblTitulo.Text = "Ensayo para: " + op;
@@ -282,25 +286,24 @@ namespace Protocolo_User_DataEntry
         {
             foreach (Control control in panel.Controls)
             {
-                // Si es TextBox, lo retorna inmediatamente
-                if (control is AAFTextBox textBox)
-                {
-                    return textBox;
-                }
-
-                // Si el control tiene hijos (es un panel anidado), busca recursivamente
+                if (control is AAFTextBox textBox) return textBox;               
                 if (control.HasChildren)
                 {
                     AAFTextBox encontrado = BuscarPrimerTextBox(control);
-                    if (encontrado != null)
-                    {
-                        return encontrado;
-                    }
+                    if (encontrado != null) return encontrado;                   
                 }
             }
-
-            // Retorna null si no encuentra ningún TextBox
             return null;
+        }
+        private int BuscarMaquinaIndex(string maquina)
+        {
+            var dataSource = lueMaquina.Properties.DataSource as List<Maquina>;
+            if (dataSource != null)
+            {
+                var index = dataSource.FindIndex(e => maquina == e.Nombre);
+                return index != -1 ? index : 0;
+            }
+            return 0;
         }
         private void btnAgregarEnsayo_Click(object sender, EventArgs e)
         {

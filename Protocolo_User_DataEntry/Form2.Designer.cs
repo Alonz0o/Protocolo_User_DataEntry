@@ -118,19 +118,19 @@
             // 
             // aafBoton2
             // 
+            this.aafBoton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.aafBoton2.BackColor = System.Drawing.Color.Transparent;
             this.aafBoton2.BackgroundColor = System.Drawing.Color.Transparent;
             this.aafBoton2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.aafBoton2.BorderRadius = 10;
             this.aafBoton2.BorderSize = 3;
-            this.aafBoton2.Dock = System.Windows.Forms.DockStyle.Right;
             this.aafBoton2.FlatAppearance.BorderSize = 0;
             this.aafBoton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aafBoton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.aafBoton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.aafBoton2.Location = new System.Drawing.Point(508, 23);
+            this.aafBoton2.Location = new System.Drawing.Point(499, 28);
             this.aafBoton2.Name = "aafBoton2";
-            this.aafBoton2.Size = new System.Drawing.Size(47, 36);
+            this.aafBoton2.Size = new System.Drawing.Size(47, 23);
             this.aafBoton2.TabIndex = 81;
             this.aafBoton2.Text = "MM";
             this.aafBoton2.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
@@ -138,19 +138,19 @@
             // 
             // aafBoton1
             // 
+            this.aafBoton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.aafBoton1.BackColor = System.Drawing.Color.Transparent;
             this.aafBoton1.BackgroundColor = System.Drawing.Color.Transparent;
             this.aafBoton1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.aafBoton1.BorderRadius = 10;
             this.aafBoton1.BorderSize = 3;
-            this.aafBoton1.Dock = System.Windows.Forms.DockStyle.Right;
             this.aafBoton1.FlatAppearance.BorderSize = 0;
             this.aafBoton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aafBoton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.aafBoton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.aafBoton1.Location = new System.Drawing.Point(555, 23);
+            this.aafBoton1.Location = new System.Drawing.Point(552, 28);
             this.aafBoton1.Name = "aafBoton1";
-            this.aafBoton1.Size = new System.Drawing.Size(75, 36);
+            this.aafBoton1.Size = new System.Drawing.Size(75, 23);
             this.aafBoton1.TabIndex = 80;
             this.aafBoton1.Text = "1600 + 6";
             this.aafBoton1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
