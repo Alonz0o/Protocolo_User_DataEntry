@@ -80,7 +80,7 @@ namespace Protocolo_User_DataEntry.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT e.IdCodigo,fl.Razon_Social ,e.id_formato_protocolo,fp.nombre,fp.disposicion
+                command.CommandText = @"SELECT e.IdCodigo,fl.Razon_Social,e.id_formato_protocolo,fp.nombre,fp.disposicion
                                         FROM extrusion e 
                                         JOIN formato_protocolo fp ON e.id_formato_protocolo=fp.id
                                         JOIN ficha_logistica fl ON e.NumeroCliente = fl.Num_Cliente
@@ -267,6 +267,24 @@ namespace Protocolo_User_DataEntry.Repository
                 }
             }
             return ms;
+        }
+
+        internal int GetIdProtocoloItem(int idItem)
+        {
+            var idProtocoloItem = 0;
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT fpi.id,fi.nombre,fi.unidad,fi.simbolo
+                                        FROM formato_protocolo_item fpi
+                                        JOIN formato_item fi ON fpi.id_item = fi.id
+                                        WHERE fpi.id_item =@pIdItem; ";
+                command.Parameters.Add("@pIdItem", MySqlDbType.String).Value = idItem;
+                idProtocoloItem = Convert.ToInt32(command.ExecuteScalar());
+            }
+            return idProtocoloItem;
         }
     }
 }
