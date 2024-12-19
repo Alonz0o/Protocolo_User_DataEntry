@@ -36,8 +36,8 @@ namespace Protocolo_User_DataEntry.Repository
                     if (reader.Read())
                     {
                         esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
-                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
-                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1) * 10;
+                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2) * 10;
                     }
 
                 }
@@ -63,8 +63,8 @@ namespace Protocolo_User_DataEntry.Repository
                     if (reader.Read())
                     {
                         esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
-                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
-                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1) * 10;
+                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2) * 10;
                     }
 
                 }
@@ -269,7 +269,7 @@ namespace Protocolo_User_DataEntry.Repository
             return ms;
         }
 
-        internal int GetIdProtocoloItem(int idItem)
+        internal int GetIdProtocoloItem(int idItem, int idProtocolo)
         {
             var idProtocoloItem = 0;
             using (var conexion = new MySqlConnection(connectionString))
@@ -280,11 +280,45 @@ namespace Protocolo_User_DataEntry.Repository
                 command.CommandText = @"SELECT fpi.id,fi.nombre,fi.unidad,fi.simbolo
                                         FROM formato_protocolo_item fpi
                                         JOIN formato_item fi ON fpi.id_item = fi.id
-                                        WHERE fpi.id_item =@pIdItem; ";
-                command.Parameters.Add("@pIdItem", MySqlDbType.String).Value = idItem;
+                                        WHERE fpi.id_protocolo=@pIdProtocolo AND fpi.id_item=@pIdItem; ";
+                command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idProtocolo;
+                command.Parameters.Add("@pIdItem", MySqlDbType.Int32).Value = idItem;
                 idProtocoloItem = Convert.ToInt32(command.ExecuteScalar());
             }
             return idProtocoloItem;
+        }
+
+        internal List<ProtocoloItem> GetEnsayos(string op)
+        {
+            List<ProtocoloItem> pis = new List<ProtocoloItem>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT fi.nombre,fe.valor_ensayo,fe.creado,fe.id_bobina_madre,fe.turno
+                                        FROM formato_ensayo fe
+                                        JOIN formato_item fi ON fe.id_item = fi.id
+                                        WHERE op = @pOP;";
+                command.Parameters.Add("@pOP", MySqlDbType.String).Value = op;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ProtocoloItem pi = new ProtocoloItem
+                        {
+                            Nombre = reader.IsDBNull(0) ? "" : reader.GetString(0),
+                            Valor = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1),
+                            Creado = reader.IsDBNull(2) ? new DateTime(1993, 1, 20) : reader.GetDateTime(2),
+                            Turno = reader.IsDBNull(4) ? "" : reader.GetString(4),
+
+                        };
+                        pis.Add(pi);
+                    }
+                }
+            }
+            return pis;
         }
     }
 }

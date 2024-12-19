@@ -24,6 +24,11 @@ namespace Protocolo_User_DataEntry.Model
         public int IdProtocoloItem { get; set; }
         public string EspecificacionDato { get; set; }
         public bool Seleccionar { get; set; }
+        public double Valor { get; set; }
+        public string OP { get; set; }
+        public string Turno { get; set; }
+        public DateTime Creado { get; set; }
+
         public override string ToString()
         {
             return Nombre;

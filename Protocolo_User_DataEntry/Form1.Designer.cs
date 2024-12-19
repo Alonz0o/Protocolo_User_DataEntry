@@ -31,51 +31,36 @@
             this.aafPanel1 = new ProtoculoSLF.AAFPanel();
             this.tlpRealizados = new System.Windows.Forms.TableLayoutPanel();
             this.pnlPendientes = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.radioButton10 = new System.Windows.Forms.RadioButton();
-            this.rbSoldaduraRegular = new System.Windows.Forms.RadioButton();
-            this.rbSoldaduraBien = new System.Windows.Forms.RadioButton();
-            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.rbBloqueoRechazado = new System.Windows.Forms.RadioButton();
-            this.rbBloqueoRegular = new System.Windows.Forms.RadioButton();
-            this.rbBloqueoBien = new System.Windows.Forms.RadioButton();
-            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.rbPrepicadoNoAplicable = new System.Windows.Forms.RadioButton();
-            this.rbPrepicadoRechazado = new System.Windows.Forms.RadioButton();
-            this.rbPrepicadoRegular = new System.Windows.Forms.RadioButton();
-            this.rbPrepicadoBien = new System.Windows.Forms.RadioButton();
+            this.aafBoton3 = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.aafBoton2 = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.aafBoton1 = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.gcEnsayos = new DevExpress.XtraGrid.GridControl();
+            this.gvEnsayos = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAgregarEnsayo = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
             this.pnlContenedor = new System.Windows.Forms.Panel();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.aafBoton2 = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.btnErrorLargo = new FontAwesome.Sharp.IconButton();
+            this.btnConvertirMMLargo = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnEspLargo = new ProtoculoSLF.AAFControles.AAFBoton();
             this.tbLargo = new ScrapKP.AAFControles.AAFTextBox();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.aafBoton3 = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.btnErrorAncho = new FontAwesome.Sharp.IconButton();
+            this.btnConvertirMMAncho = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnEspAncho = new ProtoculoSLF.AAFControles.AAFBoton();
             this.tbAncho = new ScrapKP.AAFControles.AAFTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnAuditor = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.btnProduccion = new ProtoculoSLF.AAFControles.AAFBoton();
             this.panel11 = new System.Windows.Forms.Panel();
             this.aafPanel1.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
             this.pnlPendientes.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
-            this.groupControl5.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
-            this.groupControl4.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
-            this.groupControl3.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcEnsayos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvEnsayos)).BeginInit();
             this.tableLayoutPanel5.SuspendLayout();
             this.pnlContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -83,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // aafPanel1
@@ -92,7 +78,7 @@
             this.aafPanel1.Location = new System.Drawing.Point(0, 0);
             this.aafPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.aafPanel1.Name = "aafPanel1";
-            this.aafPanel1.Size = new System.Drawing.Size(411, 374);
+            this.aafPanel1.Size = new System.Drawing.Size(411, 623);
             this.aafPanel1.TabIndex = 0;
             // 
             // tlpRealizados
@@ -110,258 +96,110 @@
             this.tlpRealizados.Name = "tlpRealizados";
             this.tlpRealizados.RowCount = 1;
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRealizados.Size = new System.Drawing.Size(411, 374);
+            this.tlpRealizados.Size = new System.Drawing.Size(411, 623);
             this.tlpRealizados.TabIndex = 3;
             // 
             // pnlPendientes
             // 
             this.pnlPendientes.AutoScroll = true;
             this.pnlPendientes.BackColor = System.Drawing.Color.Transparent;
-            this.pnlPendientes.Controls.Add(this.tableLayoutPanel2);
+            this.pnlPendientes.Controls.Add(this.aafBoton3);
+            this.pnlPendientes.Controls.Add(this.aafBoton2);
+            this.pnlPendientes.Controls.Add(this.aafBoton1);
+            this.pnlPendientes.Controls.Add(this.gcEnsayos);
             this.pnlPendientes.Controls.Add(this.tableLayoutPanel5);
             this.pnlPendientes.Controls.Add(this.pnlContenedor);
             this.pnlPendientes.Controls.Add(this.panel1);
+            this.pnlPendientes.Controls.Add(this.tableLayoutPanel1);
             this.pnlPendientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPendientes.Location = new System.Drawing.Point(16, 3);
             this.pnlPendientes.Name = "pnlPendientes";
-            this.pnlPendientes.Size = new System.Drawing.Size(392, 368);
+            this.pnlPendientes.Size = new System.Drawing.Size(392, 617);
             this.pnlPendientes.TabIndex = 0;
             // 
-            // tableLayoutPanel2
+            // aafBoton3
             // 
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Controls.Add(this.groupControl5, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.groupControl4, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.groupControl3, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 154);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(392, 168);
-            this.tableLayoutPanel2.TabIndex = 0;
+            this.aafBoton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.aafBoton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.aafBoton3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.aafBoton3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.aafBoton3.BorderRadius = 0;
+            this.aafBoton3.BorderSize = 3;
+            this.aafBoton3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.aafBoton3.FlatAppearance.BorderSize = 0;
+            this.aafBoton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aafBoton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.aafBoton3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.aafBoton3.Location = new System.Drawing.Point(312, 345);
+            this.aafBoton3.Name = "aafBoton3";
+            this.aafBoton3.Size = new System.Drawing.Size(37, 21);
+            this.aafBoton3.TabIndex = 85;
+            this.aafBoton3.Text = "TM";
+            this.aafBoton3.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.aafBoton3.UseVisualStyleBackColor = false;
+            this.aafBoton3.Visible = false;
             // 
-            // groupControl5
+            // aafBoton2
             // 
-            this.groupControl5.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl5.Appearance.Options.UseBorderColor = true;
-            this.groupControl5.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.groupControl5.AppearanceCaption.Options.UseFont = true;
-            this.groupControl5.Controls.Add(this.tableLayoutPanel6);
-            this.groupControl5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl5.Location = new System.Drawing.Point(260, 0);
-            this.groupControl5.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(132, 168);
-            this.groupControl5.TabIndex = 81;
-            this.groupControl5.Text = "Soldadura";
+            this.aafBoton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.aafBoton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.aafBoton2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.aafBoton2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.aafBoton2.BorderRadius = 0;
+            this.aafBoton2.BorderSize = 3;
+            this.aafBoton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.aafBoton2.FlatAppearance.BorderSize = 0;
+            this.aafBoton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aafBoton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.aafBoton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.aafBoton2.Location = new System.Drawing.Point(358, 345);
+            this.aafBoton2.Name = "aafBoton2";
+            this.aafBoton2.Size = new System.Drawing.Size(37, 21);
+            this.aafBoton2.TabIndex = 84;
+            this.aafBoton2.Text = "TT";
+            this.aafBoton2.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.aafBoton2.UseVisualStyleBackColor = false;
+            this.aafBoton2.Visible = false;
             // 
-            // tableLayoutPanel6
+            // aafBoton1
             // 
-            this.tableLayoutPanel6.ColumnCount = 1;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Controls.Add(this.radioButton10, 0, 2);
-            this.tableLayoutPanel6.Controls.Add(this.rbSoldaduraRegular, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.rbSoldaduraBien, 0, 0);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(2, 23);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 4;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(128, 143);
-            this.tableLayoutPanel6.TabIndex = 0;
+            this.aafBoton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.aafBoton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.aafBoton1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.aafBoton1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.aafBoton1.BorderRadius = 0;
+            this.aafBoton1.BorderSize = 3;
+            this.aafBoton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.aafBoton1.FlatAppearance.BorderSize = 0;
+            this.aafBoton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aafBoton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.aafBoton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.aafBoton1.Location = new System.Drawing.Point(269, 345);
+            this.aafBoton1.Name = "aafBoton1";
+            this.aafBoton1.Size = new System.Drawing.Size(37, 21);
+            this.aafBoton1.TabIndex = 83;
+            this.aafBoton1.Text = "TN";
+            this.aafBoton1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.aafBoton1.UseVisualStyleBackColor = false;
+            this.aafBoton1.Visible = false;
             // 
-            // radioButton10
+            // gcEnsayos
             // 
-            this.radioButton10.AutoSize = true;
-            this.radioButton10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton10.Location = new System.Drawing.Point(3, 73);
-            this.radioButton10.Name = "radioButton10";
-            this.radioButton10.Size = new System.Drawing.Size(122, 29);
-            this.radioButton10.TabIndex = 2;
-            this.radioButton10.Text = "Rechazado";
-            this.radioButton10.UseVisualStyleBackColor = true;
+            this.gcEnsayos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gcEnsayos.Location = new System.Drawing.Point(0, 344);
+            this.gcEnsayos.MainView = this.gvEnsayos;
+            this.gcEnsayos.Name = "gcEnsayos";
+            this.gcEnsayos.Size = new System.Drawing.Size(392, 230);
+            this.gcEnsayos.TabIndex = 82;
+            this.gcEnsayos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvEnsayos});
             // 
-            // rbSoldaduraRegular
+            // gvEnsayos
             // 
-            this.rbSoldaduraRegular.AutoSize = true;
-            this.rbSoldaduraRegular.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbSoldaduraRegular.Location = new System.Drawing.Point(3, 38);
-            this.rbSoldaduraRegular.Name = "rbSoldaduraRegular";
-            this.rbSoldaduraRegular.Size = new System.Drawing.Size(122, 29);
-            this.rbSoldaduraRegular.TabIndex = 1;
-            this.rbSoldaduraRegular.Text = "Regular";
-            this.rbSoldaduraRegular.UseVisualStyleBackColor = true;
-            // 
-            // rbSoldaduraBien
-            // 
-            this.rbSoldaduraBien.AutoSize = true;
-            this.rbSoldaduraBien.Checked = true;
-            this.rbSoldaduraBien.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbSoldaduraBien.Location = new System.Drawing.Point(3, 3);
-            this.rbSoldaduraBien.Name = "rbSoldaduraBien";
-            this.rbSoldaduraBien.Size = new System.Drawing.Size(122, 29);
-            this.rbSoldaduraBien.TabIndex = 0;
-            this.rbSoldaduraBien.TabStop = true;
-            this.rbSoldaduraBien.Text = "Bien";
-            this.rbSoldaduraBien.UseVisualStyleBackColor = true;
-            // 
-            // groupControl4
-            // 
-            this.groupControl4.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl4.Appearance.Options.UseBorderColor = true;
-            this.groupControl4.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.groupControl4.AppearanceCaption.Options.UseFont = true;
-            this.groupControl4.Controls.Add(this.tableLayoutPanel4);
-            this.groupControl4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl4.Location = new System.Drawing.Point(130, 0);
-            this.groupControl4.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(130, 168);
-            this.groupControl4.TabIndex = 80;
-            this.groupControl4.Text = "Bloqueo";
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Controls.Add(this.rbBloqueoRechazado, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.rbBloqueoRegular, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.rbBloqueoBien, 0, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(2, 23);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 4;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(126, 143);
-            this.tableLayoutPanel4.TabIndex = 0;
-            // 
-            // rbBloqueoRechazado
-            // 
-            this.rbBloqueoRechazado.AutoSize = true;
-            this.rbBloqueoRechazado.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbBloqueoRechazado.Location = new System.Drawing.Point(3, 73);
-            this.rbBloqueoRechazado.Name = "rbBloqueoRechazado";
-            this.rbBloqueoRechazado.Size = new System.Drawing.Size(120, 29);
-            this.rbBloqueoRechazado.TabIndex = 2;
-            this.rbBloqueoRechazado.Text = "Rechazado";
-            this.rbBloqueoRechazado.UseVisualStyleBackColor = true;
-            // 
-            // rbBloqueoRegular
-            // 
-            this.rbBloqueoRegular.AutoSize = true;
-            this.rbBloqueoRegular.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbBloqueoRegular.Location = new System.Drawing.Point(3, 38);
-            this.rbBloqueoRegular.Name = "rbBloqueoRegular";
-            this.rbBloqueoRegular.Size = new System.Drawing.Size(120, 29);
-            this.rbBloqueoRegular.TabIndex = 1;
-            this.rbBloqueoRegular.Text = "Regular";
-            this.rbBloqueoRegular.UseVisualStyleBackColor = true;
-            // 
-            // rbBloqueoBien
-            // 
-            this.rbBloqueoBien.AutoSize = true;
-            this.rbBloqueoBien.Checked = true;
-            this.rbBloqueoBien.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbBloqueoBien.Location = new System.Drawing.Point(3, 3);
-            this.rbBloqueoBien.Name = "rbBloqueoBien";
-            this.rbBloqueoBien.Size = new System.Drawing.Size(120, 29);
-            this.rbBloqueoBien.TabIndex = 0;
-            this.rbBloqueoBien.TabStop = true;
-            this.rbBloqueoBien.Text = "Bien";
-            this.rbBloqueoBien.UseVisualStyleBackColor = true;
-            // 
-            // groupControl3
-            // 
-            this.groupControl3.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl3.Appearance.Options.UseBorderColor = true;
-            this.groupControl3.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.groupControl3.AppearanceCaption.Options.UseFont = true;
-            this.groupControl3.Controls.Add(this.tableLayoutPanel3);
-            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl3.Location = new System.Drawing.Point(0, 0);
-            this.groupControl3.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(130, 168);
-            this.groupControl3.TabIndex = 79;
-            this.groupControl3.Text = "Perforado";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Controls.Add(this.rbPrepicadoNoAplicable, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.rbPrepicadoRechazado, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.rbPrepicadoRegular, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.rbPrepicadoBien, 0, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 23);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 4;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(126, 143);
-            this.tableLayoutPanel3.TabIndex = 0;
-            // 
-            // rbPrepicadoNoAplicable
-            // 
-            this.rbPrepicadoNoAplicable.AutoSize = true;
-            this.rbPrepicadoNoAplicable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbPrepicadoNoAplicable.Location = new System.Drawing.Point(3, 108);
-            this.rbPrepicadoNoAplicable.Name = "rbPrepicadoNoAplicable";
-            this.rbPrepicadoNoAplicable.Size = new System.Drawing.Size(120, 32);
-            this.rbPrepicadoNoAplicable.TabIndex = 3;
-            this.rbPrepicadoNoAplicable.Text = "No aplicable";
-            this.rbPrepicadoNoAplicable.UseVisualStyleBackColor = true;
-            // 
-            // rbPrepicadoRechazado
-            // 
-            this.rbPrepicadoRechazado.AutoSize = true;
-            this.rbPrepicadoRechazado.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbPrepicadoRechazado.Location = new System.Drawing.Point(3, 73);
-            this.rbPrepicadoRechazado.Name = "rbPrepicadoRechazado";
-            this.rbPrepicadoRechazado.Size = new System.Drawing.Size(120, 29);
-            this.rbPrepicadoRechazado.TabIndex = 2;
-            this.rbPrepicadoRechazado.Text = "Rechazado";
-            this.rbPrepicadoRechazado.UseVisualStyleBackColor = true;
-            // 
-            // rbPrepicadoRegular
-            // 
-            this.rbPrepicadoRegular.AutoSize = true;
-            this.rbPrepicadoRegular.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbPrepicadoRegular.Location = new System.Drawing.Point(3, 38);
-            this.rbPrepicadoRegular.Name = "rbPrepicadoRegular";
-            this.rbPrepicadoRegular.Size = new System.Drawing.Size(120, 29);
-            this.rbPrepicadoRegular.TabIndex = 1;
-            this.rbPrepicadoRegular.Text = "Regular";
-            this.rbPrepicadoRegular.UseVisualStyleBackColor = true;
-            // 
-            // rbPrepicadoBien
-            // 
-            this.rbPrepicadoBien.AutoSize = true;
-            this.rbPrepicadoBien.Checked = true;
-            this.rbPrepicadoBien.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbPrepicadoBien.Location = new System.Drawing.Point(3, 3);
-            this.rbPrepicadoBien.Name = "rbPrepicadoBien";
-            this.rbPrepicadoBien.Size = new System.Drawing.Size(120, 29);
-            this.rbPrepicadoBien.TabIndex = 0;
-            this.rbPrepicadoBien.TabStop = true;
-            this.rbPrepicadoBien.Text = "Bien";
-            this.rbPrepicadoBien.UseVisualStyleBackColor = true;
+            this.gvEnsayos.GridControl = this.gcEnsayos;
+            this.gvEnsayos.Name = "gvEnsayos";
+            this.gvEnsayos.OptionsView.ShowGroupPanel = false;
             // 
             // tableLayoutPanel5
             // 
@@ -372,7 +210,7 @@
             this.tableLayoutPanel5.Controls.Add(this.btnAgregarEnsayo, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.btnCancelar, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 325);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 574);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -426,7 +264,7 @@
             this.pnlContenedor.Controls.Add(this.groupControl1);
             this.pnlContenedor.Controls.Add(this.groupControl2);
             this.pnlContenedor.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlContenedor.Location = new System.Drawing.Point(0, 30);
+            this.pnlContenedor.Location = new System.Drawing.Point(0, 73);
             this.pnlContenedor.Margin = new System.Windows.Forms.Padding(0);
             this.pnlContenedor.Name = "pnlContenedor";
             this.pnlContenedor.Size = new System.Drawing.Size(392, 124);
@@ -438,7 +276,8 @@
             this.groupControl1.Appearance.Options.UseBorderColor = true;
             this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.groupControl1.AppearanceCaption.Options.UseFont = true;
-            this.groupControl1.Controls.Add(this.aafBoton2);
+            this.groupControl1.Controls.Add(this.btnErrorLargo);
+            this.groupControl1.Controls.Add(this.btnConvertirMMLargo);
             this.groupControl1.Controls.Add(this.btnEspLargo);
             this.groupControl1.Controls.Add(this.tbLargo);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -449,25 +288,47 @@
             this.groupControl1.TabIndex = 81;
             this.groupControl1.Text = "Largo de bolsa *";
             // 
-            // aafBoton2
+            // btnErrorLargo
             // 
-            this.aafBoton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.aafBoton2.BackColor = System.Drawing.Color.Transparent;
-            this.aafBoton2.BackgroundColor = System.Drawing.Color.Transparent;
-            this.aafBoton2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.aafBoton2.BorderRadius = 10;
-            this.aafBoton2.BorderSize = 3;
-            this.aafBoton2.FlatAppearance.BorderSize = 0;
-            this.aafBoton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aafBoton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.aafBoton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.aafBoton2.Location = new System.Drawing.Point(259, 28);
-            this.aafBoton2.Name = "aafBoton2";
-            this.aafBoton2.Size = new System.Drawing.Size(47, 23);
-            this.aafBoton2.TabIndex = 81;
-            this.aafBoton2.Text = "MM";
-            this.aafBoton2.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.aafBoton2.UseVisualStyleBackColor = false;
+            this.btnErrorLargo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnErrorLargo.BackColor = System.Drawing.Color.White;
+            this.btnErrorLargo.BackgroundImage = global::Protocolo_User_DataEntry.Properties.Resources.cancel_16x16;
+            this.btnErrorLargo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnErrorLargo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnErrorLargo.FlatAppearance.BorderSize = 0;
+            this.btnErrorLargo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnErrorLargo.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnErrorLargo.IconColor = System.Drawing.SystemColors.Highlight;
+            this.btnErrorLargo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnErrorLargo.IconSize = 20;
+            this.btnErrorLargo.Location = new System.Drawing.Point(233, 31);
+            this.btnErrorLargo.Name = "btnErrorLargo";
+            this.btnErrorLargo.Size = new System.Drawing.Size(20, 20);
+            this.btnErrorLargo.TabIndex = 83;
+            this.btnErrorLargo.UseVisualStyleBackColor = false;
+            this.btnErrorLargo.Visible = false;
+            // 
+            // btnConvertirMMLargo
+            // 
+            this.btnConvertirMMLargo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConvertirMMLargo.BackColor = System.Drawing.Color.Transparent;
+            this.btnConvertirMMLargo.BackgroundColor = System.Drawing.Color.Transparent;
+            this.btnConvertirMMLargo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnConvertirMMLargo.BorderRadius = 10;
+            this.btnConvertirMMLargo.BorderSize = 3;
+            this.btnConvertirMMLargo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConvertirMMLargo.FlatAppearance.BorderSize = 0;
+            this.btnConvertirMMLargo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConvertirMMLargo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.btnConvertirMMLargo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnConvertirMMLargo.Location = new System.Drawing.Point(259, 28);
+            this.btnConvertirMMLargo.Name = "btnConvertirMMLargo";
+            this.btnConvertirMMLargo.Size = new System.Drawing.Size(47, 23);
+            this.btnConvertirMMLargo.TabIndex = 81;
+            this.btnConvertirMMLargo.Text = "MM";
+            this.btnConvertirMMLargo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnConvertirMMLargo.UseVisualStyleBackColor = false;
+            this.btnConvertirMMLargo.Click += new System.EventHandler(this.btnConvertirMMLargo_Click);
             // 
             // btnEspLargo
             // 
@@ -517,7 +378,8 @@
             this.groupControl2.Appearance.Options.UseBorderColor = true;
             this.groupControl2.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.groupControl2.AppearanceCaption.Options.UseFont = true;
-            this.groupControl2.Controls.Add(this.aafBoton3);
+            this.groupControl2.Controls.Add(this.btnErrorAncho);
+            this.groupControl2.Controls.Add(this.btnConvertirMMAncho);
             this.groupControl2.Controls.Add(this.btnEspAncho);
             this.groupControl2.Controls.Add(this.tbAncho);
             this.groupControl2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -528,25 +390,47 @@
             this.groupControl2.TabIndex = 80;
             this.groupControl2.Text = "Ancho de bolsa *";
             // 
-            // aafBoton3
+            // btnErrorAncho
             // 
-            this.aafBoton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.aafBoton3.BackColor = System.Drawing.Color.Transparent;
-            this.aafBoton3.BackgroundColor = System.Drawing.Color.Transparent;
-            this.aafBoton3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.aafBoton3.BorderRadius = 10;
-            this.aafBoton3.BorderSize = 3;
-            this.aafBoton3.FlatAppearance.BorderSize = 0;
-            this.aafBoton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aafBoton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.aafBoton3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.aafBoton3.Location = new System.Drawing.Point(259, 28);
-            this.aafBoton3.Name = "aafBoton3";
-            this.aafBoton3.Size = new System.Drawing.Size(47, 23);
-            this.aafBoton3.TabIndex = 81;
-            this.aafBoton3.Text = "MM";
-            this.aafBoton3.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.aafBoton3.UseVisualStyleBackColor = false;
+            this.btnErrorAncho.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnErrorAncho.BackColor = System.Drawing.Color.White;
+            this.btnErrorAncho.BackgroundImage = global::Protocolo_User_DataEntry.Properties.Resources.cancel_16x16;
+            this.btnErrorAncho.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnErrorAncho.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnErrorAncho.FlatAppearance.BorderSize = 0;
+            this.btnErrorAncho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnErrorAncho.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnErrorAncho.IconColor = System.Drawing.SystemColors.Highlight;
+            this.btnErrorAncho.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnErrorAncho.IconSize = 20;
+            this.btnErrorAncho.Location = new System.Drawing.Point(233, 31);
+            this.btnErrorAncho.Name = "btnErrorAncho";
+            this.btnErrorAncho.Size = new System.Drawing.Size(20, 20);
+            this.btnErrorAncho.TabIndex = 82;
+            this.btnErrorAncho.UseVisualStyleBackColor = false;
+            this.btnErrorAncho.Visible = false;
+            // 
+            // btnConvertirMMAncho
+            // 
+            this.btnConvertirMMAncho.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConvertirMMAncho.BackColor = System.Drawing.Color.Transparent;
+            this.btnConvertirMMAncho.BackgroundColor = System.Drawing.Color.Transparent;
+            this.btnConvertirMMAncho.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnConvertirMMAncho.BorderRadius = 10;
+            this.btnConvertirMMAncho.BorderSize = 3;
+            this.btnConvertirMMAncho.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConvertirMMAncho.FlatAppearance.BorderSize = 0;
+            this.btnConvertirMMAncho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConvertirMMAncho.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.btnConvertirMMAncho.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnConvertirMMAncho.Location = new System.Drawing.Point(259, 28);
+            this.btnConvertirMMAncho.Name = "btnConvertirMMAncho";
+            this.btnConvertirMMAncho.Size = new System.Drawing.Size(47, 23);
+            this.btnConvertirMMAncho.TabIndex = 81;
+            this.btnConvertirMMAncho.Text = "MM";
+            this.btnConvertirMMAncho.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnConvertirMMAncho.UseVisualStyleBackColor = false;
+            this.btnConvertirMMAncho.Click += new System.EventHandler(this.btnConvertirMMAncho_Click);
             // 
             // btnEspAncho
             // 
@@ -594,7 +478,7 @@
             // 
             this.panel1.Controls.Add(this.lblTitulo);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 43);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(392, 30);
             this.panel1.TabIndex = 76;
@@ -611,20 +495,77 @@
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Ensayo para: ";
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.btnAuditor, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnProduccion, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(392, 43);
+            this.tableLayoutPanel1.TabIndex = 86;
+            // 
+            // btnAuditor
+            // 
+            this.btnAuditor.BackColor = System.Drawing.SystemColors.Window;
+            this.btnAuditor.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.btnAuditor.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAuditor.BorderRadius = 0;
+            this.btnAuditor.BorderSize = 3;
+            this.btnAuditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAuditor.FlatAppearance.BorderSize = 0;
+            this.btnAuditor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAuditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.btnAuditor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAuditor.Location = new System.Drawing.Point(199, 3);
+            this.btnAuditor.Name = "btnAuditor";
+            this.btnAuditor.Size = new System.Drawing.Size(190, 37);
+            this.btnAuditor.TabIndex = 2;
+            this.btnAuditor.Text = "Auditor";
+            this.btnAuditor.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAuditor.UseVisualStyleBackColor = false;
+            // 
+            // btnProduccion
+            // 
+            this.btnProduccion.BackColor = System.Drawing.SystemColors.Window;
+            this.btnProduccion.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.btnProduccion.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnProduccion.BorderRadius = 0;
+            this.btnProduccion.BorderSize = 3;
+            this.btnProduccion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnProduccion.FlatAppearance.BorderSize = 0;
+            this.btnProduccion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProduccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.btnProduccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnProduccion.Location = new System.Drawing.Point(3, 3);
+            this.btnProduccion.Name = "btnProduccion";
+            this.btnProduccion.Size = new System.Drawing.Size(190, 37);
+            this.btnProduccion.TabIndex = 1;
+            this.btnProduccion.Text = "Producción";
+            this.btnProduccion.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnProduccion.UseVisualStyleBackColor = false;
+            this.btnProduccion.Click += new System.EventHandler(this.btnProduccion_Click);
+            // 
             // panel11
             // 
             this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(7, 368);
+            this.panel11.Size = new System.Drawing.Size(7, 617);
             this.panel11.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 374);
+            this.ClientSize = new System.Drawing.Size(411, 623);
             this.Controls.Add(this.aafPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -635,19 +576,8 @@
             this.aafPanel1.ResumeLayout(false);
             this.tlpRealizados.ResumeLayout(false);
             this.pnlPendientes.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
-            this.groupControl5.ResumeLayout(false);
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
-            this.groupControl4.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
-            this.groupControl3.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcEnsayos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvEnsayos)).EndInit();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.pnlContenedor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
@@ -656,6 +586,7 @@
             this.groupControl2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -671,32 +602,25 @@
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private DevExpress.XtraEditors.GroupControl groupControl3;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private DevExpress.XtraEditors.GroupControl groupControl5;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.RadioButton radioButton10;
-        private System.Windows.Forms.RadioButton rbSoldaduraRegular;
-        private System.Windows.Forms.RadioButton rbSoldaduraBien;
-        private DevExpress.XtraEditors.GroupControl groupControl4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.RadioButton rbBloqueoRechazado;
-        private System.Windows.Forms.RadioButton rbBloqueoRegular;
-        private System.Windows.Forms.RadioButton rbBloqueoBien;
-        private System.Windows.Forms.RadioButton rbPrepicadoNoAplicable;
-        private System.Windows.Forms.RadioButton rbPrepicadoRechazado;
-        private System.Windows.Forms.RadioButton rbPrepicadoRegular;
-        private System.Windows.Forms.RadioButton rbPrepicadoBien;
         private System.Windows.Forms.Panel pnlContenedor;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private ProtoculoSLF.AAFControles.AAFBoton aafBoton2;
+        private ProtoculoSLF.AAFControles.AAFBoton btnConvertirMMLargo;
         private ProtoculoSLF.AAFControles.AAFBoton btnEspLargo;
         private ScrapKP.AAFControles.AAFTextBox tbLargo;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private ProtoculoSLF.AAFControles.AAFBoton aafBoton3;
+        private ProtoculoSLF.AAFControles.AAFBoton btnConvertirMMAncho;
         private ProtoculoSLF.AAFControles.AAFBoton btnEspAncho;
         private ScrapKP.AAFControles.AAFTextBox tbAncho;
+        private DevExpress.XtraGrid.GridControl gcEnsayos;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvEnsayos;
+        private ProtoculoSLF.AAFControles.AAFBoton aafBoton3;
+        private ProtoculoSLF.AAFControles.AAFBoton aafBoton2;
+        private ProtoculoSLF.AAFControles.AAFBoton aafBoton1;
+        private FontAwesome.Sharp.IconButton btnErrorAncho;
+        private FontAwesome.Sharp.IconButton btnErrorLargo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private ProtoculoSLF.AAFControles.AAFBoton btnProduccion;
+        private ProtoculoSLF.AAFControles.AAFBoton btnAuditor;
     }
 }
 
