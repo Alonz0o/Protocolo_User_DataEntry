@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using DevExpress.Data;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.ClipboardSource.SpreadsheetML;
 
 namespace Protocolo_User_DataEntry
 {
@@ -51,6 +52,7 @@ namespace Protocolo_User_DataEntry
             btnEspLargo.Text = espLargo.Medio + "±" + espLargo.Maximo;
             GenerarTablaProtocolosItem();
             GetEnsayosPorTurno();
+
         }
         private void GenerarTablaProtocolosItem()
         {
@@ -127,15 +129,192 @@ namespace Protocolo_User_DataEntry
                 btnAgregarEnsayo.Focus();
             }
         }
+        void CrearComponentesPorSector(string sector, int codigo)
+        {
+            var items = br.GetItemsPorProceso("Confección", codigo);
+            items.Remove(items.FirstOrDefault(e => e.Nombre == "Ancho de Bolsa"));
+            items.Remove(items.FirstOrDefault(e => e.Nombre == "Largo de Bolsa"));
 
+            switch (sector)
+            {
+                case "confeccion":
+                    foreach (var i in items)
+                    {
+                        AAFTextBox textBox = new AAFTextBox();
+                        textBox.BackColor = Color.White;
+                        textBox.BorderColor = Color.FromArgb(63, 81, 181);
+                        textBox.BorderSize = 2;
+                        textBox.Dock = DockStyle.Fill;
+                        textBox.Font = new Font("Libre Franklin SemiBold", 10F, FontStyle.Bold);
+                        textBox.ForeColor = SystemColors.GrayText;
+                        textBox.Margin = new Padding(4);
+                        textBox.Multiline = false;
+                        textBox.Name = "tbControl" + numDeControl;
+                        textBox.Padding = new Padding(19, 8, 8, 8);
+                        textBox.SelectionStart = 0;
+                        textBox.Size = new Size(457, 36);
+                        textBox.UnderlinedStyle = true;
+                        textBox.KeyDown += new KeyEventHandler(tbControl_KeyDown);
+                        textBox.Tag = i.Id+","+i.EsConstante;
+                        textBoxes.Add(textBox);
+
+                        ProtoculoSLF.AAFControles.AAFBoton btnMed = new ProtoculoSLF.AAFControles.AAFBoton();
+                        btnMed.Location = new Point(67, 28);
+                        btnMed.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                        btnMed.BackColor = Color.Transparent;
+                        btnMed.BackgroundColor = Color.Transparent;
+                        btnMed.BorderColor = Color.FromArgb(63, 81, 181);
+                        btnMed.BorderRadius = 10;
+                        btnMed.BorderSize = 3;
+                        btnMed.FlatAppearance.BorderSize = 0;
+                        btnMed.FlatStyle = FlatStyle.Flat;
+                        btnMed.Font = new Font("Libre Franklin SemiBold", 8F, FontStyle.Bold);
+                        btnMed.ForeColor = Color.FromArgb(63, 81, 181);
+                        btnMed.Name = "btnMed" + numDeControl;
+                        btnMed.Size = new Size(47, 23);
+                        btnMed.Text = i.Medida == "Milimetro" ? "MM" : "N";
+                        btnMed.TextColor = Color.FromArgb(63, 81, 181);
+
+                        ProtoculoSLF.AAFControles.AAFBoton btnEsp = new ProtoculoSLF.AAFControles.AAFBoton();
+                        btnEsp.Location = new Point(120, 28);
+                        btnEsp.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                        btnEsp.BackColor = Color.Transparent;
+                        btnEsp.BackgroundColor = Color.Transparent;
+                        btnEsp.BorderColor = Color.FromArgb(63, 81, 181);
+                        btnEsp.BorderRadius = 10;
+                        btnEsp.BorderSize = 3;
+                        btnEsp.Cursor = Cursors.Hand;
+                        btnEsp.FlatAppearance.BorderSize = 0;
+                        btnEsp.FlatStyle = FlatStyle.Flat;
+                        btnEsp.Font = new Font("Libre Franklin SemiBold", 8F, FontStyle.Bold);
+                        btnEsp.ForeColor = Color.FromArgb(63, 81, 181);
+                        btnEsp.Name = "btnEsp" + numDeControl;
+                        btnEsp.Size = new Size(75, 23);
+                        btnEsp.Text = i.Especificacion + i.Simbolo + i.EspecificacionMax;
+                        btnEsp.TextColor = Color.FromArgb(63, 81, 181);
+                        btnEsp.UseVisualStyleBackColor = false;
+
+                        GroupControl groupControl = new GroupControl();
+                        groupControl.Appearance.BorderColor = Color.FromArgb(227, 242, 253);
+                        groupControl.AppearanceCaption.Font = new Font("Libre Franklin SemiBold", 11F, FontStyle.Bold);
+                        groupControl.Appearance.Options.UseBorderColor = true;
+                        groupControl.AppearanceCaption.Options.UseFont = true;
+                        groupControl.Controls.Add(btnMed);
+                        groupControl.Controls.Add(btnEsp);
+                        groupControl.Controls.Add(textBox);
+                        groupControl.Dock = DockStyle.Top;
+                        groupControl.Margin = new Padding(0);
+                        groupControl.Location = new Point(0, 61);
+                        groupControl.Name = "gcControl" + numDeControl;
+                        groupControl.Size = new Size(392, 61);
+                        groupControl.Text = i.Nombre + " *";
+                        Height = Height + groupControl.Height;
+                        pnlContenedor.Controls.Add(groupControl);     
+                        numDeControl++;
+                    }
+                    break;
+                case "extrusion":
+                    foreach (var i in br.GetItemsPorProceso("Extrusión", codigo))
+                    {
+                        AAFTextBox textBox = new AAFTextBox();
+                        textBox.BackColor = Color.White;
+                        textBox.BorderColor = Color.FromArgb(63, 81, 181);
+                        textBox.BorderSize = 2;
+                        textBox.Dock = DockStyle.Fill;
+                        textBox.Font = new Font("Libre Franklin SemiBold", 10F, FontStyle.Bold);
+                        textBox.ForeColor = SystemColors.GrayText;
+                        textBox.Margin = new Padding(4);
+                        textBox.Multiline = false;
+                        textBox.Name = "tbControl" + numDeControl;
+                        textBox.Padding = new Padding(19, 8, 8, 8);
+                        textBox.SelectionStart = 0;
+                        textBox.Size = new Size(457, 36);
+                        textBox.UnderlinedStyle = true;
+                        textBox.Tag = i.Id;
+
+                        ProtoculoSLF.AAFControles.AAFBoton btnEsp = new ProtoculoSLF.AAFControles.AAFBoton();
+                        btnEsp.BackColor = Color.Transparent;
+                        btnEsp.BackgroundColor = Color.Transparent;
+                        btnEsp.BorderColor = Color.FromArgb(63, 81, 181);
+                        btnEsp.BorderRadius = 10;
+                        btnEsp.BorderSize = 3;
+                        btnEsp.FlatAppearance.BorderSize = 0;
+                        btnEsp.FlatStyle = FlatStyle.Flat;
+                        btnEsp.Font = new Font("Libre Franklin SemiBold", 8F, FontStyle.Bold);
+                        btnEsp.ForeColor = Color.FromArgb(63, 81, 181);
+                        btnEsp.Name = "btnEsp" + numDeControl;
+                        btnEsp.Size = new Size(75, 30);
+                        btnEsp.Text = i.Especificacion + i.Simbolo + i.EspecificacionMax;
+                        btnEsp.TextColor = Color.FromArgb(63, 81, 181);
+                        btnEsp.Dock = DockStyle.Right;
+
+                        ProtoculoSLF.AAFControles.AAFBoton btnMed = new ProtoculoSLF.AAFControles.AAFBoton();
+                        btnMed.BackColor = Color.Transparent;
+                        btnMed.BackgroundColor = Color.Transparent;
+                        btnMed.BorderColor = Color.FromArgb(63, 81, 181);
+                        btnMed.BorderRadius = 10;
+                        btnMed.BorderSize = 3;
+                        btnMed.FlatAppearance.BorderSize = 0;
+                        btnMed.FlatStyle = FlatStyle.Flat;
+                        btnMed.Font = new Font("Libre Franklin SemiBold", 8F, FontStyle.Bold);
+                        btnMed.ForeColor = Color.FromArgb(63, 81, 181);
+                        btnMed.Name = "btnMed" + numDeControl;
+                        btnMed.Size = new Size(47, 36);
+                        btnMed.Text = i.Medida == "Milimetro" ? "MM" : "N";
+                        btnMed.TextColor = Color.FromArgb(63, 81, 181);
+                        btnMed.Dock = DockStyle.Right;
+
+                        GroupControl groupControl = new GroupControl();
+                        pnlContenedor.Controls.Add(groupControl);
+                        groupControl.Appearance.BorderColor = Color.FromArgb(227, 242, 253);
+                        groupControl.AppearanceCaption.Font = new Font("Libre Franklin SemiBold", 11F, FontStyle.Bold);
+                        groupControl.Controls.Add(btnMed);
+                        groupControl.Controls.Add(btnEsp);
+                        groupControl.Controls.Add(textBox);
+                        groupControl.Dock = DockStyle.Top;
+                        groupControl.Margin = new Padding(0);
+                        groupControl.Name = "gcControl" + numDeControl;
+                        groupControl.Size = new Size(461, 61);
+                        groupControl.Text = i.Nombre + " *";
+                        Size = new Size(450, 255);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            //pnlContenedor.SendToBack();
+            //tableLayoutPanel2.Visible = true;
+            numDeControl = 1;
+        }
+        int contadorTB = 0;
+
+        private void tbControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                if (contadorTB < textBoxes.Count - 1)
+                {
+                    textBoxes[contadorTB].Focus();
+                    contadorTB++;
+                }
+                else
+                {
+                    btnAgregarEnsayo.Focus();
+                    contadorTB = 0;
+                }
+
+            }
+
+        }
         private void btnAgregarEnsayo_Click(object sender, EventArgs e)
         {
             string turno = GetTurno();
 
-            string sqlInsertarProtocoloItem = "INSERT INTO formato_ensayo (op,id_item,valor_ensayo,creado,turno) VALUES ";
+            string sqlInsertarProtocoloItem = "INSERT INTO formato_ensayo (op,id_item,valor_ensayo,creado,turno,correcto) VALUES ";
             string sqlInsertarProtocoloItem2 = "";
-            if (!ValidarFormularioItems(tbAncho.Texts)) return;
-            if (!ValidarFormularioItems(tbLargo.Texts)) return;
+            if (!ValidarFormularioItems(tbAncho.Texts, false)) return;
+            if (!ValidarFormularioItems(tbLargo.Texts, false)) return;
 
             // Calcular los límites de la tolerancia
             if (!ValidarTolerancia(tbAncho, espAncho.Medio, espAncho.Maximo))
@@ -160,22 +339,47 @@ namespace Protocolo_User_DataEntry
             }
 
             var valorEnsayoAncho = Convert.ToDouble(tbAncho.Texts);
-            sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{orden + "/" + codigo}','{9}','{valorEnsayoAncho}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}'),";
+            sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{orden + "/" + codigo}','{9}','{valorEnsayoAncho}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','0'),";
 
             var valorEnsayoLargo = Convert.ToDouble(tbLargo.Texts);
-            sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{orden + "/" + codigo}','{7}','{valorEnsayoLargo}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}'),";
+            sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{orden + "/" + codigo}','{7}','{valorEnsayoLargo}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','0'),";
 
+            //VERVER
+            var contador = 1;
+            foreach (Control control in pnlContenedor.Controls)
+            {
+                if (codigoDatos.Disposicion == 1) {
+                    
+                    var tb = control.Controls.OfType<AAFTextBox>().FirstOrDefault(txt => txt.Name == "tbControl"+contador);
+                    var tag = tb.Tag.ToString();
+                    var idItem = Convert.ToInt32(tag.Split(',')[0]);
+                    var constante = Convert.ToBoolean(tag.Split(',')[1]);
+                    if (!ValidarFormularioItems(tb.Texts, constante)) return;
+                    var valorEnsayo = "";
+                    var valorConstane = "";
+                    valorEnsayo = !constante ? tb.Texts : "0";
+                    valorConstane = constante ? tb.Texts : "0";
+
+                    sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{orden + "/" + codigo}','{idItem}','{valorEnsayo}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','{valorConstane}'),";
+
+                    contador++;
+                }
+            }
             sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
             sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
-           
-            if (br.InsertEnsayoLote(sqlInsertarProtocoloItem))
-            {
+            contador = 1;
+            if (br.InsertEnsayoLote(sqlInsertarProtocoloItem)) {
                 tbAncho.Texts = "";
-                tbLargo.Texts = "";
-                MessageBox.Show("Ensayo agregado");
+                tbLargo.Texts = "";                
+                foreach (Control control in pnlContenedor.Controls)
+                {
+                    control.Controls.OfType<AAFTextBox>().FirstOrDefault(txt => txt.Name == "tbControl" + contador).Texts = "";
+                    contador++;
+
+                }
+                MessageBox.Show("Ensayo agregado correctamente");
                 Close();
             }
-
         }
 
         private bool ValidarTolerancia(AAFTextBox tb, double toleranciaMed, double toleranciaMax)
@@ -199,21 +403,28 @@ namespace Protocolo_User_DataEntry
 
         private void btnConvertirMMAncho_Click(object sender, EventArgs e)
         {
-            if (!ValidarFormularioItems(tbAncho.Texts)) return;
+            if (!ValidarFormularioItems(tbAncho.Texts, false)) return;
             var convertirMM = Convert.ToDouble(tbAncho.Texts)*10;
             tbAncho.Texts = convertirMM.ToString();
         }
 
         private void btnConvertirMMLargo_Click(object sender, EventArgs e)
         {
-            if (!ValidarFormularioItems(tbLargo.Texts)) return;
+            if (!ValidarFormularioItems(tbLargo.Texts, false)) return;
             var convertirMM = Convert.ToDouble(tbLargo.Texts) * 10;
             tbLargo.Texts = convertirMM.ToString();
         }
 
         private void btnProduccion_Click(object sender, EventArgs e)
         {
-            Size = new Size(427, 514);
+            pnlContenedor.Controls.Clear();
+            Size = new Size(427, 538);
+        }
+
+        private void btnAuditor_Click(object sender, EventArgs e)
+        {
+            pnlContenedor.Controls.Clear();
+            CrearComponentesPorSector(sector, codigo);
         }
 
         private string GetTurno()
@@ -235,14 +446,25 @@ namespace Protocolo_User_DataEntry
             return turnoNombre;
         }
 
-        private bool ValidarFormularioItems(string valorEnsayo)
+        private bool ValidarFormularioItems(string valorEnsayo,bool constante)
         {
             if (valorEnsayo.Contains(".")) valorEnsayo = valorEnsayo.Replace('.', ','); ;
-            if (!Utils.IsSoloNumODecimal(valorEnsayo))
+            if (!constante)
             {
-                MessageBox.Show("Solo numeros decimales");
-                return false;
+                if (!Utils.IsSoloNumODecimal(valorEnsayo))
+                {
+                    MessageBox.Show("Solo numeros decimales");
+                    return false;
+                }
             }
+            else {
+                if (!Utils.IsSoloSignoA(valorEnsayo))
+                {
+                    MessageBox.Show("Solo valores numericos, ok, no ok, guion(-)");
+                    return false;
+                }
+            }
+           
             return true;
         }
     }

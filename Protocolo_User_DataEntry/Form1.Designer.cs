@@ -31,6 +31,7 @@
             this.aafPanel1 = new ProtoculoSLF.AAFPanel();
             this.tlpRealizados = new System.Windows.Forms.TableLayoutPanel();
             this.pnlPendientes = new System.Windows.Forms.Panel();
+            this.pnlContenedor = new System.Windows.Forms.Panel();
             this.aafBoton3 = new ProtoculoSLF.AAFControles.AAFBoton();
             this.aafBoton2 = new ProtoculoSLF.AAFControles.AAFBoton();
             this.aafBoton1 = new ProtoculoSLF.AAFControles.AAFBoton();
@@ -39,7 +40,7 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAgregarEnsayo = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
-            this.pnlContenedor = new System.Windows.Forms.Panel();
+            this.pnlTbConstantes = new System.Windows.Forms.Panel();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.btnErrorLargo = new FontAwesome.Sharp.IconButton();
             this.btnConvertirMMLargo = new ProtoculoSLF.AAFControles.AAFBoton();
@@ -62,7 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcEnsayos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEnsayos)).BeginInit();
             this.tableLayoutPanel5.SuspendLayout();
-            this.pnlContenedor.SuspendLayout();
+            this.pnlTbConstantes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
@@ -78,7 +79,7 @@
             this.aafPanel1.Location = new System.Drawing.Point(0, 0);
             this.aafPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.aafPanel1.Name = "aafPanel1";
-            this.aafPanel1.Size = new System.Drawing.Size(411, 623);
+            this.aafPanel1.Size = new System.Drawing.Size(411, 499);
             this.aafPanel1.TabIndex = 0;
             // 
             // tlpRealizados
@@ -96,26 +97,38 @@
             this.tlpRealizados.Name = "tlpRealizados";
             this.tlpRealizados.RowCount = 1;
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRealizados.Size = new System.Drawing.Size(411, 623);
+            this.tlpRealizados.Size = new System.Drawing.Size(411, 499);
             this.tlpRealizados.TabIndex = 3;
             // 
             // pnlPendientes
             // 
             this.pnlPendientes.AutoScroll = true;
             this.pnlPendientes.BackColor = System.Drawing.Color.Transparent;
+            this.pnlPendientes.Controls.Add(this.pnlContenedor);
             this.pnlPendientes.Controls.Add(this.aafBoton3);
             this.pnlPendientes.Controls.Add(this.aafBoton2);
             this.pnlPendientes.Controls.Add(this.aafBoton1);
             this.pnlPendientes.Controls.Add(this.gcEnsayos);
             this.pnlPendientes.Controls.Add(this.tableLayoutPanel5);
-            this.pnlPendientes.Controls.Add(this.pnlContenedor);
+            this.pnlPendientes.Controls.Add(this.pnlTbConstantes);
             this.pnlPendientes.Controls.Add(this.panel1);
             this.pnlPendientes.Controls.Add(this.tableLayoutPanel1);
             this.pnlPendientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPendientes.Location = new System.Drawing.Point(16, 3);
             this.pnlPendientes.Name = "pnlPendientes";
-            this.pnlPendientes.Size = new System.Drawing.Size(392, 617);
+            this.pnlPendientes.Size = new System.Drawing.Size(392, 493);
             this.pnlPendientes.TabIndex = 0;
+            // 
+            // pnlContenedor
+            // 
+            this.pnlContenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlContenedor.Location = new System.Drawing.Point(0, 198);
+            this.pnlContenedor.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlContenedor.Name = "pnlContenedor";
+            this.pnlContenedor.Size = new System.Drawing.Size(392, 5);
+            this.pnlContenedor.TabIndex = 81;
             // 
             // aafBoton3
             // 
@@ -187,7 +200,7 @@
             // 
             this.gcEnsayos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gcEnsayos.Location = new System.Drawing.Point(0, 344);
+            this.gcEnsayos.Location = new System.Drawing.Point(0, 206);
             this.gcEnsayos.MainView = this.gvEnsayos;
             this.gcEnsayos.Name = "gcEnsayos";
             this.gcEnsayos.Size = new System.Drawing.Size(392, 230);
@@ -210,7 +223,7 @@
             this.tableLayoutPanel5.Controls.Add(this.btnAgregarEnsayo, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.btnCancelar, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 574);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 450);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -259,16 +272,15 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // pnlContenedor
+            // pnlTbConstantes
             // 
-            this.pnlContenedor.Controls.Add(this.groupControl1);
-            this.pnlContenedor.Controls.Add(this.groupControl2);
-            this.pnlContenedor.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlContenedor.Location = new System.Drawing.Point(0, 73);
-            this.pnlContenedor.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlContenedor.Name = "pnlContenedor";
-            this.pnlContenedor.Size = new System.Drawing.Size(392, 124);
-            this.pnlContenedor.TabIndex = 81;
+            this.pnlTbConstantes.Controls.Add(this.groupControl1);
+            this.pnlTbConstantes.Controls.Add(this.groupControl2);
+            this.pnlTbConstantes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTbConstantes.Location = new System.Drawing.Point(0, 73);
+            this.pnlTbConstantes.Name = "pnlTbConstantes";
+            this.pnlTbConstantes.Size = new System.Drawing.Size(392, 125);
+            this.pnlTbConstantes.TabIndex = 82;
             // 
             // groupControl1
             // 
@@ -284,7 +296,7 @@
             this.groupControl1.Location = new System.Drawing.Point(0, 61);
             this.groupControl1.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(392, 61);
+            this.groupControl1.Size = new System.Drawing.Size(392, 64);
             this.groupControl1.TabIndex = 81;
             this.groupControl1.Text = "Largo de bolsa *";
             // 
@@ -527,9 +539,10 @@
             this.btnAuditor.Name = "btnAuditor";
             this.btnAuditor.Size = new System.Drawing.Size(190, 37);
             this.btnAuditor.TabIndex = 2;
-            this.btnAuditor.Text = "Auditor";
+            this.btnAuditor.Text = "Auditoria";
             this.btnAuditor.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAuditor.UseVisualStyleBackColor = false;
+            this.btnAuditor.Click += new System.EventHandler(this.btnAuditor_Click);
             // 
             // btnProduccion
             // 
@@ -558,14 +571,14 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(7, 617);
+            this.panel11.Size = new System.Drawing.Size(7, 493);
             this.panel11.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 623);
+            this.ClientSize = new System.Drawing.Size(411, 499);
             this.Controls.Add(this.aafPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -579,7 +592,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcEnsayos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEnsayos)).EndInit();
             this.tableLayoutPanel5.ResumeLayout(false);
-            this.pnlContenedor.ResumeLayout(false);
+            this.pnlTbConstantes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
@@ -621,6 +634,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private ProtoculoSLF.AAFControles.AAFBoton btnProduccion;
         private ProtoculoSLF.AAFControles.AAFBoton btnAuditor;
+        private System.Windows.Forms.Panel pnlTbConstantes;
     }
 }
 

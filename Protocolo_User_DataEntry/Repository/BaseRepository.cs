@@ -140,7 +140,7 @@ namespace Protocolo_User_DataEntry.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fpi.id,fi.nombre,fi.unidad,fi.certifica,fi.simbolo,fi.sector,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.simbolo,fi.sector,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fi.constante
                                         FROM formato_protocolo_item fpi
                                         JOIN formato_protocolo_item_especificacion fpie on fpi.id = fpie.id_formato_protocolo_item
                                         JOIN formato_item fi on fpi.id_item = fi.id
@@ -153,7 +153,7 @@ namespace Protocolo_User_DataEntry.Repository
                     {
                         ProtocoloItem pi = new ProtocoloItem
                         {
-                            IdProtocoloItem= reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            Id= reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
                             Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
                             Medida = reader.IsDBNull(2) ? "" : reader.GetString(2),
                             EsCertificado = reader.IsDBNull(3) ? false : Convert.ToBoolean(reader.GetInt32(3)),
@@ -162,6 +162,8 @@ namespace Protocolo_User_DataEntry.Repository
                             Especificacion = reader[6] != DBNull.Value ? reader.GetDouble(6) : 0.0,
                             EspecificacionMin = reader[7] != DBNull.Value ? reader.GetDouble(7) : 0.0,
                             EspecificacionMax = reader[8] != DBNull.Value ? reader.GetDouble(8) : 0.0,
+                            EsConstante = reader[9] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(9)) : false,
+
                         };
                         pis.Add(pi);
                     }
