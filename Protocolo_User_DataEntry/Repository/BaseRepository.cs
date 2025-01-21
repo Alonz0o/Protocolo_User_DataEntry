@@ -18,6 +18,7 @@ namespace Protocolo_User_DataEntry.Repository
         {
             connectionString = ConfigurationManager.ConnectionStrings["conexionAriel"].ToString();
         }
+
         internal Especificacion GetFichaLogisticaConfeccionAncho(int idCodigo)
         {
             Especificacion esp = new Especificacion();
@@ -45,6 +46,36 @@ namespace Protocolo_User_DataEntry.Repository
                 return esp;
             }
         }
+
+        internal Muestreo VerificarMuestreo(int idOrden, int aConfeccionar)
+        {
+            Muestreo m = new Muestreo();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT count(op) AS valor FROM formato_ensayo WHERE op=@pIdOrden GROUP BY op;";
+                command.Parameters.Add("@pIdOrden", MySqlDbType.Int32).Value = idOrden;
+                var muestrasTotales = command.ExecuteScalar() != DBNull.Value ? Convert.ToInt32(command.ExecuteScalar()) : 0;
+
+                command.CommandText = @"select muestras,desde,hasta,pedir_cada from cantidadmuestreo where @pCantidadDeBosasRequeridas between desde and hasta and sector = 'c';";
+                command.Parameters.Add("@pCantidadDeBosasRequeridas", MySqlDbType.Int32).Value = aConfeccionar;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        m.Requeridas = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+                        m.Desde = reader.IsDBNull(1) ? 0 : reader.GetInt32(1);
+                        m.Hasta = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
+                        m.PedirCada = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
+                        m.Realizadas = muestrasTotales;
+                    }
+                }
+            }
+            return m;
+        }
+
         internal Especificacion GetFichaLogisticaConfeccionLargo(int idCodigo)
         {
             Especificacion esp = new Especificacion();
@@ -210,6 +241,37 @@ namespace Protocolo_User_DataEntry.Repository
                 }
             }
             return res;
+        }
+        internal List<ProtocoloItem> GetItems()
+        {
+            List<ProtocoloItem> pis = new List<ProtocoloItem>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo
+                                        FROM formato_item fi;";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var esCertificado = reader[3] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(3)) : false;
+                        ProtocoloItem pi = new ProtocoloItem
+                        {
+                            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                            Medida = reader.IsDBNull(2) ? "Constante" : reader.GetString(2),
+                            EsCertificado = esCertificado,
+                            EsConstante = reader[4] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(4)) : false,
+                            EsCertificadoSiNo = esCertificado ? "SI" : "NO",
+                            Simbolo = reader.IsDBNull(5) ? "" : reader.GetString(5),
+                        };
+                        pis.Add(pi);
+                    }
+                }
+            }
+            return pis;
         }
         internal bool InsertEnsayoLote(string Qry)
         {

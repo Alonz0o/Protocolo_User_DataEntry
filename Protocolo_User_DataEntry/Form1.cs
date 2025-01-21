@@ -15,10 +15,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using DevExpress.Data;
 using DevExpress.XtraGrid.Columns;
-using DevExpress.ClipboardSource.SpreadsheetML;
 
 namespace Protocolo_User_DataEntry
 {
