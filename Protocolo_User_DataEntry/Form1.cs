@@ -100,7 +100,7 @@ namespace Protocolo_User_DataEntry
         }
         private void GetEnsayosPorTurno()
         {
-            ensayos = br.GetEnsayos(orden + "/" + codigo);
+            ensayos = br.GetEnsayos(orden + "/" + codigo,"Produccion");
             gcEnsayos.DataSource = ensayos;
             
         }

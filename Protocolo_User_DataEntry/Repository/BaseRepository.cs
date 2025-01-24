@@ -352,7 +352,7 @@ namespace Protocolo_User_DataEntry.Repository
             return idProtocoloItem;
         }
 
-        internal List<ProtocoloItem> GetEnsayos(string op)
+        internal List<ProtocoloItem> GetEnsayos(string op,string tipo)
         {
             List<ProtocoloItem> pis = new List<ProtocoloItem>();
             using (var conexion = new MySqlConnection(connectionString))
@@ -360,23 +360,36 @@ namespace Protocolo_User_DataEntry.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.nombre,fe.valor_ensayo,fe.creado,fe.id_bobina_madre,fe.turno
-                                        FROM formato_ensayo fe
-                                        JOIN formato_item fi ON fe.id_item = fi.id
-                                        WHERE op = @pOP;";
+                if (tipo == "Produccion")
+                {
+                    command.CommandText = @"SELECT fi.nombre,fe.valor_ensayo,fe.creado,fe.id_bobina_madre,fe.turno,fi.constante,fe.valor_constante
+                                            FROM formato_ensayo fe
+                                            JOIN formato_item fi ON fe.id_item = fi.id
+                                            WHERE op = @pOP and fi.constante <> 1;";
+                }
+                else {
+                    command.CommandText = @"SELECT fi.nombre,fe.valor_ensayo,fe.creado,fe.id_bobina_madre,fe.turno,fi.constante,fe.valor_constante
+                                            FROM formato_ensayo fe
+                                            JOIN formato_item fi ON fe.id_item = fi.id
+                                            WHERE op = @pOP;";
+
+                }
+               
                 command.Parameters.Add("@pOP", MySqlDbType.String).Value = op;
 
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
+                        var esCertificado = reader.IsDBNull(5) ? false : Convert.ToBoolean(reader.GetInt32(5));
+                        var valorNormal = reader.IsDBNull(1) ? "0.0" : reader.GetDouble(1).ToString();
+                        var valorConstante = reader.IsDBNull(6) ? "0.0" : reader.GetString(6);
                         ProtocoloItem pi = new ProtocoloItem
                         {
                             Nombre = reader.IsDBNull(0) ? "" : reader.GetString(0),
-                            Valor = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1),
+                            Valor = !esCertificado?valorNormal:valorConstante,
                             Creado = reader.IsDBNull(2) ? new DateTime(1993, 1, 20) : reader.GetDateTime(2),
                             Turno = reader.IsDBNull(4) ? "" : reader.GetString(4),
-
                         };
                         pis.Add(pi);
                     }

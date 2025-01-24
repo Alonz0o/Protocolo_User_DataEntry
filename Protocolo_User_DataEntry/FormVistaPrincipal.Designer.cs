@@ -530,6 +530,7 @@
             this.ClientSize = new System.Drawing.Size(421, 538);
             this.Controls.Add(this.tlpRealizados);
             this.Name = "FormVistaPrincipal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormVistaPrincipal";
             this.tlpRealizados.ResumeLayout(false);
             this.pnlPendientes.ResumeLayout(false);

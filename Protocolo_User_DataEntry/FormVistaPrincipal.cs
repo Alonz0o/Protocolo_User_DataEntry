@@ -55,8 +55,16 @@ namespace Protocolo_User_DataEntry
         }
         private void GetEnsayosPorTurno()
         {
-            ensayos = br.GetEnsayos(idop.ToString());
+            ensayos = br.GetEnsayos(idop.ToString(), "Produccion");
             gcEnsayos.DataSource = ensayos;
+            gvEnsayos.ExpandAllGroups();
+
+        }
+        private void GetEnsayosPorTurnoAuditor()
+        {
+            ensayos = br.GetEnsayos(idop.ToString(), "Auditor");
+            gcEnsayos.DataSource = ensayos;
+            gvEnsayos.ExpandAllGroups();
 
         }
         private void GetItems()
@@ -143,7 +151,7 @@ namespace Protocolo_User_DataEntry
             cValor.FieldName = "Valor";
             cValor.Caption = "Valor";
             cValor.Visible = true;
-            cValor.UnboundDataType = typeof(double);
+            cValor.UnboundDataType = typeof(string);
 
             GridColumn cEspecificacion = new GridColumn();
             cEspecificacion.FieldName = "EspecificacionDato";
@@ -174,7 +182,7 @@ namespace Protocolo_User_DataEntry
             {
                 turnoNombre = "TT";
             }
-            if (horaAhora >= new TimeSpan(00, 00, 00) && horaAhora < new TimeSpan(7, 59, 59))
+            if (horaAhora >= new TimeSpan(00, 00, 00) && horaAhora < new TimeSpan(6, 59, 59))
             {
                 turnoNombre = "TN";
             }
@@ -223,7 +231,7 @@ namespace Protocolo_User_DataEntry
 
         private void btnAgregarEnsayo_Click(object sender, EventArgs e)
         {
-            string sqlInsertarProtocoloItem = "INSERT INTO formato_ensayo (op,id_item,valor_ensayo,creado,turno,correcto) VALUES ";
+            string sqlInsertarProtocoloItem = "INSERT INTO formato_ensayo (op,id_item,valor_ensayo,creado,turno,valor_constante) VALUES ";
             string sqlInsertarProtocoloItem2 = "";
             string turno = GetTurno();
 
@@ -257,10 +265,10 @@ namespace Protocolo_User_DataEntry
                 }
 
                 var valorEnsayoAncho = Convert.ToDouble(tbAncho.Texts);
-                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{orden + "/" + codigo}','{9}','{valorEnsayoAncho}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','0'),";
+                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{idop}','{9}','{valorEnsayoAncho}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','0'),";
 
                 var valorEnsayoLargo = Convert.ToDouble(tbLargo.Texts);
-                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{orden + "/" + codigo}','{7}','{valorEnsayoLargo}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','0'),";
+                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{idop}','{7}','{valorEnsayoLargo}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','0'),";
 
                 sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
                 sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
@@ -279,24 +287,37 @@ namespace Protocolo_User_DataEntry
                 {
                     var idSeleccionado = (int)gvItemsValor.GetRowCellValue(i, "Id");
                     var item = items.FirstOrDefault(d => d.Id == idSeleccionado);
-                    sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{orden + "/" + codigo}','{item.Id}','{item.Valor}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','0'),";
+                    if (item.EsConstante) { 
+                        item.ValorConstante = item.Valor.ToString();
+                        item.Valor = "0";
+                    }
+                    else item.ValorConstante = "0";
+
+                    sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{idop}','{item.Id}','{item.Valor}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','{item.ValorConstante}'),";
                     
                 }
                 sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
                 sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
+                if (br.InsertEnsayoLote(sqlInsertarProtocoloItem))
+                {
+                    tbAncho.Texts = "";
+                    tbLargo.Texts = "";
+                    MessageBox.Show("Ensayo agregado correctamente");
+                    Close();
+                }
             }
         }
 
         private void btnProduccion_Click(object sender, EventArgs e)
         {
             tcPrincipal.SelectedTab = tpProduccion;
-
+            GetEnsayosPorTurno();
         }
 
         private void btnAuditor_Click(object sender, EventArgs e)
         {
             tcPrincipal.SelectedTab = tpAuditor;
-
+            GetEnsayosPorTurnoAuditor();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
