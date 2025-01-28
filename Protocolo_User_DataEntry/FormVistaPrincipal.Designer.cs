@@ -31,9 +31,10 @@
             this.tlpRealizados = new System.Windows.Forms.TableLayoutPanel();
             this.panel11 = new System.Windows.Forms.Panel();
             this.pnlPendientes = new System.Windows.Forms.Panel();
-            this.lblEnsayosNecesarios = new System.Windows.Forms.Label();
             this.gcEnsayos = new DevExpress.XtraGrid.GridControl();
             this.gvEnsayos = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblEnsayosNecesarios = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAgregarEnsayo = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
@@ -60,6 +61,7 @@
             this.pnlPendientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcEnsayos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEnsayos)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tcPrincipal.SuspendLayout();
             this.tpProduccion.SuspendLayout();
@@ -89,7 +91,7 @@
             this.tlpRealizados.RowCount = 1;
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpRealizados.Size = new System.Drawing.Size(421, 538);
+            this.tlpRealizados.Size = new System.Drawing.Size(421, 624);
             this.tlpRealizados.TabIndex = 4;
             // 
             // panel11
@@ -98,15 +100,15 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(7, 532);
+            this.panel11.Size = new System.Drawing.Size(7, 618);
             this.panel11.TabIndex = 1;
             // 
             // pnlPendientes
             // 
             this.pnlPendientes.AutoScroll = true;
             this.pnlPendientes.BackColor = System.Drawing.Color.Transparent;
-            this.pnlPendientes.Controls.Add(this.lblEnsayosNecesarios);
             this.pnlPendientes.Controls.Add(this.gcEnsayos);
+            this.pnlPendientes.Controls.Add(this.tableLayoutPanel2);
             this.pnlPendientes.Controls.Add(this.tableLayoutPanel5);
             this.pnlPendientes.Controls.Add(this.tcPrincipal);
             this.pnlPendientes.Controls.Add(this.tableLayoutPanel1);
@@ -114,27 +116,16 @@
             this.pnlPendientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPendientes.Location = new System.Drawing.Point(16, 3);
             this.pnlPendientes.Name = "pnlPendientes";
-            this.pnlPendientes.Size = new System.Drawing.Size(402, 532);
+            this.pnlPendientes.Size = new System.Drawing.Size(402, 618);
             this.pnlPendientes.TabIndex = 0;
-            // 
-            // lblEnsayosNecesarios
-            // 
-            this.lblEnsayosNecesarios.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEnsayosNecesarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
-            this.lblEnsayosNecesarios.Location = new System.Drawing.Point(328, 216);
-            this.lblEnsayosNecesarios.Name = "lblEnsayosNecesarios";
-            this.lblEnsayosNecesarios.Size = new System.Drawing.Size(65, 19);
-            this.lblEnsayosNecesarios.TabIndex = 90;
-            this.lblEnsayosNecesarios.Text = "100/100";
-            this.lblEnsayosNecesarios.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gcEnsayos
             // 
             this.gcEnsayos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcEnsayos.Location = new System.Drawing.Point(0, 213);
+            this.gcEnsayos.Location = new System.Drawing.Point(0, 240);
             this.gcEnsayos.MainView = this.gvEnsayos;
             this.gcEnsayos.Name = "gcEnsayos";
-            this.gcEnsayos.Size = new System.Drawing.Size(402, 276);
+            this.gcEnsayos.Size = new System.Drawing.Size(402, 335);
             this.gcEnsayos.TabIndex = 88;
             this.gcEnsayos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvEnsayos});
@@ -145,6 +136,32 @@
             this.gvEnsayos.Name = "gvEnsayos";
             this.gvEnsayos.OptionsView.ShowGroupPanel = false;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.lblEnsayosNecesarios, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 213);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(402, 27);
+            this.tableLayoutPanel2.TabIndex = 91;
+            // 
+            // lblEnsayosNecesarios
+            // 
+            this.lblEnsayosNecesarios.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblEnsayosNecesarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
+            this.lblEnsayosNecesarios.Location = new System.Drawing.Point(204, 0);
+            this.lblEnsayosNecesarios.Name = "lblEnsayosNecesarios";
+            this.lblEnsayosNecesarios.Size = new System.Drawing.Size(195, 27);
+            this.lblEnsayosNecesarios.TabIndex = 90;
+            this.lblEnsayosNecesarios.Text = "100/100";
+            this.lblEnsayosNecesarios.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 2;
@@ -154,7 +171,7 @@
             this.tableLayoutPanel5.Controls.Add(this.btnAgregarEnsayo, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.btnCancelar, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 489);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 575);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -527,7 +544,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(421, 538);
+            this.ClientSize = new System.Drawing.Size(421, 624);
             this.Controls.Add(this.tlpRealizados);
             this.Name = "FormVistaPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -537,6 +554,7 @@
             this.pnlPendientes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcEnsayos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEnsayos)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tcPrincipal.ResumeLayout(false);
             this.tpProduccion.ResumeLayout(false);
@@ -582,5 +600,6 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gvItemsValor;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblEnsayosNecesarios;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }

@@ -55,7 +55,7 @@ namespace Protocolo_User_DataEntry.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT count(op) AS valor FROM formato_ensayo WHERE op=@pIdOrden GROUP BY op;";
+                command.CommandText = @"SELECT count(id_op) AS valor FROM formato_ensayo WHERE id_op=@pIdOrden GROUP BY id_op;";
                 command.Parameters.Add("@pIdOrden", MySqlDbType.Int32).Value = idOrden;
                 var muestrasTotales = command.ExecuteScalar() != DBNull.Value ? Convert.ToInt32(command.ExecuteScalar()) : 0;
 
@@ -273,7 +273,7 @@ namespace Protocolo_User_DataEntry.Repository
             }
             return pis;
         }
-        internal bool InsertEnsayoLote(string Qry)
+        internal bool InsertEnsayoLote(List<ItemValor> valores, ProtocoloItem pi)
         {
             bool res = false;
             using (var conexion = new MySqlConnection(connectionString))
@@ -286,7 +286,19 @@ namespace Protocolo_User_DataEntry.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = Qry;
+                            command.CommandText = @"INSERT INTO formato_ensayo (creado,turno,id_op,id_nt) 
+                                                                        VALUES (@pCreado,@pTurno,@pIdOp,@pIdNt); SELECT LAST_INSERT_ID();";
+                            command.Parameters.Add("@pCreado", MySqlDbType.Newdate).Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                            command.Parameters.Add("@pTurno", MySqlDbType.String).Value = pi.Turno;
+                            command.Parameters.Add("@pIdOp", MySqlDbType.String).Value = pi.OP;
+                            command.Parameters.Add("@pIdNt", MySqlDbType.Int32).Value = 0;
+                            var ultimoID  =  Convert.ToInt32(command.ExecuteScalar());
+
+                            if (ultimoID <= 0)
+                            {
+                                throw new Exception("Error al insertar ensayo");
+                            }
+                            command.CommandText = QryInsertarEnsayo(valores,ultimoID);
 
                             if (command.ExecuteNonQuery() <= 0)
                             {
@@ -305,6 +317,18 @@ namespace Protocolo_User_DataEntry.Repository
                 }
             }
             return res;
+        }
+        internal string QryInsertarEnsayo(List<ItemValor> valores,int idEnsayo) {
+            string sqlInsertarProtocoloItem = "INSERT INTO formato_item_valor (id_item,valor,valor_constante,id_bobina_madre,id_ensayo) VALUES ";
+            string sqlInsertarProtocoloItem2 = "";
+
+            foreach (ItemValor item in valores) {
+                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{item.IdItem}','{item.Valor}','0','{item.IdBobinaMadre}','{idEnsayo}'),";
+            }
+            sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
+            sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
+
+            return sqlInsertarProtocoloItem;
         }
         internal List<Maquina> GetMaquinasConfeccion()
         {

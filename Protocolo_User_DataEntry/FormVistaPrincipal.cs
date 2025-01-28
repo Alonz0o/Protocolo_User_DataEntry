@@ -19,7 +19,7 @@ namespace Protocolo_User_DataEntry
     public partial class FormVistaPrincipal : Form
     {
         public BaseRepository br = new BaseRepository();
-        int orden = 0, codigo = 0, idop = 0, aConfeccionar = 0;
+        int orden = 0, codigo = 0, idop = 0, aConfeccionar = 0,idBobinaMadre=0;
         string sector = "",maquina="";
         List<ProtocoloItem> ensayos = new List<ProtocoloItem>();
         private List<ProtocoloItem> items = new List<ProtocoloItem>();
@@ -29,9 +29,7 @@ namespace Protocolo_User_DataEntry
         {
             InitializeComponent();
             EsconderTab(tcPrincipal);
-
-           
-
+          
             sector = Program.argumentos[0];
             orden = Convert.ToInt32(Program.argumentos[1]);
             codigo = Convert.ToInt32(Program.argumentos[2]);
@@ -55,16 +53,16 @@ namespace Protocolo_User_DataEntry
         }
         private void GetEnsayosPorTurno()
         {
-            ensayos = br.GetEnsayos(idop.ToString(), "Produccion");
-            gcEnsayos.DataSource = ensayos;
-            gvEnsayos.ExpandAllGroups();
+            //ensayos = br.GetEnsayos(idop.ToString(), "Produccion");
+            //gcEnsayos.DataSource = ensayos;
+            //gvEnsayos.ExpandAllGroups();
 
         }
         private void GetEnsayosPorTurnoAuditor()
         {
-            ensayos = br.GetEnsayos(idop.ToString(), "Auditor");
-            gcEnsayos.DataSource = ensayos;
-            gvEnsayos.ExpandAllGroups();
+            //ensayos = br.GetEnsayos(idop.ToString(), "Auditor");
+            //gcEnsayos.DataSource = ensayos;
+            //gvEnsayos.ExpandAllGroups();
 
         }
         private void GetItems()
@@ -231,9 +229,10 @@ namespace Protocolo_User_DataEntry
 
         private void btnAgregarEnsayo_Click(object sender, EventArgs e)
         {
-            string sqlInsertarProtocoloItem = "INSERT INTO formato_ensayo (op,id_item,valor_ensayo,creado,turno,valor_constante) VALUES ";
-            string sqlInsertarProtocoloItem2 = "";
-            string turno = GetTurno();
+            var ensayo = new ProtocoloItem();
+            ensayo.Turno = GetTurno();
+            ensayo.OP = idop.ToString();
+          
 
             if (tcPrincipal.SelectedTab == tpProduccion)
             {         
@@ -264,16 +263,12 @@ namespace Protocolo_User_DataEntry
                     btnErrorLargo.Visible = false;
                 }
 
-                var valorEnsayoAncho = Convert.ToDouble(tbAncho.Texts);
-                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{idop}','{9}','{valorEnsayoAncho}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','0'),";
+                List<ItemValor> valores = new List<ItemValor> {
+                new ItemValor{ Valor=Convert.ToDouble(tbAncho.Texts), ValorConstante="0",IdItem=9,IdBobinaMadre=idBobinaMadre },
+                new ItemValor{ Valor=Convert.ToDouble(tbLargo.Texts), ValorConstante="0",IdItem=7,IdBobinaMadre=idBobinaMadre },
+            };
 
-                var valorEnsayoLargo = Convert.ToDouble(tbLargo.Texts);
-                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{idop}','{7}','{valorEnsayoLargo}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','0'),";
-
-                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
-                sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
-
-                if (br.InsertEnsayoLote(sqlInsertarProtocoloItem))
+                if (br.InsertEnsayoLote(valores, ensayo))
                 {
                     tbAncho.Texts = "";
                     tbLargo.Texts = "";
@@ -283,28 +278,28 @@ namespace Protocolo_User_DataEntry
             }
             else {
 
-                for (int i = 0; i < gvItemsValor.RowCount; i++)
-                {
-                    var idSeleccionado = (int)gvItemsValor.GetRowCellValue(i, "Id");
-                    var item = items.FirstOrDefault(d => d.Id == idSeleccionado);
-                    if (item.EsConstante) { 
-                        item.ValorConstante = item.Valor.ToString();
-                        item.Valor = "0";
-                    }
-                    else item.ValorConstante = "0";
+                //for (int i = 0; i < gvItemsValor.RowCount; i++)
+                //{
+                //    var idSeleccionado = (int)gvItemsValor.GetRowCellValue(i, "Id");
+                //    var item = items.FirstOrDefault(d => d.Id == idSeleccionado);
+                //    if (item.EsConstante) { 
+                //        item.ValorConstante = item.Valor.ToString();
+                //        item.Valor = "0";
+                //    }
+                //    else item.ValorConstante = "0";
 
-                    sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{idop}','{item.Id}','{item.Valor}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{turno}','{item.ValorConstante}'),";
+                //    sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{idop}','{item.Id}','{item.Valor}','{item.ValorConstante}'),";
                     
-                }
-                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
-                sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
-                if (br.InsertEnsayoLote(sqlInsertarProtocoloItem))
-                {
-                    tbAncho.Texts = "";
-                    tbLargo.Texts = "";
-                    MessageBox.Show("Ensayo agregado correctamente");
-                    Close();
-                }
+                //}
+                //sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
+                //sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
+                //if (br.InsertEnsayoLote(sqlInsertarProtocoloItem, ensayo))
+                //{
+                //    tbAncho.Texts = "";
+                //    tbLargo.Texts = "";
+                //    MessageBox.Show("Ensayo agregado correctamente");
+                //    Close();
+                //}
             }
         }
 

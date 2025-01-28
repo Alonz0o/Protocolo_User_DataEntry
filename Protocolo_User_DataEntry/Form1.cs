@@ -366,18 +366,18 @@ namespace Protocolo_User_DataEntry
             sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
             sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
             contador = 1;
-            if (br.InsertEnsayoLote(sqlInsertarProtocoloItem)) {
-                tbAncho.Texts = "";
-                tbLargo.Texts = "";                
-                foreach (Control control in pnlContenedor.Controls)
-                {
-                    control.Controls.OfType<AAFTextBox>().FirstOrDefault(txt => txt.Name == "tbControl" + contador).Texts = "";
-                    contador++;
+            //if (br.InsertEnsayoLote(sqlInsertarProtocoloItem)) {
+            //    tbAncho.Texts = "";
+            //    tbLargo.Texts = "";                
+            //    foreach (Control control in pnlContenedor.Controls)
+            //    {
+            //        control.Controls.OfType<AAFTextBox>().FirstOrDefault(txt => txt.Name == "tbControl" + contador).Texts = "";
+            //        contador++;
 
-                }
-                MessageBox.Show("Ensayo agregado correctamente");
-                Close();
-            }
+            //    }
+            //    MessageBox.Show("Ensayo agregado correctamente");
+            //    Close();
+            //}
         }
 
         private bool ValidarTolerancia(AAFTextBox tb, double toleranciaMed, double toleranciaMax)

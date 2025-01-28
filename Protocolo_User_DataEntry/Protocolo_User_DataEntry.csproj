@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Model\Codigo.cs" />
     <Compile Include="Model\Especificacion.cs" />
+    <Compile Include="Model\ItemValor.cs" />
     <Compile Include="Model\Maquina.cs" />
     <Compile Include="Model\Muestreo.cs" />
     <Compile Include="Model\OrdenCodigo.cs" />
