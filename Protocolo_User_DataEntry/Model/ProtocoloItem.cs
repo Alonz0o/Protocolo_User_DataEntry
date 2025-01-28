@@ -26,6 +26,7 @@ namespace Protocolo_User_DataEntry.Model
         public bool Seleccionar { get; set; }
         public string Valor { get; set; }
         public string ValorConstante { get; set; }
+        public int IdEnsayo { get; set; }
 
         public string OP { get; set; }
         public string Turno { get; set; }

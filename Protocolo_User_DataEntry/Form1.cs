@@ -44,9 +44,9 @@ namespace Protocolo_User_DataEntry
             codigo = Convert.ToInt32(Program.argumentos[2]);
             codigoDatos = br.GetDatosDelCodigo(codigo);
             lblTitulo.Text = "Ensayo para: " + orden + "/" + codigo;
-            espAncho= br.GetFichaLogisticaConfeccionAncho(codigo);
+            espAncho= br.GetFichaTecnicaConfeccionAncho(codigo);
             btnEspAncho.Text = espAncho.Medio + "±" + espAncho.Maximo;
-            espLargo = br.GetFichaLogisticaConfeccionLargo(codigo);
+            espLargo = br.GetFichaTecnicaConfeccionLargo(codigo);
             btnEspLargo.Text = espLargo.Medio + "±" + espLargo.Maximo;
             GenerarTablaProtocolosItem();
             GetEnsayosPorTurno();

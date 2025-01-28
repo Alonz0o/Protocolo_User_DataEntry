@@ -19,7 +19,7 @@ namespace Protocolo_User_DataEntry.Repository
             connectionString = ConfigurationManager.ConnectionStrings["conexionAriel"].ToString();
         }
 
-        internal Especificacion GetFichaLogisticaConfeccionAncho(int idCodigo)
+        internal Especificacion GetFichaTecnicaConfeccionAncho(int idCodigo)
         {
             Especificacion esp = new Especificacion();
 
@@ -76,7 +76,7 @@ namespace Protocolo_User_DataEntry.Repository
             return m;
         }
 
-        internal Especificacion GetFichaLogisticaConfeccionLargo(int idCodigo)
+        internal Especificacion GetFichaTecnicaConfeccionLargo(int idCodigo)
         {
             Especificacion esp = new Especificacion();
 
@@ -251,7 +251,8 @@ namespace Protocolo_User_DataEntry.Repository
                 conexion.Open();
                 command.Connection = conexion;
                 command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo
-                                        FROM formato_item fi;";
+                                        FROM formato_item fi 
+                                        WHERE fi.sector like '%Confección%';";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -267,6 +268,13 @@ namespace Protocolo_User_DataEntry.Repository
                             EsCertificadoSiNo = esCertificado ? "SI" : "NO",
                             Simbolo = reader.IsDBNull(5) ? "" : reader.GetString(5),
                         };
+                        if (pi.Id == 9) {
+                            pi.EspecificacionDato = FormVistaPrincipal.instancia.espAncho.Medio + "±" + FormVistaPrincipal.instancia.espAncho.Maximo;
+                        }
+                        if (pi.Id == 7)
+                        {
+                            pi.EspecificacionDato = FormVistaPrincipal.instancia.espLargo.Medio + "±" + FormVistaPrincipal.instancia.espLargo.Maximo;
+                        }
                         pis.Add(pi);
                     }
                 }
@@ -323,7 +331,7 @@ namespace Protocolo_User_DataEntry.Repository
             string sqlInsertarProtocoloItem2 = "";
 
             foreach (ItemValor item in valores) {
-                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{item.IdItem}','{item.Valor}','0','{item.IdBobinaMadre}','{idEnsayo}'),";
+                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{item.IdItem}','{item.Valor}','{item.ValorConstante}','{item.IdBobinaMadre}','{idEnsayo}'),";
             }
             sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
             sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
@@ -386,16 +394,18 @@ namespace Protocolo_User_DataEntry.Repository
                 command.Connection = conexion;
                 if (tipo == "Produccion")
                 {
-                    command.CommandText = @"SELECT fi.nombre,fe.valor_ensayo,fe.creado,fe.id_bobina_madre,fe.turno,fi.constante,fe.valor_constante
+                    command.CommandText = @"SELECT fi.nombre,fiv.valor,fe.creado,fiv.id_bobina_madre,fe.turno,fi.constante,fiv.valor_constante,fiv.id_ensayo
                                             FROM formato_ensayo fe
-                                            JOIN formato_item fi ON fe.id_item = fi.id
-                                            WHERE op = @pOP and fi.constante <> 1;";
+											JOIN formato_item_valor fiv ON fe.id = fiv.id_ensayo
+                                            JOIN formato_item fi ON fiv.id_item = fi.id
+                                            WHERE fe.id_op = @pOP AND fi.constante <> 1;";
                 }
                 else {
-                    command.CommandText = @"SELECT fi.nombre,fe.valor_ensayo,fe.creado,fe.id_bobina_madre,fe.turno,fi.constante,fe.valor_constante
+                    command.CommandText = @"SELECT fi.nombre,fiv.valor,fe.creado,fiv.id_bobina_madre,fe.turno,fi.constante,fiv.valor_constante,fiv.id_ensayo
                                             FROM formato_ensayo fe
-                                            JOIN formato_item fi ON fe.id_item = fi.id
-                                            WHERE op = @pOP;";
+											JOIN formato_item_valor fiv ON fe.id = fiv.id_ensayo
+                                            JOIN formato_item fi ON fiv.id_item = fi.id
+                                            WHERE fe.id_op = @pOP;";
 
                 }
                
@@ -414,6 +424,7 @@ namespace Protocolo_User_DataEntry.Repository
                             Valor = !esCertificado?valorNormal:valorConstante,
                             Creado = reader.IsDBNull(2) ? new DateTime(1993, 1, 20) : reader.GetDateTime(2),
                             Turno = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                            IdEnsayo = reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
                         };
                         pis.Add(pi);
                     }

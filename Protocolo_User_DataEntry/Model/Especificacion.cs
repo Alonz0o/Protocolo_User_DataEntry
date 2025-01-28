@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Protocolo_User_DataEntry.Model
 {
-    internal class Especificacion
+    public class Especificacion
     {
         public double Minimo { get; set; }
         public double Medio { get; set; }

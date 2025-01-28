@@ -14,8 +14,8 @@ namespace ProtoculoSLF.Repository
         public static string SOLO_LETRAS_NUMEROS_MUCHOS_ESPACIO = @"^(?:[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ]+(\s*?))*[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ]+$";
         public static string SOLONUMODECIMAL = @"^\d+,\d{1,10}$|^\d+$";
         public static string SOLO_NUMEROS_OP = @"^\d+\/\d+$";
-        public static string SOLOSIGNOA = @"^(?:\d+(?:,\d{1,10})?|ok|no ok|-)$";
-
+        public static string SOLOSIGNOA = @"^(ok|no ok|-)$";
+        public static string SOLONUMSIGNOA = @"^(?:\d+(?:,\d{1,10})?|ok|no ok|-)$";    
         public static bool IsSoloNumerico(string input)
         {
             return Regex.IsMatch(input, SOLONUMEROS);

@@ -18,31 +18,34 @@ namespace Protocolo_User_DataEntry
 {
     public partial class FormVistaPrincipal : Form
     {
+        public static FormVistaPrincipal instancia;
         public BaseRepository br = new BaseRepository();
         int orden = 0, codigo = 0, idop = 0, aConfeccionar = 0,idBobinaMadre=0;
         string sector = "",maquina="";
         List<ProtocoloItem> ensayos = new List<ProtocoloItem>();
         private List<ProtocoloItem> items = new List<ProtocoloItem>();
-        Especificacion espAncho = new Especificacion();
-        Especificacion espLargo = new Especificacion();
+        public Especificacion espAncho = new Especificacion();
+        public Especificacion espLargo = new Especificacion();
         public FormVistaPrincipal()
         {
             InitializeComponent();
             EsconderTab(tcPrincipal);
-          
+            instancia = this;
+
             sector = Program.argumentos[0];
             orden = Convert.ToInt32(Program.argumentos[1]);
             codigo = Convert.ToInt32(Program.argumentos[2]);
             maquina = Program.argumentos[3];
             idop = Convert.ToInt32(Program.argumentos[4]);
             aConfeccionar = Convert.ToInt32(Program.argumentos[5]);
+            idBobinaMadre = Convert.ToInt32(Program.argumentos[6]);
             var muestreo = br.VerificarMuestreo(idop, aConfeccionar);
             lblEnsayosNecesarios.Text = muestreo.Realizadas + "/" + muestreo.Requeridas;
 
             lblTitulo.Text = "Ensayo para: " + orden + "/" + codigo;
-            espAncho = br.GetFichaLogisticaConfeccionAncho(codigo);
+            espAncho = br.GetFichaTecnicaConfeccionAncho(codigo);
             btnEspAncho.Text = espAncho.Medio + "±" + espAncho.Maximo;
-            espLargo = br.GetFichaLogisticaConfeccionLargo(codigo);
+            espLargo = br.GetFichaTecnicaConfeccionLargo(codigo);
             btnEspLargo.Text = espLargo.Medio + "±" + espLargo.Maximo;
 
             GenerarTablaItemsValor();
@@ -50,24 +53,25 @@ namespace Protocolo_User_DataEntry
 
             GenerarTablaProtocolosItem();
             GetEnsayosPorTurno();
+
         }
         private void GetEnsayosPorTurno()
         {
-            //ensayos = br.GetEnsayos(idop.ToString(), "Produccion");
-            //gcEnsayos.DataSource = ensayos;
-            //gvEnsayos.ExpandAllGroups();
+            ensayos = br.GetEnsayos(idop.ToString(), "Produccion");
+            gcEnsayos.DataSource = ensayos;
+            gvEnsayos.ExpandAllGroups();
 
         }
         private void GetEnsayosPorTurnoAuditor()
         {
-            //ensayos = br.GetEnsayos(idop.ToString(), "Auditor");
-            //gcEnsayos.DataSource = ensayos;
-            //gvEnsayos.ExpandAllGroups();
+            ensayos = br.GetEnsayos(idop.ToString(), "Auditor");
+            gcEnsayos.DataSource = ensayos;
+            gvEnsayos.ExpandAllGroups();
 
         }
         private void GetItems()
         {
-            items = br.GetItems();
+            items = br.GetItems().OrderBy(e=>e.Nombre).ToList();
             gcItemsValor.DataSource = items;
         }
 
@@ -104,7 +108,7 @@ namespace Protocolo_User_DataEntry
             cCreado.Caption = "Creado";
             cCreado.Visible = true;
             cCreado.UnboundDataType = typeof(DateTime);
-            cCreado.OptionsColumn.AllowEdit = false;
+            cCreado.OptionsColumn.AllowEdit = false;    
 
             GridColumn cTurno = new GridColumn();
             cTurno.FieldName = "Turno";
@@ -113,15 +117,22 @@ namespace Protocolo_User_DataEntry
             cTurno.UnboundDataType = typeof(string);
             cTurno.OptionsColumn.AllowEdit = false;
 
-            gvEnsayos.Columns.AddRange(new GridColumn[] { cId, cNombre,cValor, cCreado, cTurno });
-            gcEnsayos.DataSource = ensayos;
+            GridColumn cIdEnsayo = new GridColumn();
+            cIdEnsayo.FieldName = "IdEnsayo";
+            cIdEnsayo.Caption = "Ensayo N°";
+            cIdEnsayo.UnboundDataType = typeof(int);
+            cIdEnsayo.OptionsColumn.AllowEdit = false;
+            cIdEnsayo.Visible = true;
 
+            gvEnsayos.Columns.AddRange(new GridColumn[] { cId, cNombre,cValor, cCreado, cTurno, cIdEnsayo });
+            gcEnsayos.DataSource = ensayos;
+            gvEnsayos.Columns["Creado"].DisplayFormat.FormatString = "dd/MM/yyyy HH:mm";
             GridColumnSortInfo[] sortInfo = {
                 new GridColumnSortInfo(gvEnsayos.Columns["Turno"], ColumnSortOrder.Ascending),
-                new GridColumnSortInfo(gvEnsayos.Columns["Id"], ColumnSortOrder.Ascending)
+                new GridColumnSortInfo(gvEnsayos.Columns["IdEnsayo"], ColumnSortOrder.Descending)
             };
-
-            gvEnsayos.SortInfo.ClearAndAddRange(sortInfo, 1);
+            
+            gvEnsayos.SortInfo.ClearAndAddRange(sortInfo, 2);
         }
         private void GenerarTablaItemsValor()
         {
@@ -158,14 +169,7 @@ namespace Protocolo_User_DataEntry
             cEspecificacion.UnboundDataType = typeof(string);
             cEspecificacion.OptionsColumn.AllowEdit = false;
 
-            GridColumn cOrden = new GridColumn();
-            cOrden.FieldName = "Orden";
-            cOrden.Caption = "Pos°";
-            cOrden.Visible = true;
-            cOrden.UnboundDataType = typeof(int);
-            cOrden.OptionsColumn.AllowEdit = false;
-
-            gvItemsValor.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida, cValor, cEspecificacion, cOrden });
+            gvItemsValor.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida, cValor, cEspecificacion });
             gcItemsValor.DataSource = items;
         }
         private string GetTurno()
@@ -204,6 +208,27 @@ namespace Protocolo_User_DataEntry
                 return false;
             }
         }
+
+        private void gvItemsValor_ValidatingEditor(object sender, DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs e)
+        {
+            var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+            var focus = (ProtocoloItem)gvItemsValor.GetFocusedRow();
+            if (view.FocusedColumn.FieldName == "Valor")
+            {
+                string valor = e.Value?.ToString();
+
+                if (focus.EsConstante)
+                {
+                    if (!Utils.IsSoloSignoA(valor))
+                    {
+                        e.Valid = false;
+                        e.ErrorText = "Este valor es constante y solo permite (ok), (no ok) y (-).";
+                    }
+                    
+                }
+            }
+        }
+
         private bool ValidarFormularioItems(string valorEnsayo, bool constante)
         {
             if (valorEnsayo.Contains(".")) valorEnsayo = valorEnsayo.Replace('.', ','); ;
@@ -232,10 +257,10 @@ namespace Protocolo_User_DataEntry
             var ensayo = new ProtocoloItem();
             ensayo.Turno = GetTurno();
             ensayo.OP = idop.ToString();
-          
+
 
             if (tcPrincipal.SelectedTab == tpProduccion)
-            {         
+            {
                 if (!ValidarFormularioItems(tbAncho.Texts, false)) return;
                 if (!ValidarFormularioItems(tbLargo.Texts, false)) return;
 
@@ -276,32 +301,31 @@ namespace Protocolo_User_DataEntry
                     Close();
                 }
             }
-            else {
+            else
+            {
+                List<ItemValor> valores = new List<ItemValor>();
+                for (int i = 0; i < gvItemsValor.RowCount; i++)
+                {
+                    var idSeleccionado = (int)gvItemsValor.GetRowCellValue(i, "Id");
+                    var item = items.FirstOrDefault(d => d.Id == idSeleccionado);
+                    if (item.EsConstante)
+                    {
+                        item.ValorConstante = item.Valor.ToString();
+                        item.Valor = "0";
 
-                //for (int i = 0; i < gvItemsValor.RowCount; i++)
-                //{
-                //    var idSeleccionado = (int)gvItemsValor.GetRowCellValue(i, "Id");
-                //    var item = items.FirstOrDefault(d => d.Id == idSeleccionado);
-                //    if (item.EsConstante) { 
-                //        item.ValorConstante = item.Valor.ToString();
-                //        item.Valor = "0";
-                //    }
-                //    else item.ValorConstante = "0";
+                    }
+                    else item.ValorConstante = "0";
+                    valores.Add(new ItemValor { Valor = Convert.ToDouble(item.Valor), ValorConstante = item.ValorConstante, IdItem = item.Id, IdBobinaMadre = idBobinaMadre });
+                };
 
-                //    sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{idop}','{item.Id}','{item.Valor}','{item.ValorConstante}'),";
-                    
-                //}
-                //sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
-                //sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
-                //if (br.InsertEnsayoLote(sqlInsertarProtocoloItem, ensayo))
-                //{
-                //    tbAncho.Texts = "";
-                //    tbLargo.Texts = "";
-                //    MessageBox.Show("Ensayo agregado correctamente");
-                //    Close();
-                //}
+                if (br.InsertEnsayoLote(valores, ensayo))
+                {
+                    MessageBox.Show("Ensayo agregado correctamente");
+                    Close();
+                }
             }
         }
+        
 
         private void btnProduccion_Click(object sender, EventArgs e)
         {
