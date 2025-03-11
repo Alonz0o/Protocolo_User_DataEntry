@@ -158,6 +158,8 @@
             // 
             // tbNombre
             // 
+            this.tbNombre.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tbNombre.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
             this.tbNombre.BackColor = System.Drawing.Color.White;
             this.tbNombre.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.tbNombre.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;

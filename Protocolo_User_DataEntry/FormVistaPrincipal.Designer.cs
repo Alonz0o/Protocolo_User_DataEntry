@@ -112,7 +112,7 @@
             this.tlpRealizados.Name = "tlpRealizados";
             this.tlpRealizados.RowCount = 1;
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 624F));
+            this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 701F));
             this.tlpRealizados.Size = new System.Drawing.Size(546, 735);
             this.tlpRealizados.TabIndex = 4;
             // 

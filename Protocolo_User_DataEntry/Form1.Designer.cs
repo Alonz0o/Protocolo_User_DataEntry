@@ -79,7 +79,7 @@
             this.aafPanel1.Location = new System.Drawing.Point(0, 0);
             this.aafPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.aafPanel1.Name = "aafPanel1";
-            this.aafPanel1.Size = new System.Drawing.Size(411, 499);
+            this.aafPanel1.Size = new System.Drawing.Size(411, 629);
             this.aafPanel1.TabIndex = 0;
             // 
             // tlpRealizados
@@ -97,7 +97,7 @@
             this.tlpRealizados.Name = "tlpRealizados";
             this.tlpRealizados.RowCount = 1;
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRealizados.Size = new System.Drawing.Size(411, 499);
+            this.tlpRealizados.Size = new System.Drawing.Size(411, 629);
             this.tlpRealizados.TabIndex = 3;
             // 
             // pnlPendientes
@@ -116,7 +116,7 @@
             this.pnlPendientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPendientes.Location = new System.Drawing.Point(16, 3);
             this.pnlPendientes.Name = "pnlPendientes";
-            this.pnlPendientes.Size = new System.Drawing.Size(392, 493);
+            this.pnlPendientes.Size = new System.Drawing.Size(392, 623);
             this.pnlPendientes.TabIndex = 0;
             // 
             // pnlContenedor
@@ -127,7 +127,7 @@
             this.pnlContenedor.Location = new System.Drawing.Point(0, 198);
             this.pnlContenedor.Margin = new System.Windows.Forms.Padding(0);
             this.pnlContenedor.Name = "pnlContenedor";
-            this.pnlContenedor.Size = new System.Drawing.Size(392, 5);
+            this.pnlContenedor.Size = new System.Drawing.Size(392, 135);
             this.pnlContenedor.TabIndex = 81;
             // 
             // aafBoton3
@@ -200,7 +200,7 @@
             // 
             this.gcEnsayos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gcEnsayos.Location = new System.Drawing.Point(0, 206);
+            this.gcEnsayos.Location = new System.Drawing.Point(0, 336);
             this.gcEnsayos.MainView = this.gvEnsayos;
             this.gcEnsayos.Name = "gcEnsayos";
             this.gcEnsayos.Size = new System.Drawing.Size(392, 230);
@@ -223,7 +223,7 @@
             this.tableLayoutPanel5.Controls.Add(this.btnAgregarEnsayo, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.btnCancelar, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 450);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 580);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -364,6 +364,8 @@
             // 
             // tbLargo
             // 
+            this.tbLargo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tbLargo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
             this.tbLargo.BackColor = System.Drawing.Color.White;
             this.tbLargo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.tbLargo.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
@@ -466,6 +468,8 @@
             // 
             // tbAncho
             // 
+            this.tbAncho.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tbAncho.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
             this.tbAncho.BackColor = System.Drawing.Color.White;
             this.tbAncho.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.tbAncho.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
@@ -571,14 +575,14 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(7, 493);
+            this.panel11.Size = new System.Drawing.Size(7, 623);
             this.panel11.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 499);
+            this.ClientSize = new System.Drawing.Size(411, 629);
             this.Controls.Add(this.aafPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
