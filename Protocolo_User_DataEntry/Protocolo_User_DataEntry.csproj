@@ -104,6 +104,24 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
+    <Compile Include="formAgregarItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAgregarItems.Designer.cs">
+      <DependentUpon>formAgregarItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formNotificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formNotificacion.Designer.cs">
+      <DependentUpon>formNotificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVistaAuditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVistaAuditor.Designer.cs">
+      <DependentUpon>FormVistaAuditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormVistaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,8 +133,13 @@
     <Compile Include="Model\ItemValor.cs" />
     <Compile Include="Model\Maquina.cs" />
     <Compile Include="Model\Muestreo.cs" />
+    <Compile Include="Model\OP.cs" />
     <Compile Include="Model\OrdenCodigo.cs" />
+    <Compile Include="Model\Paquete.cs" />
     <Compile Include="Model\ProtocoloItem.cs" />
+    <Compile Include="Model\Simbolo.cs" />
+    <Compile Include="Model\Unidad.cs" />
+    <Compile Include="Model\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
@@ -132,6 +155,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAgregarItems.resx">
+      <DependentUpon>formAgregarItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formNotificacion.resx">
+      <DependentUpon>formNotificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVistaAuditor.resx">
+      <DependentUpon>FormVistaAuditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormVistaPrincipal.resx">
       <DependentUpon>FormVistaPrincipal.cs</DependentUpon>
@@ -168,6 +200,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cancel_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\marqueezoom_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clear_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editname_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

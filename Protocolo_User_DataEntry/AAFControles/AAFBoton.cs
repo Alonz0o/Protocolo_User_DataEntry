@@ -65,8 +65,8 @@ namespace ProtoculoSLF.AAFControles
             BackColor = Color.MediumSlateBlue;
             ForeColor = Color.White;
             Resize += new EventHandler(Button_Resize);
-            
-            
+
+
         }
 
         private void Button_Resize(object sender, EventArgs e)
@@ -88,7 +88,7 @@ namespace ProtoculoSLF.AAFControles
             path.CloseFigure();
             return path;
         }
- 
+
         protected override void OnPaint(PaintEventArgs pevent)
         {
             base.OnPaint(pevent);
@@ -142,6 +142,9 @@ namespace ProtoculoSLF.AAFControles
             Invalidate();
         }
 
-       
+
     }
+
+
 }
+

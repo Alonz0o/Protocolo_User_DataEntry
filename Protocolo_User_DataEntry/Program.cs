@@ -19,7 +19,7 @@ namespace Protocolo_User_DataEntry
             argumentos.AddRange(args);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormVistaPrincipal());
+            Application.Run(new FormVistaAuditor());
         }
     }
 }
