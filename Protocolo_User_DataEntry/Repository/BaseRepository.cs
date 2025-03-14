@@ -448,6 +448,40 @@ namespace Protocolo_User_DataEntry.Repository
             }
             return pis;
         }
+
+        internal OP GetOp(int orden,int codigo)
+        {
+            OP p = new OP();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT cantidaddeproduccion,numeroOrden,codigoOrden,MaquinaAlternativa,cantidad_realizada,prioridadMaquina,fecha_cargado
+                                        FROM produccion_confeccion
+                                        WHERE numeroOrden=@pOrden AND codigoOrden=@pCodigo";
+                command.Parameters.Add("@pOrden", MySqlDbType.Int32).Value = orden;
+                command.Parameters.Add("@pCodigo", MySqlDbType.Int32).Value = codigo;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        p = new OP
+                        {
+                            CantProduccion = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            Orden = reader.IsDBNull(1) ? 0 : reader.GetInt32(1),
+                            Codigo = reader.IsDBNull(2) ? 0 : Convert.ToInt32(reader.GetDouble(2)),
+                            Maquina = reader.IsDBNull(3) ? "" : reader.GetString(3),
+                            Cantidad = reader.IsDBNull(4) ? 0 : Convert.ToInt32(reader.GetDouble(4)),
+                            Prioridad = reader.IsDBNull(5) ? 0 : Convert.ToInt32(reader.GetDouble(5)),
+                        };
+                    }
+                }
+            }
+            return p;
+        }
+
         internal List<Maquina> GetMaquinas()
         {
             List<Maquina> pis = new List<Maquina>();

@@ -15,7 +15,10 @@ namespace ProtoculoSLF.Repository
         public static string SOLONUMODECIMAL = @"^\d+,\d{1,10}$|^\d+$";
         public static string SOLO_NUMEROS_OP = @"^\d+\/\d+$";
         public static string SOLOSIGNOA = @"^(ok|no ok|-)$";
-        public static string SOLONUMSIGNOA = @"^(?:\d+(?:,\d{1,10})?|ok|no ok|-)$";    
+        public static string SOLONUMSIGNOA = @"^(?:\d+(?:,\d{1,10})?|ok|no ok|-)$";
+        public static string SOLOOP = @"^\d+\/\d+$";
+
+        
         public static bool IsSoloNumerico(string input)
         {
             return Regex.IsMatch(input, SOLONUMEROS);
@@ -40,6 +43,9 @@ namespace ProtoculoSLF.Repository
         {
             return Regex.IsMatch(input, SOLOSIGNOA);
         }
-
+        public static bool IsSoloOP(string input)
+        {
+            return Regex.IsMatch(input, SOLOOP);
+        }
     }
 }

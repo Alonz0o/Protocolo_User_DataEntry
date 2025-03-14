@@ -8,8 +8,10 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.Data;
 using DevExpress.XtraGrid.Columns;
+using FontAwesome.Sharp;
 using Protocolo_User_DataEntry.Model;
 using Protocolo_User_DataEntry.Repository;
 using ProtoculoSLF;
@@ -33,7 +35,8 @@ namespace Protocolo_User_DataEntry
                 groupControl1.Enabled = false;
 
             }
-            else {
+            else
+            {
                 lueOP.Properties.DataSource = ops;
                 groupControl1.Enabled = true;
             }
@@ -55,7 +58,7 @@ namespace Protocolo_User_DataEntry
             espLargo = br.GetFichaTecnicaConfeccionLargo(opSeleccionada.Codigo);
             GetItems();
 
-         
+
         }
         private void EsconderTab(TabControl tabControl)
         {
@@ -73,7 +76,7 @@ namespace Protocolo_User_DataEntry
             instancia = this;
             GenerarTablaItemsValor();
             GenerarTablaProtocolosItem();
-            lueMaquina.Properties.DataSource = br.GetMaquinas().OrderBy(e=>e.Nombre);
+            lueMaquina.Properties.DataSource = br.GetMaquinas().OrderBy(e => e.Nombre);
             lueLegAuditor.Properties.DataSource = br.GetAuditores();
             EsconderTab(tcItemDatos);
 
@@ -237,7 +240,7 @@ namespace Protocolo_User_DataEntry
         private void btnVerDatos_Click(object sender, EventArgs e)
         {
             tcItemDatos.SelectedTab = tpDatos;
-            GetEnsayosPorPaquete(opSeleccionada.CantProduccion,false);
+            GetEnsayosPorPaquete(opSeleccionada.CantProduccion, false);
         }
 
         private void btnVerItems_Click(object sender, EventArgs e)
@@ -253,7 +256,7 @@ namespace Protocolo_User_DataEntry
             gvEnsayos.ExpandAllGroups();
 
         }
-        private void GetEnsayosPorPaquete(int op,bool esPorPaquete)
+        private void GetEnsayosPorPaquete(int op, bool esPorPaquete)
         {
             if (esPorPaquete)
             {
@@ -266,10 +269,11 @@ namespace Protocolo_User_DataEntry
                 ensayos = br.GetEnsayosPorPaqueteAuditoria(op.ToString(), Convert.ToInt32(numPaquete), 1);
 
             }
-            else {
+            else
+            {
                 ensayos = br.GetEnsayosPorPaqueteAuditoria(op.ToString(), 0, 0);
             }
-          
+
             gcEnsayos.DataSource = ensayos;
             gvEnsayos.ExpandAllGroups();
 
@@ -317,7 +321,8 @@ namespace Protocolo_User_DataEntry
                     valores.Add(new ItemValor { Valor = Convert.ToDouble(item.Valor), ValorConstante = item.ValorConstante, IdItem = item.Id, IdBobinaMadre = 0 });
                 };
             }
-            if (valores.Count == 0) {
+            if (valores.Count == 0)
+            {
                 MessageBox.Show("Debe ingresar al menos un valor de ensaño.");
                 return;
             }
@@ -397,7 +402,8 @@ namespace Protocolo_User_DataEntry
                 if (numPaquete == "0") MessageBox.Show("El numero de paquete no puede ser 0.");
                 MessageBox.Show("Debe ingresar numero de paquete.");
             }
-            else {
+            else
+            {
                 GetEnsayosPorPaquete(opSeleccionada.CantProduccion, true);
                 tcItemDatos.SelectedTab = tpDatos;
 
@@ -429,6 +435,51 @@ namespace Protocolo_User_DataEntry
             }
 
             legajo = lueAuditorA.Legajo.ToString();
+        }
+
+        private void ibtnHabilitarOP_Click(object sender, EventArgs e)
+        {
+            if (ibtnHabilitarOP.IconChar == IconChar.ToggleOff)
+            {
+                ibtnHabilitarOP.IconChar = IconChar.ToggleOn;
+
+                tableLayoutPanel3.ColumnStyles[0].Width = 100F;
+                tableLayoutPanel3.ColumnStyles[1].Width = 0F;
+
+
+
+            }
+            else
+            {
+                ibtnHabilitarOP.IconChar = IconChar.ToggleOff;
+                tableLayoutPanel3.ColumnStyles[0].Width = 0F;
+                tableLayoutPanel3.ColumnStyles[1].Width = 100F;
+
+            }
+        }
+
+        private void btnBuscarOP_Click(object sender, EventArgs e)
+        {
+            if (!Utils.IsSoloOP(tbOP.Texts))
+            { 
+                MessageBox.Show("Debe ingresar OP.");
+                return;
+            }
+
+            var idOrden = Convert.ToInt32(tbOP.Texts.Split('/')[0]);
+            var idCodigo = Convert.ToInt32(tbOP.Texts.Split('/')[1]);
+            var op = br.GetOp(idOrden, idCodigo);
+            if (op.CantProduccion == 0) {
+                MessageBox.Show("No se encontra OP.");
+                return;
+            }
+           
+            var paquetes = br.GetPaquetesPorOP(op.CantProduccion);
+            lblTitulo.Text = "Ensayo para: " + op.Orden + op.Codigo;
+            groupControl4.Enabled = true;
+            espAncho = br.GetFichaTecnicaConfeccionAncho(op.Codigo);
+            espLargo = br.GetFichaTecnicaConfeccionLargo(op.Codigo);
+            GetItems();
         }
     }
 }

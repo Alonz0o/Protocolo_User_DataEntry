@@ -48,7 +48,12 @@
             this.gcLegAuditor = new DevExpress.XtraEditors.GroupControl();
             this.lueLegAuditor = new DevExpress.XtraEditors.LookUpEdit();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.lueOP = new DevExpress.XtraEditors.LookUpEdit();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnBuscarOP = new FontAwesome.Sharp.IconButton();
+            this.tbOP = new ScrapKP.AAFControles.AAFTextBox();
+            this.ibtnHabilitarOP = new FontAwesome.Sharp.IconButton();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.lueMaquina = new DevExpress.XtraEditors.LookUpEdit();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -74,7 +79,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.lueLegAuditor.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lueOP.Properties)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lueMaquina.Properties)).BeginInit();
@@ -377,7 +384,8 @@
             this.groupControl1.Appearance.Options.UseBorderColor = true;
             this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.groupControl1.AppearanceCaption.Options.UseFont = true;
-            this.groupControl1.Controls.Add(this.lueOP);
+            this.groupControl1.Controls.Add(this.tableLayoutPanel3);
+            this.groupControl1.Controls.Add(this.ibtnHabilitarOP);
             this.groupControl1.Cursor = System.Windows.Forms.Cursors.Default;
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl1.Enabled = false;
@@ -388,11 +396,29 @@
             this.groupControl1.TabIndex = 95;
             this.groupControl1.Text = "O/P N°";
             // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.lueOP, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.panel1, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 23);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(165, 36);
+            this.tableLayoutPanel3.TabIndex = 66;
+            // 
             // lueOP
             // 
             this.lueOP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lueOP.EditValue = "";
-            this.lueOP.Location = new System.Drawing.Point(2, 23);
+            this.lueOP.Location = new System.Drawing.Point(0, 0);
+            this.lueOP.Margin = new System.Windows.Forms.Padding(0);
             this.lueOP.Name = "lueOP";
             this.lueOP.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.lueOP.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
@@ -407,9 +433,82 @@
             this.lueOP.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.lueOP.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
             this.lueOP.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueOP.Size = new System.Drawing.Size(165, 36);
+            this.lueOP.Size = new System.Drawing.Size(82, 36);
             this.lueOP.TabIndex = 64;
             this.lueOP.EditValueChanged += new System.EventHandler(this.lueOP_EditValueChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnBuscarOP);
+            this.panel1.Controls.Add(this.tbOP);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(82, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(83, 36);
+            this.panel1.TabIndex = 65;
+            // 
+            // btnBuscarOP
+            // 
+            this.btnBuscarOP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscarOP.BackColor = System.Drawing.Color.Transparent;
+            this.btnBuscarOP.BackgroundImage = global::Protocolo_User_DataEntry.Properties.Resources.marqueezoom_32x32;
+            this.btnBuscarOP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnBuscarOP.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuscarOP.FlatAppearance.BorderSize = 0;
+            this.btnBuscarOP.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBuscarOP.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnBuscarOP.IconColor = System.Drawing.SystemColors.Highlight;
+            this.btnBuscarOP.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnBuscarOP.IconSize = 20;
+            this.btnBuscarOP.Location = new System.Drawing.Point(42, 1);
+            this.btnBuscarOP.Name = "btnBuscarOP";
+            this.btnBuscarOP.Size = new System.Drawing.Size(41, 35);
+            this.btnBuscarOP.TabIndex = 66;
+            this.btnBuscarOP.UseVisualStyleBackColor = false;
+            this.btnBuscarOP.Click += new System.EventHandler(this.btnBuscarOP_Click);
+            // 
+            // tbOP
+            // 
+            this.tbOP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tbOP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.tbOP.BackColor = System.Drawing.Color.White;
+            this.tbOP.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.tbOP.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.tbOP.BorderSize = 1;
+            this.tbOP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbOP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.tbOP.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.tbOP.Location = new System.Drawing.Point(0, 0);
+            this.tbOP.Margin = new System.Windows.Forms.Padding(0);
+            this.tbOP.Multiline = false;
+            this.tbOP.Name = "tbOP";
+            this.tbOP.Padding = new System.Windows.Forms.Padding(15, 10, 10, 15);
+            this.tbOP.PasswordChar = false;
+            this.tbOP.SelectionStart = 0;
+            this.tbOP.Size = new System.Drawing.Size(83, 41);
+            this.tbOP.TabIndex = 65;
+            this.tbOP.Texts = "";
+            this.tbOP.UnderlinedStyle = false;
+            // 
+            // ibtnHabilitarOP
+            // 
+            this.ibtnHabilitarOP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ibtnHabilitarOP.BackColor = System.Drawing.Color.Transparent;
+            this.ibtnHabilitarOP.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ibtnHabilitarOP.FlatAppearance.BorderSize = 0;
+            this.ibtnHabilitarOP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibtnHabilitarOP.IconChar = FontAwesome.Sharp.IconChar.ToggleOn;
+            this.ibtnHabilitarOP.IconColor = System.Drawing.SystemColors.Highlight;
+            this.ibtnHabilitarOP.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibtnHabilitarOP.IconSize = 28;
+            this.ibtnHabilitarOP.Location = new System.Drawing.Point(140, 3);
+            this.ibtnHabilitarOP.Name = "ibtnHabilitarOP";
+            this.ibtnHabilitarOP.Size = new System.Drawing.Size(25, 20);
+            this.ibtnHabilitarOP.TabIndex = 65;
+            this.ibtnHabilitarOP.Tag = "";
+            this.ibtnHabilitarOP.UseVisualStyleBackColor = false;
+            this.ibtnHabilitarOP.Click += new System.EventHandler(this.ibtnHabilitarOP_Click);
             // 
             // groupControl2
             // 
@@ -573,7 +672,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.lueLegAuditor.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lueOP.Properties)).EndInit();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lueMaquina.Properties)).EndInit();
@@ -612,5 +713,10 @@
         private ScrapKP.AAFControles.AAFTextBox tbNumPaquete;
         private FontAwesome.Sharp.IconButton btnVerPorPaquete;
         private ProtoculoSLF.AAFControles.AAFBoton btnAgregarItem;
+        private FontAwesome.Sharp.IconButton ibtnHabilitarOP;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private ScrapKP.AAFControles.AAFTextBox tbOP;
+        private System.Windows.Forms.Panel panel1;
+        private FontAwesome.Sharp.IconButton btnBuscarOP;
     }
 }
