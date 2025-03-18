@@ -310,6 +310,7 @@ namespace ProtoculoSLF
                 MessageBox.Show("Debe seleccionar Auditor para agregar o modificar item.");
                 return;
             }
+            
             piAgregar.Auditor = legajo;
 
 
@@ -322,6 +323,13 @@ namespace ProtoculoSLF
 
             string resultado = string.Join(",", procesosSeleccionados);
             piAgregar.Proceso = resultado;
+
+            switch (piAgregar.Medida)
+            {
+                case "Pijazo":
+                default:
+                    break;
+            }
 
             if (confirmar == "UPDATEITEM")
             {

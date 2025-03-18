@@ -399,8 +399,8 @@
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0F));
             this.tableLayoutPanel3.Controls.Add(this.lueOP, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.panel1, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -409,7 +409,6 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(165, 36);
             this.tableLayoutPanel3.TabIndex = 66;
             // 
@@ -433,7 +432,7 @@
             this.lueOP.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.lueOP.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
             this.lueOP.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueOP.Size = new System.Drawing.Size(82, 36);
+            this.lueOP.Size = new System.Drawing.Size(165, 36);
             this.lueOP.TabIndex = 64;
             this.lueOP.EditValueChanged += new System.EventHandler(this.lueOP_EditValueChanged);
             // 
@@ -442,10 +441,10 @@
             this.panel1.Controls.Add(this.btnBuscarOP);
             this.panel1.Controls.Add(this.tbOP);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(82, 0);
+            this.panel1.Location = new System.Drawing.Point(165, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(83, 36);
+            this.panel1.Size = new System.Drawing.Size(1, 36);
             this.panel1.TabIndex = 65;
             // 
             // btnBuscarOP
@@ -461,7 +460,7 @@
             this.btnBuscarOP.IconColor = System.Drawing.SystemColors.Highlight;
             this.btnBuscarOP.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnBuscarOP.IconSize = 20;
-            this.btnBuscarOP.Location = new System.Drawing.Point(42, 1);
+            this.btnBuscarOP.Location = new System.Drawing.Point(-40, 1);
             this.btnBuscarOP.Name = "btnBuscarOP";
             this.btnBuscarOP.Size = new System.Drawing.Size(41, 35);
             this.btnBuscarOP.TabIndex = 66;
@@ -486,7 +485,7 @@
             this.tbOP.Padding = new System.Windows.Forms.Padding(15, 10, 10, 15);
             this.tbOP.PasswordChar = false;
             this.tbOP.SelectionStart = 0;
-            this.tbOP.Size = new System.Drawing.Size(83, 41);
+            this.tbOP.Size = new System.Drawing.Size(1, 41);
             this.tbOP.TabIndex = 65;
             this.tbOP.Texts = "";
             this.tbOP.UnderlinedStyle = false;

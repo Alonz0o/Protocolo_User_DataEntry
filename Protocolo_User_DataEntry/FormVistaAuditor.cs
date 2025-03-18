@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.Data;
 using DevExpress.XtraGrid.Columns;
 using FontAwesome.Sharp;
@@ -25,6 +20,7 @@ namespace Protocolo_User_DataEntry
         public BaseRepository br = new BaseRepository();
         public string legajo = "";
         List<ProtocoloItem> ensayos = new List<ProtocoloItem>();
+        OP opSeleccionada = new OP();
 
         private void lueMaquina_EditValueChanged(object sender, EventArgs e)
         {
@@ -41,7 +37,6 @@ namespace Protocolo_User_DataEntry
                 groupControl1.Enabled = true;
             }
         }
-        OP opSeleccionada = new OP();
         private void lueOP_EditValueChanged(object sender, EventArgs e)
         {
             opSeleccionada = lueOP.GetSelectedDataRow() as OP;
@@ -374,7 +369,23 @@ namespace Protocolo_User_DataEntry
                     e.Value = valor.Replace('.', ',');
                 }
 
-                if (focus.EsConstante)
+                if (focus.TipoDato == "Entero")
+                {
+                    if (!Utils.IsSoloNumerico(valor))
+                    {
+                        e.Valid = false;
+                        e.ErrorText = "Solo numeros enteros.";
+                    }
+                }
+                else if (focus.TipoDato == "Decimal")
+                {
+                    if (!Utils.IsSoloNumODecimal(valor))
+                    {
+                        e.Valid = false;
+                        e.ErrorText = "Solo numeros enteros o decimales.";
+                    }
+                }
+                else if (focus.TipoDato == "Caracter")
                 {
                     if (!Utils.IsSoloSignoA(valor))
                     {
@@ -382,15 +393,7 @@ namespace Protocolo_User_DataEntry
                         e.ErrorText = "Este valor es constante y solo permite (ok), (no ok) y (-).";
                     }
                 }
-                else
-                {
-                    if (!Utils.IsSoloNumerico(valor))
-                    {
-                        e.Valid = false;
-                        e.ErrorText = "Solo numeros enteros.";
-                    }
 
-                }
             }
         }
 
@@ -468,17 +471,17 @@ namespace Protocolo_User_DataEntry
 
             var idOrden = Convert.ToInt32(tbOP.Texts.Split('/')[0]);
             var idCodigo = Convert.ToInt32(tbOP.Texts.Split('/')[1]);
-            var op = br.GetOp(idOrden, idCodigo);
-            if (op.CantProduccion == 0) {
+            opSeleccionada = br.GetOp(idOrden, idCodigo);
+            if (opSeleccionada.CantProduccion == 0) {
                 MessageBox.Show("No se encontra OP.");
                 return;
             }
            
-            var paquetes = br.GetPaquetesPorOP(op.CantProduccion);
-            lblTitulo.Text = "Ensayo para: " + op.Orden + op.Codigo;
+            var paquetes = br.GetPaquetesPorOP(opSeleccionada.CantProduccion);
+            lblTitulo.Text = "Ensayo para: " + opSeleccionada.Orden + opSeleccionada.Codigo;
             groupControl4.Enabled = true;
-            espAncho = br.GetFichaTecnicaConfeccionAncho(op.Codigo);
-            espLargo = br.GetFichaTecnicaConfeccionLargo(op.Codigo);
+            espAncho = br.GetFichaTecnicaConfeccionAncho(opSeleccionada.Codigo);
+            espLargo = br.GetFichaTecnicaConfeccionLargo(opSeleccionada.Codigo);
             GetItems();
         }
     }

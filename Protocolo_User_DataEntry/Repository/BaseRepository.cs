@@ -380,7 +380,7 @@ namespace Protocolo_User_DataEntry.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo,fi.posicion,fi.sector
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo,fi.posicion,fi.sector,fi.tipo_dato
                                         FROM formato_item fi 
                                         WHERE fi.sector like '%Confección%';";
                 using (var reader = command.ExecuteReader())
@@ -399,6 +399,7 @@ namespace Protocolo_User_DataEntry.Repository
                             Simbolo = reader.IsDBNull(5) ? "" : reader.GetString(5),
                             Posicion = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
                             Proceso = reader.IsDBNull(7) ? "" : reader.GetString(7),
+                            TipoDato = reader.IsDBNull(8) ? "" : reader.GetString(8),
                         };
                         if (pi.Id == 9) {
                             pi.EspecificacionDato = FormVistaAuditor.instancia.espAncho.Medio + "±" + FormVistaAuditor.instancia.espAncho.Maximo;
