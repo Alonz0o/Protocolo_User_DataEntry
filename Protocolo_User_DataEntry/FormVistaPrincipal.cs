@@ -344,8 +344,8 @@ namespace Protocolo_User_DataEntry
                 }
 
                 List<ItemValor> valores = new List<ItemValor> {
-                new ItemValor{ Valor=Convert.ToDouble(tbAncho.Texts), ValorConstante="0",IdItem=9,IdBobinaMadre=idBobinaMadre },
-                new ItemValor{ Valor=Convert.ToDouble(tbLargo.Texts), ValorConstante="0",IdItem=7,IdBobinaMadre=idBobinaMadre },
+                new ItemValor{ Valor=tbAncho.Texts, ValorConstante="0",IdItem=9,IdBobinaMadre=idBobinaMadre },
+                new ItemValor{ Valor=tbLargo.Texts, ValorConstante="0",IdItem=7,IdBobinaMadre=idBobinaMadre },
             };
 
                 if (br.InsertEnsayoLote(valores, ensayo))
@@ -379,7 +379,7 @@ namespace Protocolo_User_DataEntry
 
                         }
                         else item.ValorConstante = "0";
-                        valores.Add(new ItemValor { Valor = Convert.ToDouble(item.Valor), ValorConstante = item.ValorConstante, IdItem = item.Id, IdBobinaMadre = idBobinaMadre});
+                        valores.Add(new ItemValor { Valor = item.Valor, ValorConstante = item.ValorConstante, IdItem = item.Id, IdBobinaMadre = idBobinaMadre});
                     };
                 }
                    

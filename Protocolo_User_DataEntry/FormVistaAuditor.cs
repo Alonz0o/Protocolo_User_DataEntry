@@ -51,7 +51,7 @@ namespace Protocolo_User_DataEntry
             groupControl4.Enabled = true;
             espAncho = br.GetFichaTecnicaConfeccionAncho(opSeleccionada.Codigo);
             espLargo = br.GetFichaTecnicaConfeccionLargo(opSeleccionada.Codigo);
-            GetItems();
+            GetItems(lueMaquina.Text);
 
 
         }
@@ -85,14 +85,36 @@ namespace Protocolo_User_DataEntry
             gcItemsValor.DragOver += GridView1_DragOver;
             gcItemsValor.DragDrop += GridView1_DragDrop;
 
+            List<string> turnos = new List<string> {
+                "F",
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "LARGADA",
+            };
+
+            lueTurno.Properties.DataSource = turnos;
+         
+        }
+        private int BuscarUnidadIndex(string medida)
+        {
+            var dataSource = lueTurno.Properties.DataSource as List<string>;
+            if (dataSource != null)
+            {
+                var index = dataSource.FindIndex(e => medida == e);
+                return index != -1 ? index : 0;
+            }
+            return 0;
         }
 
         private void GridView1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                gvItemsValor.GridControl.DoDragDrop(gvItemsValor.GetFocusedRow(), DragDropEffects.Move);
-            }
+            //if (e.Button == MouseButtons.Left)
+            //{
+            //    gvItemsValor.GridControl.DoDragDrop(gvItemsValor.GetFocusedRow(), DragDropEffects.Move);
+            //}
         }
 
         private void GridView1_DragOver(object sender, DragEventArgs e)
@@ -225,9 +247,9 @@ namespace Protocolo_User_DataEntry
 
             gvEnsayos.SortInfo.ClearAndAddRange(sortInfo, 1);
         }
-        private void GetItems()
+        private void GetItems(string maquina)
         {
-            items = br.GetItems().OrderBy(e => e.Posicion).ToList();
+            items = br.GetItemsPorMaquina(maquina).OrderBy(e => e.Posicion).ToList();
             gcItemsValor.DataSource = items;
             gvItemsValor.BestFitColumns();
         }
@@ -277,7 +299,7 @@ namespace Protocolo_User_DataEntry
         private void btnAgregarEnsayo_Click(object sender, EventArgs e)
         {
             var ensayo = new ProtocoloItem();
-            ensayo.Turno = GetTurno();
+            ensayo.Turno = lueTurno.Text;
             ensayo.OP = opSeleccionada.CantProduccion.ToString();
 
             //VERIFICAR SIMBOLO
@@ -306,14 +328,17 @@ namespace Protocolo_User_DataEntry
                 var item = items.FirstOrDefault(d => d.Id == idSeleccionado);
                 if (item.Valor != null)
                 {
-                    if (item.EsConstante)
+                    if (item.Valor == "0") continue;
+                    item.Valor = item.Valor.Replace(',', '.');
+
+                    if (item.EsConstante || item.Medida =="Fuelle")
                     {
                         item.ValorConstante = item.Valor.ToString();
                         item.Valor = "0";
 
                     }
                     else item.ValorConstante = "0";
-                    valores.Add(new ItemValor { Valor = Convert.ToDouble(item.Valor), ValorConstante = item.ValorConstante, IdItem = item.Id, IdBobinaMadre = 0 });
+                    valores.Add(new ItemValor { Valor = item.Valor, ValorConstante = item.ValorConstante, IdItem = item.Id, IdBobinaMadre = 0 });
                 };
             }
             if (valores.Count == 0)
@@ -336,17 +361,29 @@ namespace Protocolo_User_DataEntry
         {
             var turnoNombre = "";
             TimeSpan horaAhora = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            if (horaAhora >= new TimeSpan(7, 00, 00) && horaAhora < new TimeSpan(14, 59, 59))
+            if (horaAhora >= new TimeSpan(03, 00, 00) && horaAhora < new TimeSpan(6, 59, 59))
             {
-                turnoNombre = "TM";
+                turnoNombre = "F";
             }
-            if (horaAhora >= new TimeSpan(15, 00, 00) && horaAhora < new TimeSpan(23, 59, 59))
+            if (horaAhora >= new TimeSpan(07, 00, 00) && horaAhora < new TimeSpan(10, 59, 59))
             {
-                turnoNombre = "TT";
+                turnoNombre = "A";
             }
-            if (horaAhora >= new TimeSpan(00, 00, 00) && horaAhora < new TimeSpan(6, 59, 59))
+            if (horaAhora >= new TimeSpan(11, 00, 00) && horaAhora < new TimeSpan(14, 59, 59))
             {
-                turnoNombre = "TN";
+                turnoNombre = "B";
+            }
+            if (horaAhora >= new TimeSpan(15, 00, 00) && horaAhora < new TimeSpan(18, 59, 59))
+            {
+                turnoNombre = "C";
+            }
+            if (horaAhora >= new TimeSpan(19, 00, 00) && horaAhora < new TimeSpan(22, 59, 59))
+            {
+                turnoNombre = "D";
+            }
+            if (horaAhora >= new TimeSpan(23, 00, 00) && horaAhora < new TimeSpan(02, 59, 59))
+            {
+                turnoNombre = "E";
             }
             return turnoNombre;
         }
@@ -369,30 +406,46 @@ namespace Protocolo_User_DataEntry
                     e.Value = valor.Replace('.', ',');
                 }
 
-                if (focus.TipoDato == "Entero")
+                if (!focus.EsConstante)
                 {
-                    if (!Utils.IsSoloNumerico(valor))
+                    if (focus.Medida == "Milimetro" || focus.Medida == "Entero")
                     {
-                        e.Valid = false;
-                        e.ErrorText = "Solo numeros enteros.";
+                        if (!Utils.IsSoloNumerico(valor))
+                        {
+                            e.Valid = false;
+                            e.ErrorText = "Solo numeros enteros.";
+                        }
+                    }
+                    else if (focus.Medida == "Gramos")
+                    {
+                        if (!Utils.IsSoloNumODecimal(valor))
+                        {
+                            e.Valid = false;
+                            e.ErrorText = "Solo numeros enteros o decimales.";
+                        }
+                    }
+                    else if (focus.Medida == "Fuelle")
+                    {
+                        if (!Utils.IsSoloNumOP(valor))
+                        {
+                            e.Valid = false;
+                            e.ErrorText = "Este valor es de fuelle, acepta 2 valores en formato a/b.";
+                        }
                     }
                 }
-                else if (focus.TipoDato == "Decimal")
+                else
                 {
-                    if (!Utils.IsSoloNumODecimal(valor))
+                    if (focus.Medida == "Caracter")
                     {
-                        e.Valid = false;
-                        e.ErrorText = "Solo numeros enteros o decimales.";
+                        if (!Utils.IsSoloSignoA(valor))
+                        {
+                            e.Valid = false;
+                            e.ErrorText = "Este valor es constante y solo permite (ok), (no ok) y (-).";
+                        }
                     }
+
                 }
-                else if (focus.TipoDato == "Caracter")
-                {
-                    if (!Utils.IsSoloSignoA(valor))
-                    {
-                        e.Valid = false;
-                        e.ErrorText = "Este valor es constante y solo permite (ok), (no ok) y (-).";
-                    }
-                }
+
 
             }
         }
@@ -416,7 +469,8 @@ namespace Protocolo_User_DataEntry
         private void FormVistaAuditor_Load(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Normal;
-
+            lueTurno.ItemIndex = BuscarUnidadIndex(GetTurno());
+            lueTurno.Refresh();
         }
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
@@ -482,7 +536,7 @@ namespace Protocolo_User_DataEntry
             groupControl4.Enabled = true;
             espAncho = br.GetFichaTecnicaConfeccionAncho(opSeleccionada.Codigo);
             espLargo = br.GetFichaTecnicaConfeccionLargo(opSeleccionada.Codigo);
-            GetItems();
+            GetItems(lueMaquina.Text);
         }
     }
 }

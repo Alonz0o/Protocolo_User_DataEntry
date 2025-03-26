@@ -33,9 +33,9 @@ namespace Protocolo_User_DataEntry.Model
         public int PaqueteNum { get; set; }
         public string OP { get; set; }
         public string Turno { get; set; }
-        public DateTime Creado { get; set; }
-        public string TipoDato { get; set; }
+        public string Maquina { get; set; }
 
+        public DateTime Creado { get; set; }
         public override string ToString()
         {
             return Nombre;

@@ -57,9 +57,15 @@
             this.btnAuditor = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnProduccion = new ProtoculoSLF.AAFControles.AAFBoton();
             this.panel11 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.cbWic = new System.Windows.Forms.CheckBox();
+            this.cbCon = new System.Windows.Forms.CheckBox();
+            this.cbImp = new System.Windows.Forms.CheckBox();
+            this.cbExt = new System.Windows.Forms.CheckBox();
             this.aafPanel1.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
             this.pnlPendientes.SuspendLayout();
+            this.pnlContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcEnsayos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEnsayos)).BeginInit();
             this.tableLayoutPanel5.SuspendLayout();
@@ -70,6 +76,7 @@
             this.groupControl2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // aafPanel1
@@ -124,6 +131,7 @@
             this.pnlContenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlContenedor.Controls.Add(this.tableLayoutPanel3);
             this.pnlContenedor.Location = new System.Drawing.Point(0, 198);
             this.pnlContenedor.Margin = new System.Windows.Forms.Padding(0);
             this.pnlContenedor.Name = "pnlContenedor";
@@ -578,6 +586,70 @@
             this.panel11.Size = new System.Drawing.Size(7, 623);
             this.panel11.TabIndex = 1;
             // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.tableLayoutPanel3.ColumnCount = 4;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.Controls.Add(this.cbWic, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbCon, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbImp, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbExt, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(392, 135);
+            this.tableLayoutPanel3.TabIndex = 1;
+            // 
+            // cbWic
+            // 
+            this.cbWic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbWic.Location = new System.Drawing.Point(297, 3);
+            this.cbWic.Name = "cbWic";
+            this.cbWic.Size = new System.Drawing.Size(92, 129);
+            this.cbWic.TabIndex = 13;
+            this.cbWic.Text = "Wicket";
+            this.cbWic.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbWic.UseVisualStyleBackColor = true;
+            // 
+            // cbCon
+            // 
+            this.cbCon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbCon.Location = new System.Drawing.Point(199, 3);
+            this.cbCon.Name = "cbCon";
+            this.cbCon.Size = new System.Drawing.Size(92, 129);
+            this.cbCon.TabIndex = 12;
+            this.cbCon.Text = "Confección";
+            this.cbCon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbCon.UseVisualStyleBackColor = true;
+            // 
+            // cbImp
+            // 
+            this.cbImp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbImp.Location = new System.Drawing.Point(101, 3);
+            this.cbImp.Name = "cbImp";
+            this.cbImp.Size = new System.Drawing.Size(92, 129);
+            this.cbImp.TabIndex = 11;
+            this.cbImp.Text = "Impresión";
+            this.cbImp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbImp.UseVisualStyleBackColor = true;
+            // 
+            // cbExt
+            // 
+            this.cbExt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbExt.Location = new System.Drawing.Point(3, 3);
+            this.cbExt.Name = "cbExt";
+            this.cbExt.Size = new System.Drawing.Size(92, 129);
+            this.cbExt.TabIndex = 10;
+            this.cbExt.Text = "Extrusión";
+            this.cbExt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbExt.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -593,6 +665,7 @@
             this.aafPanel1.ResumeLayout(false);
             this.tlpRealizados.ResumeLayout(false);
             this.pnlPendientes.ResumeLayout(false);
+            this.pnlContenedor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcEnsayos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEnsayos)).EndInit();
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -604,6 +677,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -639,6 +713,11 @@
         private ProtoculoSLF.AAFControles.AAFBoton btnProduccion;
         private ProtoculoSLF.AAFControles.AAFBoton btnAuditor;
         private System.Windows.Forms.Panel pnlTbConstantes;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.CheckBox cbWic;
+        private System.Windows.Forms.CheckBox cbCon;
+        private System.Windows.Forms.CheckBox cbImp;
+        private System.Windows.Forms.CheckBox cbExt;
     }
 }
 

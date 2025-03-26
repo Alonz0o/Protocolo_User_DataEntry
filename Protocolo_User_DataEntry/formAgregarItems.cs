@@ -1,9 +1,11 @@
 ﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using Protocolo_User_DataEntry;
 using Protocolo_User_DataEntry.Model;
+using ProtoculoSLF.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +24,7 @@ namespace ProtoculoSLF
         private List<ProtocoloItem> items = new List<ProtocoloItem>();
         private ProtocoloItem protocoloItemSeleccionado = new ProtocoloItem();
         public string confirmar = "";
+        private List<Maquina> maquinas = new List<Maquina>();
 
         public formAgregarItems()
         {
@@ -32,15 +35,16 @@ namespace ProtoculoSLF
             GenerarTablaItems();
             GetItems();
             List<Unidad> unidades = new List<Unidad> {
-                new Unidad{ Nombre="NA", Descripcion="No asigar" },
+                new Unidad{ Nombre="Entero", Descripcion="n" },
                 new Unidad{ Nombre="Milimetro", Descripcion="mm" },
                 new Unidad{ Nombre="Kilogramo", Descripcion="kg" },
                 new Unidad{ Nombre="Gramos", Descripcion="gr" },
                 new Unidad{ Nombre="Micron", Descripcion="µm" },
                 new Unidad{ Nombre="Porcentaje", Descripcion="%" },
-                new Unidad{ Nombre="Pulgada", Descripcion="in" },          
+                new Unidad{ Nombre="Pulgada", Descripcion="in" },
+                new Unidad{ Nombre="Fuelle", Descripcion="f" },
             };
-            List<Simbolo> simbolos = new List<Simbolo> { 
+            List<Simbolo> simbolos = new List<Simbolo> {
                 new Simbolo{ Caracter ="=",Significado="Igual a" },
                 new Simbolo{ Caracter ="≠",Significado="Diferente de" },
                 new Simbolo{ Caracter ="<",Significado="Menor que" },
@@ -60,10 +64,14 @@ namespace ProtoculoSLF
             };
             lueItemSimbolos.Properties.DataSource = simbolos;
             lueItemUnidades.Properties.DataSource = unidades;
+            maquinas = FormVistaAuditor.instancia.br.GetMaquinas();
+            lueMaquinas.Properties.DataSource = maquinas;
+            lueMaquinas.Properties.RefreshDataSource();
+
         }
         private void GetItems()
         {
-            items = FormVistaAuditor.instancia.br.GetItems();
+            items = FormVistaAuditor.instancia.br.GetItems().OrderBy(e => e.Posicion).ToList();
             gcItems.DataSource = items;
         }
         private void cbCaracter_CheckedChanged(object sender, EventArgs e)
@@ -71,7 +79,7 @@ namespace ProtoculoSLF
             tableLayoutPanel1.Visible = !rbConstante.Checked;
             groupControl13.Visible = !rbConstante.Checked;
             gcSimbolo.Visible = !rbConstante.Checked;
-            
+
         }
 
         private void GenerarTablaItems()
@@ -94,12 +102,14 @@ namespace ProtoculoSLF
             cMedida.Caption = "Medida";
             cMedida.UnboundDataType = typeof(string);
             cMedida.Visible = true;
+            cMedida.Width = 50;
             cMedida.OptionsColumn.AllowEdit = false;
 
             GridColumn cCertifica = new GridColumn();
             cCertifica.FieldName = "EsCertificadoSiNo";
             cCertifica.Caption = "Certifica";
             cCertifica.Visible = true;
+            cCertifica.Width = 40;
             cCertifica.UnboundDataType = typeof(string);
             cCertifica.OptionsColumn.AllowEdit = false;
 
@@ -108,6 +118,13 @@ namespace ProtoculoSLF
             cSimbolo.Caption = "SIM";
             cSimbolo.Width = 16;
             cSimbolo.Visible = true;
+            cSimbolo.OptionsColumn.AllowEdit = false;
+
+            GridColumn cPosicion = new GridColumn();
+            cPosicion.FieldName = "Posicion";
+            cPosicion.Caption = "POS";
+            cPosicion.Width = 16;
+            cPosicion.Visible = true;
 
             GridColumn cBorrar = new GridColumn();
             cBorrar.FieldName = "FNBorrar";
@@ -121,7 +138,7 @@ namespace ProtoculoSLF
             cModificar.Width = 16;
             cModificar.Visible = true;
 
-            gvItems.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida, cCertifica, cSimbolo,cBorrar, cModificar });
+            gvItems.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida, cCertifica, cSimbolo, cPosicion, cBorrar, cModificar });
             gcItems.DataSource = items;
 
             RepositoryItemButtonEdit botonBorrar = new RepositoryItemButtonEdit();
@@ -175,13 +192,26 @@ namespace ProtoculoSLF
                         var pi = gridView.GetRow(rowIndex) as ProtocoloItem;
                         if (pi != null)
                         {
-                            protocoloItemSeleccionado.Id = pi.Id;
-                            protocoloItemSeleccionado.Nombre = pi.Nombre;
                             confirmar = "UPDATEITEM";
-                            cbExt.Checked = pi.Proceso.Contains("Extrusión") ? true : false;
-                            cbImp.Checked = pi.Proceso.Contains("Impresión") ? true : false;
-                            cbCon.Checked = pi.Proceso.Contains("Confección") ? true : false;
-                            cbWic.Checked = pi.Proceso.Contains("Wicket") ? true : false;
+
+                            List<string> listaItems = pi.Maquina.Split(',').ToList();
+                            if (listaItems[0] != "")
+                            {
+                                lueMaquinas.Properties.RefreshDataSource();
+                                foreach (var item in listaItems)
+                                {
+                                    var encontrado = lueMaquinas.Properties.Items.FirstOrDefault(m => m.Value.ToString() == item);
+                                    if (encontrado != null) {
+                                        encontrado.CheckState = CheckState.Checked;
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                lueMaquinas.Properties.Items.OfType<CheckedListBoxItem>().ToList().ForEach(item => item.CheckState = CheckState.Unchecked);
+                            }
+
                             if (pi.EsValor) rbValor.Checked = true;
                             if (pi.EsConstante) rbConstante.Checked = true;
                             else
@@ -189,10 +219,11 @@ namespace ProtoculoSLF
                                 rbValor.Checked = true;
                             }
                             btnAgregarItem.Text = "Modificar";
+                            gcAgregarItem.Text = "  Modificar protocolo ítem";
 
+                            protocoloItemSeleccionado = pi;
 
                             cbMantener.Visible = true;
-                            protocoloItemSeleccionado = pi;
                             gcAgregarItem.Visible = true;
                             tbNombre.Texts = protocoloItemSeleccionado.Nombre;
                             cbCertificado.Checked = protocoloItemSeleccionado.EsCertificado;
@@ -214,7 +245,7 @@ namespace ProtoculoSLF
             }
             return 0;
         }
- 
+
         private int BuscarSimboloIndex(string simbolo)
         {
             var dataSource = lueItemSimbolos.Properties.DataSource as List<Simbolo>;
@@ -246,6 +277,7 @@ namespace ProtoculoSLF
 
         private void btnMostrarAgregarItem_Click(object sender, EventArgs e)
         {
+            LimpiarFormularioAgregarItem();
             cbMantener.Visible = false;
             cbMantener.Checked = false;
             gcAgregarItem.Visible = true;
@@ -279,13 +311,15 @@ namespace ProtoculoSLF
                     lueItemUnidades.Focus();
                     return false;
                 }
-                else piAgregar.Medida = lueUnidadA.Nombre;                
-                
+                else piAgregar.Medida = lueUnidadA.Nombre;
+
             }
-            if (cbExt.Checked == false && cbImp.Checked == false && cbCon.Checked == false && cbWic.Checked == false) {
+
+            if (string.IsNullOrEmpty(lueMaquinas.Text))
+            {
                 formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar al menos un proceso.");
                 noti.Show();
-                cbImp.Focus();
+                lueMaquinas.Focus();
                 return false;
             }
 
@@ -300,36 +334,26 @@ namespace ProtoculoSLF
         ProtocoloItem piAgregar = new ProtocoloItem();
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
-        {
+        {         
             var legajo = FormVistaAuditor.instancia.legajo;
             piAgregar = new ProtocoloItem();
             if (!ValidarFormularioItems()) return;
             piAgregar.EsCertificado = cbCertificado.Checked;
             piAgregar.EsConstante = rbConstante.Checked;
-            if (legajo=="") {
+            if (legajo == "")
+            {
                 MessageBox.Show("Debe seleccionar Auditor para agregar o modificar item.");
                 return;
             }
-            
+
             piAgregar.Auditor = legajo;
+            string maqSeleccionadas = string.Join(",", lueMaquinas.Properties.GetCheckedItems()
+                                .ToString()
+                                .Split(',')
+                                .Select(item => item.Trim()));
 
 
-            List<string> procesosSeleccionados = new List<string>();
-
-            if (cbExt.Checked) procesosSeleccionados.Add(cbExt.Text);
-            if (cbImp.Checked) procesosSeleccionados.Add(cbImp.Text);
-            if (cbCon.Checked) procesosSeleccionados.Add(cbCon.Text);
-            if (cbWic.Checked) procesosSeleccionados.Add(cbWic.Text);
-
-            string resultado = string.Join(",", procesosSeleccionados);
-            piAgregar.Proceso = resultado;
-
-            switch (piAgregar.Medida)
-            {
-                case "Pijazo":
-                default:
-                    break;
-            }
+            piAgregar.Maquina = maqSeleccionadas;
 
             if (confirmar == "UPDATEITEM")
             {
@@ -352,20 +376,17 @@ namespace ProtoculoSLF
                     noti.Show();
                 }
             }
-            
+
         }
         private void LimpiarFormularioAgregarItem()
         {
+            gcAgregarItem.Text = "  Agregar protocolo ítem";
             tbNombre.Texts = string.Empty;
             lueItemUnidades.Text = string.Empty;
             lueItemSimbolos.Text = string.Empty;
+            lueMaquinas.Text = string.Empty;
             cbCertificado.Checked = false;
             rbConstante.Checked = false;
-            cbExt.Checked = false;
-            cbImp.Checked = false;
-            cbCon.Checked = false;
-            cbWic.Checked = false;
-
         }
 
         private void btnConfirmarCambios_Click(object sender, EventArgs e)
@@ -377,7 +398,7 @@ namespace ProtoculoSLF
 
                 if (!FormVistaAuditor.instancia.br.GetNombreItemDuplicado(piAgregar.Nombre.Trim().ToLower()) && !cbMantener.Checked)
                 {
-                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Ese nombre de control esta en uso.");
+                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "El nombre de control esta en uso, seleccione 'Fijar nombre' si no desea modificar el nombre.");
                     noti.Show();
                     return;
                 }
@@ -386,14 +407,11 @@ namespace ProtoculoSLF
                 piAgregar.EsConstante = rbConstante.Checked;
                 piAgregar.Id = protocoloItemSeleccionado.Id;
 
-                List<string> procesosSeleccionados = new List<string>();
-                if (cbExt.Checked) procesosSeleccionados.Add(cbExt.Text);
-                if (cbImp.Checked) procesosSeleccionados.Add(cbImp.Text);
-                if (cbCon.Checked) procesosSeleccionados.Add(cbCon.Text);
-                if (cbWic.Checked) procesosSeleccionados.Add(cbWic.Text);
-
-                string resultado = string.Join(",", procesosSeleccionados);
-                piAgregar.Proceso = resultado;
+                string maqSeleccionadas = string.Join(",", lueMaquinas.Properties.GetCheckedItems()
+                                .ToString()
+                                .Split(',')
+                                .Select(item => item.Trim()));
+                piAgregar.Maquina = maqSeleccionadas;
 
                 if (FormVistaAuditor.instancia.br.UpdateItem("NO", piAgregar))
                 {
@@ -402,6 +420,7 @@ namespace ProtoculoSLF
                     gcConfirmar.Visible = false;
                     GetItems();
                     LimpiarFormularioAgregarItem();
+                    
                 }
             }
 
@@ -421,6 +440,45 @@ namespace ProtoculoSLF
         {
             gcAgregarItem.Visible = true;
             gcConfirmar.Visible = false;
+        }
+
+        private void gvItems_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                GridView view = sender as GridView;
+                if (view != null && view.FocusedRowHandle >= 0)
+                {
+                    object editedValue = view.EditingValue ?? view.GetRowCellValue(view.FocusedRowHandle, view.FocusedColumn);
+                    if (string.IsNullOrEmpty(editedValue.ToString())) return;
+                    if (!Utils.IsSoloNumerico(editedValue.ToString()))
+                    {
+                        MessageBox.Show("Solo numeros enteros");
+                        return;
+                    }
+                    if (gvItems.FocusedColumn.FieldName == "Posicion")
+                    {
+                        var indexSeleccionado = Convert.ToInt32(editedValue);
+                        GridView gridView = gvItems;
+                        if (gridView != null)
+                        {
+                            int rowIndex = gridView.FocusedRowHandle;
+                            var pi = gridView.GetRow(rowIndex) as ProtocoloItem;
+                            if (pi != null)
+                            {
+                                protocoloItemSeleccionado.Id = pi.Id;
+                                protocoloItemSeleccionado.Nombre = pi.Nombre;
+                                if (FormVistaAuditor.instancia.br.CambiarPosicionItem(protocoloItemSeleccionado.Id, indexSeleccionado))
+                                {
+                                    GetItems();
+                                }
+
+                            }
+                        }
+                    }
+                }
+                e.Handled = true;
+            }
         }
     }
 }

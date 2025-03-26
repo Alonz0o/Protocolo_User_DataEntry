@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 namespace Protocolo_User_DataEntry.Model
 {
     internal class ItemValor
-    {
-    
-        public double Valor { get; set; }
+    {  
+        public string Valor { get; set; }
         public string ValorConstante { get; set; }
         public int IdBobinaMadre { get; set; }
         public int IdItem { get; set; }

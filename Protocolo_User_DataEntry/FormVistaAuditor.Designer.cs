@@ -42,6 +42,8 @@
             this.btnAgregarEnsayo = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.lueTurno = new DevExpress.XtraEditors.LookUpEdit();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.btnVerPorPaquete = new FontAwesome.Sharp.IconButton();
             this.tbNumPaquete = new ScrapKP.AAFControles.AAFTextBox();
@@ -72,6 +74,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvEnsayos)).BeginInit();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lueTurno.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcLegAuditor)).BeginInit();
@@ -104,7 +109,7 @@
             this.tlpRealizados.RowCount = 1;
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 624F));
-            this.tlpRealizados.Size = new System.Drawing.Size(696, 618);
+            this.tlpRealizados.Size = new System.Drawing.Size(746, 618);
             this.tlpRealizados.TabIndex = 5;
             // 
             // panel11
@@ -128,7 +133,7 @@
             this.pnlPendientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPendientes.Location = new System.Drawing.Point(16, 3);
             this.pnlPendientes.Name = "pnlPendientes";
-            this.pnlPendientes.Size = new System.Drawing.Size(677, 612);
+            this.pnlPendientes.Size = new System.Drawing.Size(727, 612);
             this.pnlPendientes.TabIndex = 0;
             // 
             // tcItemDatos
@@ -140,7 +145,7 @@
             this.tcItemDatos.Multiline = true;
             this.tcItemDatos.Name = "tcItemDatos";
             this.tcItemDatos.SelectedIndex = 0;
-            this.tcItemDatos.Size = new System.Drawing.Size(677, 431);
+            this.tcItemDatos.Size = new System.Drawing.Size(727, 431);
             this.tcItemDatos.TabIndex = 101;
             // 
             // tpItems
@@ -149,7 +154,7 @@
             this.tpItems.Location = new System.Drawing.Point(4, 22);
             this.tpItems.Name = "tpItems";
             this.tpItems.Padding = new System.Windows.Forms.Padding(3);
-            this.tpItems.Size = new System.Drawing.Size(669, 405);
+            this.tpItems.Size = new System.Drawing.Size(719, 405);
             this.tpItems.TabIndex = 0;
             this.tpItems.Text = "tabPage1";
             this.tpItems.UseVisualStyleBackColor = true;
@@ -160,7 +165,7 @@
             this.gcItemsValor.Location = new System.Drawing.Point(3, 3);
             this.gcItemsValor.MainView = this.gvItemsValor;
             this.gcItemsValor.Name = "gcItemsValor";
-            this.gcItemsValor.Size = new System.Drawing.Size(663, 399);
+            this.gcItemsValor.Size = new System.Drawing.Size(713, 399);
             this.gcItemsValor.TabIndex = 95;
             this.gcItemsValor.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvItemsValor});
@@ -178,7 +183,7 @@
             this.tpDatos.Location = new System.Drawing.Point(4, 22);
             this.tpDatos.Name = "tpDatos";
             this.tpDatos.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDatos.Size = new System.Drawing.Size(669, 405);
+            this.tpDatos.Size = new System.Drawing.Size(719, 405);
             this.tpDatos.TabIndex = 1;
             this.tpDatos.Text = "tabPage2";
             this.tpDatos.UseVisualStyleBackColor = true;
@@ -189,7 +194,7 @@
             this.gcEnsayos.Location = new System.Drawing.Point(3, 3);
             this.gcEnsayos.MainView = this.gvEnsayos;
             this.gcEnsayos.Name = "gcEnsayos";
-            this.gcEnsayos.Size = new System.Drawing.Size(663, 399);
+            this.gcEnsayos.Size = new System.Drawing.Size(713, 399);
             this.gcEnsayos.TabIndex = 89;
             this.gcEnsayos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvEnsayos});
@@ -213,7 +218,7 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(677, 43);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(727, 43);
             this.tableLayoutPanel5.TabIndex = 66;
             // 
             // btnAgregarEnsayo
@@ -231,7 +236,7 @@
             this.btnAgregarEnsayo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarEnsayo.Location = new System.Drawing.Point(3, 3);
             this.btnAgregarEnsayo.Name = "btnAgregarEnsayo";
-            this.btnAgregarEnsayo.Size = new System.Drawing.Size(332, 37);
+            this.btnAgregarEnsayo.Size = new System.Drawing.Size(357, 37);
             this.btnAgregarEnsayo.TabIndex = 1;
             this.btnAgregarEnsayo.Text = "Agregar";
             this.btnAgregarEnsayo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
@@ -250,9 +255,9 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
-            this.btnCancelar.Location = new System.Drawing.Point(341, 3);
+            this.btnCancelar.Location = new System.Drawing.Point(366, 3);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(333, 37);
+            this.btnCancelar.Size = new System.Drawing.Size(358, 37);
             this.btnCancelar.TabIndex = 0;
             this.btnCancelar.Text = "Salir";
             this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
@@ -261,11 +266,13 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.55846F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.04539F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.89684F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.94498F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.41678F));
+            this.tableLayoutPanel1.Controls.Add(this.groupControl3, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupControl4, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.gcLegAuditor, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupControl1, 2, 0);
@@ -275,8 +282,42 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(677, 61);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(727, 61);
             this.tableLayoutPanel1.TabIndex = 94;
+            // 
+            // groupControl3
+            // 
+            this.groupControl3.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.groupControl3.Appearance.Options.UseBorderColor = true;
+            this.groupControl3.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.groupControl3.AppearanceCaption.Options.UseFont = true;
+            this.groupControl3.Controls.Add(this.lueTurno);
+            this.groupControl3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl3.Location = new System.Drawing.Point(643, 0);
+            this.groupControl3.Margin = new System.Windows.Forms.Padding(0);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.Size = new System.Drawing.Size(84, 61);
+            this.groupControl3.TabIndex = 97;
+            this.groupControl3.Text = "Turno";
+            // 
+            // lueTurno
+            // 
+            this.lueTurno.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lueTurno.EditValue = "";
+            this.lueTurno.Location = new System.Drawing.Point(2, 23);
+            this.lueTurno.Name = "lueTurno";
+            this.lueTurno.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lueTurno.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lueTurno.Properties.Appearance.Options.UseFont = true;
+            this.lueTurno.Properties.Appearance.Options.UseForeColor = true;
+            this.lueTurno.Properties.AutoHeight = false;
+            this.lueTurno.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lueTurno.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.lueTurno.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
+            this.lueTurno.Size = new System.Drawing.Size(80, 36);
+            this.lueTurno.TabIndex = 64;
             // 
             // groupControl4
             // 
@@ -289,10 +330,10 @@
             this.groupControl4.Cursor = System.Windows.Forms.Cursors.Default;
             this.groupControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl4.Enabled = false;
-            this.groupControl4.Location = new System.Drawing.Point(507, 0);
+            this.groupControl4.Location = new System.Drawing.Point(498, 0);
             this.groupControl4.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(170, 61);
+            this.groupControl4.Size = new System.Drawing.Size(145, 61);
             this.groupControl4.TabIndex = 94;
             this.groupControl4.Text = "Paquete N°";
             // 
@@ -309,7 +350,7 @@
             this.btnVerPorPaquete.IconColor = System.Drawing.SystemColors.Highlight;
             this.btnVerPorPaquete.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnVerPorPaquete.IconSize = 20;
-            this.btnVerPorPaquete.Location = new System.Drawing.Point(127, 24);
+            this.btnVerPorPaquete.Location = new System.Drawing.Point(102, 24);
             this.btnVerPorPaquete.Name = "btnVerPorPaquete";
             this.btnVerPorPaquete.Size = new System.Drawing.Size(41, 35);
             this.btnVerPorPaquete.TabIndex = 41;
@@ -334,7 +375,7 @@
             this.tbNumPaquete.Padding = new System.Windows.Forms.Padding(15, 10, 10, 15);
             this.tbNumPaquete.PasswordChar = false;
             this.tbNumPaquete.SelectionStart = 0;
-            this.tbNumPaquete.Size = new System.Drawing.Size(166, 41);
+            this.tbNumPaquete.Size = new System.Drawing.Size(141, 41);
             this.tbNumPaquete.TabIndex = 2;
             this.tbNumPaquete.Texts = "";
             this.tbNumPaquete.UnderlinedStyle = false;
@@ -350,7 +391,7 @@
             this.gcLegAuditor.Location = new System.Drawing.Point(0, 0);
             this.gcLegAuditor.Margin = new System.Windows.Forms.Padding(0);
             this.gcLegAuditor.Name = "gcLegAuditor";
-            this.gcLegAuditor.Size = new System.Drawing.Size(169, 61);
+            this.gcLegAuditor.Size = new System.Drawing.Size(164, 61);
             this.gcLegAuditor.TabIndex = 93;
             this.gcLegAuditor.Text = "Auditor";
             // 
@@ -374,7 +415,7 @@
             this.lueLegAuditor.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.lueLegAuditor.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
             this.lueLegAuditor.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueLegAuditor.Size = new System.Drawing.Size(165, 36);
+            this.lueLegAuditor.Size = new System.Drawing.Size(160, 36);
             this.lueLegAuditor.TabIndex = 64;
             this.lueLegAuditor.EditValueChanged += new System.EventHandler(this.lueLegAuditor_EditValueChanged);
             // 
@@ -389,10 +430,10 @@
             this.groupControl1.Cursor = System.Windows.Forms.Cursors.Default;
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl1.Enabled = false;
-            this.groupControl1.Location = new System.Drawing.Point(338, 0);
+            this.groupControl1.Location = new System.Drawing.Point(317, 0);
             this.groupControl1.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(169, 61);
+            this.groupControl1.Size = new System.Drawing.Size(181, 61);
             this.groupControl1.TabIndex = 95;
             this.groupControl1.Text = "O/P N°";
             // 
@@ -409,7 +450,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(165, 36);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(177, 36);
             this.tableLayoutPanel3.TabIndex = 66;
             // 
             // lueOP
@@ -432,7 +473,7 @@
             this.lueOP.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.lueOP.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
             this.lueOP.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueOP.Size = new System.Drawing.Size(165, 36);
+            this.lueOP.Size = new System.Drawing.Size(177, 36);
             this.lueOP.TabIndex = 64;
             this.lueOP.EditValueChanged += new System.EventHandler(this.lueOP_EditValueChanged);
             // 
@@ -441,7 +482,7 @@
             this.panel1.Controls.Add(this.btnBuscarOP);
             this.panel1.Controls.Add(this.tbOP);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(165, 0);
+            this.panel1.Location = new System.Drawing.Point(177, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1, 36);
@@ -501,7 +542,7 @@
             this.ibtnHabilitarOP.IconColor = System.Drawing.SystemColors.Highlight;
             this.ibtnHabilitarOP.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ibtnHabilitarOP.IconSize = 28;
-            this.ibtnHabilitarOP.Location = new System.Drawing.Point(140, 3);
+            this.ibtnHabilitarOP.Location = new System.Drawing.Point(152, 3);
             this.ibtnHabilitarOP.Name = "ibtnHabilitarOP";
             this.ibtnHabilitarOP.Size = new System.Drawing.Size(25, 20);
             this.ibtnHabilitarOP.TabIndex = 65;
@@ -518,10 +559,10 @@
             this.groupControl2.Controls.Add(this.lueMaquina);
             this.groupControl2.Cursor = System.Windows.Forms.Cursors.Default;
             this.groupControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl2.Location = new System.Drawing.Point(169, 0);
+            this.groupControl2.Location = new System.Drawing.Point(164, 0);
             this.groupControl2.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(169, 61);
+            this.groupControl2.Size = new System.Drawing.Size(153, 61);
             this.groupControl2.TabIndex = 96;
             this.groupControl2.Text = "Maquina";
             // 
@@ -543,7 +584,7 @@
             this.lueMaquina.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.lueMaquina.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
             this.lueMaquina.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueMaquina.Size = new System.Drawing.Size(165, 36);
+            this.lueMaquina.Size = new System.Drawing.Size(149, 36);
             this.lueMaquina.TabIndex = 64;
             this.lueMaquina.EditValueChanged += new System.EventHandler(this.lueMaquina_EditValueChanged);
             // 
@@ -562,7 +603,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(677, 42);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(727, 42);
             this.tableLayoutPanel2.TabIndex = 100;
             // 
             // btnAgregarItem
@@ -580,7 +621,7 @@
             this.btnAgregarItem.Location = new System.Drawing.Point(2, 2);
             this.btnAgregarItem.Margin = new System.Windows.Forms.Padding(0);
             this.btnAgregarItem.Name = "btnAgregarItem";
-            this.btnAgregarItem.Size = new System.Drawing.Size(223, 38);
+            this.btnAgregarItem.Size = new System.Drawing.Size(239, 38);
             this.btnAgregarItem.TabIndex = 4;
             this.btnAgregarItem.Text = "Agregar items";
             this.btnAgregarItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
@@ -599,10 +640,10 @@
             this.btnVerDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.btnVerDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnVerDatos.Location = new System.Drawing.Point(452, 2);
+            this.btnVerDatos.Location = new System.Drawing.Point(484, 2);
             this.btnVerDatos.Margin = new System.Windows.Forms.Padding(0);
             this.btnVerDatos.Name = "btnVerDatos";
-            this.btnVerDatos.Size = new System.Drawing.Size(223, 38);
+            this.btnVerDatos.Size = new System.Drawing.Size(241, 38);
             this.btnVerDatos.TabIndex = 3;
             this.btnVerDatos.Text = "Ver datos";
             this.btnVerDatos.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
@@ -621,10 +662,10 @@
             this.btnVerItems.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.btnVerItems.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnVerItems.Location = new System.Drawing.Point(227, 2);
+            this.btnVerItems.Location = new System.Drawing.Point(243, 2);
             this.btnVerItems.Margin = new System.Windows.Forms.Padding(0);
             this.btnVerItems.Name = "btnVerItems";
-            this.btnVerItems.Size = new System.Drawing.Size(223, 38);
+            this.btnVerItems.Size = new System.Drawing.Size(239, 38);
             this.btnVerItems.TabIndex = 2;
             this.btnVerItems.Text = "Ver items";
             this.btnVerItems.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
@@ -638,7 +679,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.Black;
             this.lblTitulo.Location = new System.Drawing.Point(0, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(677, 35);
+            this.lblTitulo.Size = new System.Drawing.Size(727, 35);
             this.lblTitulo.TabIndex = 89;
             this.lblTitulo.Text = "Ensayo para: ";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -647,7 +688,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(696, 618);
+            this.ClientSize = new System.Drawing.Size(746, 618);
             this.Controls.Add(this.tlpRealizados);
             this.Name = "FormVistaAuditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -664,6 +705,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvEnsayos)).EndInit();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lueTurno.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcLegAuditor)).EndInit();
@@ -717,5 +761,7 @@
         private ScrapKP.AAFControles.AAFTextBox tbOP;
         private System.Windows.Forms.Panel panel1;
         private FontAwesome.Sharp.IconButton btnBuscarOP;
+        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private DevExpress.XtraEditors.LookUpEdit lueTurno;
     }
 }

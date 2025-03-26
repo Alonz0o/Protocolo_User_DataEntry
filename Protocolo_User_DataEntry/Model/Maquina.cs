@@ -10,6 +10,8 @@ namespace Protocolo_User_DataEntry.Model
     {
         public string Sector { get; set; }
         public string Nombre { get; set; }
+        public bool Seleccionado { get; set; }
+
         public override string ToString()
         {
             return Nombre;

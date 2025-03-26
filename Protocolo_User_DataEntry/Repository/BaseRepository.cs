@@ -250,7 +250,7 @@ namespace Protocolo_User_DataEntry.Repository
                                                                             certifica = @pCertifica,
                                                                             constante = @pConstante,
                                                                             simbolo = @pSimbolo,
-                                                                            sector = @pSector                                                                                     
+                                                                            maquina = @pMaquina                                                                                     
                                                                             WHERE id = (@pId);";
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
                             command.Parameters.Add("@pMedida", MySqlDbType.String).Value = pi.Medida;
@@ -258,7 +258,7 @@ namespace Protocolo_User_DataEntry.Repository
                             command.Parameters.Add("@pCertifica", MySqlDbType.Int32).Value = pi.EsCertificado;
                             command.Parameters.Add("@pConstante", MySqlDbType.Double).Value = pi.EsConstante;
                             command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
-                            command.Parameters.Add("@pSector", MySqlDbType.Double).Value = pi.Proceso;
+                            command.Parameters.Add("@pMaquina", MySqlDbType.Double).Value = pi.Maquina;
                             command.Parameters.Add("@pId", MySqlDbType.Int32).Value = pi.Id;
                             if (command.ExecuteNonQuery() != 1)
                             {
@@ -380,9 +380,52 @@ namespace Protocolo_User_DataEntry.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo,fi.posicion,fi.sector,fi.tipo_dato
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo,fi.posicion,fi.maquina
                                         FROM formato_item fi 
                                         WHERE fi.sector like '%Confección%';";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var esCertificado = reader[3] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(3)) : false;
+                        ProtocoloItem pi = new ProtocoloItem
+                        {
+                            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                            Medida = reader.IsDBNull(2) ? "Constante" : reader.GetString(2),
+                            EsCertificado = esCertificado,
+                            EsConstante = reader[4] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(4)) : false,
+                            EsCertificadoSiNo = esCertificado ? "SI" : "NO",
+                            Simbolo = reader.IsDBNull(5) ? "" : reader.GetString(5),
+                            Posicion = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
+                            Maquina = reader.IsDBNull(7) ? "" : reader.GetString(7),
+                        };
+                        if (pi.Id == 9) {
+                            pi.EspecificacionDato = FormVistaAuditor.instancia.espAncho.Medio + "±" + FormVistaAuditor.instancia.espAncho.Maximo;
+                        }
+                        if (pi.Id == 7)
+                        {
+                            pi.EspecificacionDato = FormVistaAuditor.instancia.espLargo.Medio + "±" + FormVistaAuditor.instancia.espLargo.Maximo;
+                        }
+                        pis.Add(pi);
+                    }
+                }
+            }
+            return pis;
+        }
+
+        internal List<ProtocoloItem> GetItemsPorMaquina(string maquina)
+        {
+            List<ProtocoloItem> pis = new List<ProtocoloItem>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = $@"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo,fi.posicion,fi.sector
+                                        FROM formato_item fi 
+                                        WHERE fi.maquina like '%{maquina}%';";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -399,9 +442,9 @@ namespace Protocolo_User_DataEntry.Repository
                             Simbolo = reader.IsDBNull(5) ? "" : reader.GetString(5),
                             Posicion = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
                             Proceso = reader.IsDBNull(7) ? "" : reader.GetString(7),
-                            TipoDato = reader.IsDBNull(8) ? "" : reader.GetString(8),
                         };
-                        if (pi.Id == 9) {
+                        if (pi.Id == 9)
+                        {
                             pi.EspecificacionDato = FormVistaAuditor.instancia.espAncho.Medio + "±" + FormVistaAuditor.instancia.espAncho.Maximo;
                         }
                         if (pi.Id == 7)
@@ -491,8 +534,10 @@ namespace Protocolo_User_DataEntry.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT DISTINCT(MaquinaAlternativa)
-                                        FROM produccion_confeccion;";
+                command.CommandText = @"SELECT DISTINCT maquina
+                                        FROM ponderaciones
+                                        WHERE maquina NOT IN ('Otra', '-', '-11 (Pers.1)', 'Comexi (Pistas: 2)', 'FASON', 'MG (Pistas: 2)')
+                                        ORDER BY maquina;";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -500,6 +545,7 @@ namespace Protocolo_User_DataEntry.Repository
                         Maquina pi = new Maquina
                         {
                             Nombre = reader.IsDBNull(0) ? "" : reader.GetString(0),
+                            Seleccionado = false
                         };
                         pis.Add(pi);
                     }
@@ -507,6 +553,7 @@ namespace Protocolo_User_DataEntry.Repository
             }
             return pis;
         }
+
         internal bool InsertEnsayoLote(List<ItemValor> valores, ProtocoloItem pi)
         {
             bool res = false;
@@ -701,15 +748,15 @@ namespace Protocolo_User_DataEntry.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante,simbolo,sector) 
-                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante,@pSimbolo,@pSector); SELECT LAST_INSERT_ID();";
+                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante,simbolo,maquina) 
+                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante,@pSimbolo,@pMaquina); SELECT LAST_INSERT_ID();";
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
                             command.Parameters.Add("@pUnidad", MySqlDbType.String).Value = pi.Medida;
                             command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = pi.Auditor;
                             command.Parameters.Add("@pCertifica", MySqlDbType.Int32).Value = pi.EsCertificado;
                             command.Parameters.Add("@pConstante", MySqlDbType.Int32).Value = pi.EsConstante;
                             command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
-                            command.Parameters.Add("@pSector", MySqlDbType.String).Value = pi.Proceso;
+                            command.Parameters.Add("@pMaquina", MySqlDbType.String).Value = pi.Maquina;
 
                             if (command.ExecuteNonQuery() != 1)
                             {
