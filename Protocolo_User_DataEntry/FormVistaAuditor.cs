@@ -331,7 +331,7 @@ namespace Protocolo_User_DataEntry
                     if (item.Valor == "0") continue;
                     item.Valor = item.Valor.Replace(',', '.');
 
-                    if (item.EsConstante || item.Medida =="Fuelle")
+                    if (item.EsConstante || item.Medida == "Fuelle")
                     {
                         item.ValorConstante = item.Valor.ToString();
                         item.Valor = "0";
@@ -445,8 +445,6 @@ namespace Protocolo_User_DataEntry
                     }
 
                 }
-
-
             }
         }
 

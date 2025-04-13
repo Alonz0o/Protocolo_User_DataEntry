@@ -381,8 +381,7 @@ namespace Protocolo_User_DataEntry.Repository
                 conexion.Open();
                 command.Connection = conexion;
                 command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo,fi.posicion,fi.maquina
-                                        FROM formato_item fi 
-                                        WHERE fi.sector like '%Confección%';";
+                                        FROM formato_item fi;";
 
                 using (var reader = command.ExecuteReader())
                 {

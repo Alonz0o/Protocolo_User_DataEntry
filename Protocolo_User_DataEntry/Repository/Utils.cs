@@ -17,8 +17,7 @@ namespace ProtoculoSLF.Repository
         public static string SOLOSIGNOA = @"^(ok|no ok|-)$";
         public static string SOLONUMSIGNOA = @"^(?:\d+(?:,\d{1,10})?|ok|no ok|-)$";
         public static string SOLOOP = @"^\d+\/\d+$";
-
-        
+       
         public static bool IsSoloNumerico(string input)
         {
             return Regex.IsMatch(input, SOLONUMEROS);

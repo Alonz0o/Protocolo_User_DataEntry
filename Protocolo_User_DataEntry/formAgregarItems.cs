@@ -36,6 +36,7 @@ namespace ProtoculoSLF
             GetItems();
             List<Unidad> unidades = new List<Unidad> {
                 new Unidad{ Nombre="Entero", Descripcion="n" },
+                new Unidad{ Nombre="Decimal", Descripcion="d" },
                 new Unidad{ Nombre="Milimetro", Descripcion="mm" },
                 new Unidad{ Nombre="Kilogramo", Descripcion="kg" },
                 new Unidad{ Nombre="Gramos", Descripcion="gr" },
@@ -54,6 +55,8 @@ namespace ProtoculoSLF
                 new Simbolo{ Caracter ="±",Significado="Más o menos" },
                 new Simbolo{ Caracter ="∓",Significado="Menos o más" },
                 new Simbolo{ Caracter ="-",Significado="Entre A y B" },
+                new Simbolo{ Caracter ="%",Significado="%" },
+
             };
             List<string> proceso = new List<string> {
                 "Extrusión",
