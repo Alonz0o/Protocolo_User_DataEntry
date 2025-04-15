@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Protocolo_User_DataEntry.Repository
 {
@@ -544,7 +545,7 @@ namespace Protocolo_User_DataEntry.Repository
                         Maquina pi = new Maquina
                         {
                             Nombre = reader.IsDBNull(0) ? "" : reader.GetString(0),
-                            Seleccionado = false
+                            Seleccionado = CheckState.Unchecked,
                         };
                         pis.Add(pi);
                     }

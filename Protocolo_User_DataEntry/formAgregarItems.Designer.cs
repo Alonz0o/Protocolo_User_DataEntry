@@ -51,15 +51,20 @@
             this.btnCerrarAgregar = new FontAwesome.Sharp.IconButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.rbProduccion = new System.Windows.Forms.RadioButton();
+            this.rbAuditoria = new System.Windows.Forms.RadioButton();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.cbCertificado = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.rbValor = new System.Windows.Forms.RadioButton();
             this.rbConstante = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.label1 = new System.Windows.Forms.Label();
             this.lueMaquinas = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupControl13 = new DevExpress.XtraEditors.GroupControl();
@@ -86,6 +91,9 @@
             this.gcAgregarItem.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
@@ -116,7 +124,7 @@
             this.gcAgregar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcAgregar.Location = new System.Drawing.Point(0, 0);
             this.gcAgregar.Name = "gcAgregar";
-            this.gcAgregar.Size = new System.Drawing.Size(395, 553);
+            this.gcAgregar.Size = new System.Drawing.Size(395, 623);
             this.gcAgregar.TabIndex = 4;
             this.gcAgregar.Text = "  Protocolos Ítem";
             // 
@@ -173,7 +181,7 @@
             this.tlpRealizados.Name = "tlpRealizados";
             this.tlpRealizados.RowCount = 1;
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRealizados.Size = new System.Drawing.Size(391, 528);
+            this.tlpRealizados.Size = new System.Drawing.Size(391, 598);
             this.tlpRealizados.TabIndex = 3;
             // 
             // pnlPendientes
@@ -186,7 +194,7 @@
             this.pnlPendientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPendientes.Location = new System.Drawing.Point(16, 3);
             this.pnlPendientes.Name = "pnlPendientes";
-            this.pnlPendientes.Size = new System.Drawing.Size(372, 522);
+            this.pnlPendientes.Size = new System.Drawing.Size(372, 592);
             this.pnlPendientes.TabIndex = 0;
             // 
             // gcItems
@@ -195,7 +203,7 @@
             this.gcItems.Location = new System.Drawing.Point(0, 0);
             this.gcItems.MainView = this.gvItems;
             this.gcItems.Name = "gcItems";
-            this.gcItems.Size = new System.Drawing.Size(372, 78);
+            this.gcItems.Size = new System.Drawing.Size(372, 124);
             this.gcItems.TabIndex = 1;
             this.gcItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvItems});
@@ -219,7 +227,7 @@
             this.gcConfirmar.Controls.Add(this.lblNombreVentana);
             this.gcConfirmar.Controls.Add(this.btnCerrarConfirmar);
             this.gcConfirmar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gcConfirmar.Location = new System.Drawing.Point(0, 78);
+            this.gcConfirmar.Location = new System.Drawing.Point(0, 124);
             this.gcConfirmar.Name = "gcConfirmar";
             this.gcConfirmar.Size = new System.Drawing.Size(372, 129);
             this.gcConfirmar.TabIndex = 67;
@@ -413,9 +421,9 @@
             this.gcAgregarItem.Controls.Add(this.btnCerrarAgregar);
             this.gcAgregarItem.Controls.Add(this.tableLayoutPanel2);
             this.gcAgregarItem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gcAgregarItem.Location = new System.Drawing.Point(0, 207);
+            this.gcAgregarItem.Location = new System.Drawing.Point(0, 253);
             this.gcAgregarItem.Name = "gcAgregarItem";
-            this.gcAgregarItem.Size = new System.Drawing.Size(372, 315);
+            this.gcAgregarItem.Size = new System.Drawing.Size(372, 339);
             this.gcAgregarItem.TabIndex = 68;
             this.gcAgregarItem.Text = "  Agregar protocolo ítem";
             this.gcAgregarItem.Visible = false;
@@ -452,13 +460,14 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(368, 290);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(368, 314);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // panel7
             // 
             this.panel7.AutoScroll = true;
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.panel7.Controls.Add(this.groupControl2);
             this.panel7.Controls.Add(this.groupControl3);
             this.panel7.Controls.Add(this.tableLayoutPanel5);
             this.panel7.Controls.Add(this.groupControl1);
@@ -467,8 +476,63 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(362, 284);
+            this.panel7.Size = new System.Drawing.Size(362, 308);
             this.panel7.TabIndex = 0;
+            // 
+            // groupControl2
+            // 
+            this.groupControl2.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.groupControl2.Appearance.Options.UseBorderColor = true;
+            this.groupControl2.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl2.AppearanceCaption.Options.UseFont = true;
+            this.groupControl2.Controls.Add(this.tableLayoutPanel3);
+            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControl2.Location = new System.Drawing.Point(0, 213);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(362, 47);
+            this.groupControl2.TabIndex = 79;
+            this.groupControl2.Text = "  Entrada de datos";
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.Controls.Add(this.rbProduccion, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.rbAuditoria, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 23);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(358, 22);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // rbProduccion
+            // 
+            this.rbProduccion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbProduccion.Location = new System.Drawing.Point(3, 3);
+            this.rbProduccion.Name = "rbProduccion";
+            this.rbProduccion.Size = new System.Drawing.Size(113, 16);
+            this.rbProduccion.TabIndex = 13;
+            this.rbProduccion.TabStop = true;
+            this.rbProduccion.Text = "Producción ";
+            this.rbProduccion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbProduccion.UseVisualStyleBackColor = true;
+            // 
+            // rbAuditoria
+            // 
+            this.rbAuditoria.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbAuditoria.Location = new System.Drawing.Point(122, 3);
+            this.rbAuditoria.Name = "rbAuditoria";
+            this.rbAuditoria.Size = new System.Drawing.Size(113, 16);
+            this.rbAuditoria.TabIndex = 14;
+            this.rbAuditoria.TabStop = true;
+            this.rbAuditoria.Text = "Auditoría";
+            this.rbAuditoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbAuditoria.UseVisualStyleBackColor = true;
             // 
             // groupControl3
             // 
@@ -476,13 +540,26 @@
             this.groupControl3.Appearance.Options.UseBorderColor = true;
             this.groupControl3.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupControl3.AppearanceCaption.Options.UseFont = true;
+            this.groupControl3.Controls.Add(this.cbCertificado);
             this.groupControl3.Controls.Add(this.tableLayoutPanel6);
             this.groupControl3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl3.Location = new System.Drawing.Point(0, 166);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(362, 69);
+            this.groupControl3.Size = new System.Drawing.Size(362, 47);
             this.groupControl3.TabIndex = 68;
             this.groupControl3.Text = "  Parametros";
+            // 
+            // cbCertificado
+            // 
+            this.cbCertificado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCertificado.BackColor = System.Drawing.Color.Transparent;
+            this.cbCertificado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.cbCertificado.Location = new System.Drawing.Point(261, 3);
+            this.cbCertificado.Name = "cbCertificado";
+            this.cbCertificado.Size = new System.Drawing.Size(73, 18);
+            this.cbCertificado.TabIndex = 11;
+            this.cbCertificado.Text = "Certifica";
+            this.cbCertificado.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel6
             // 
@@ -491,33 +568,20 @@
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.Controls.Add(this.cbCertificado, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.rbValor, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.rbConstante, 1, 1);
+            this.tableLayoutPanel6.Controls.Add(this.rbValor, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.rbConstante, 1, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(2, 23);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(358, 44);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(358, 22);
             this.tableLayoutPanel6.TabIndex = 0;
-            // 
-            // cbCertificado
-            // 
-            this.cbCertificado.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbCertificado.Location = new System.Drawing.Point(3, 3);
-            this.cbCertificado.Name = "cbCertificado";
-            this.cbCertificado.Size = new System.Drawing.Size(113, 16);
-            this.cbCertificado.TabIndex = 9;
-            this.cbCertificado.Text = "Certifica";
-            this.cbCertificado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbCertificado.UseVisualStyleBackColor = true;
             // 
             // rbValor
             // 
             this.rbValor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbValor.Location = new System.Drawing.Point(3, 25);
+            this.rbValor.Location = new System.Drawing.Point(3, 3);
             this.rbValor.Name = "rbValor";
             this.rbValor.Size = new System.Drawing.Size(113, 16);
             this.rbValor.TabIndex = 11;
@@ -529,7 +593,7 @@
             // rbConstante
             // 
             this.rbConstante.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbConstante.Location = new System.Drawing.Point(122, 25);
+            this.rbConstante.Location = new System.Drawing.Point(122, 3);
             this.rbConstante.Name = "rbConstante";
             this.rbConstante.Size = new System.Drawing.Size(113, 16);
             this.rbConstante.TabIndex = 12;
@@ -549,7 +613,7 @@
             this.tableLayoutPanel5.Controls.Add(this.btnAgregarItem, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.btnCancelar, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 241);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 265);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -604,6 +668,7 @@
             this.groupControl1.Appearance.Options.UseBorderColor = true;
             this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupControl1.AppearanceCaption.Options.UseFont = true;
+            this.groupControl1.Controls.Add(this.label1);
             this.groupControl1.Controls.Add(this.lueMaquinas);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 112);
@@ -612,6 +677,14 @@
             this.groupControl1.Size = new System.Drawing.Size(362, 54);
             this.groupControl1.TabIndex = 78;
             this.groupControl1.Text = "  Items para maquina/s *";
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(15, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(342, 17);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "label1";
             // 
             // lueMaquinas
             // 
@@ -622,6 +695,8 @@
             this.lueMaquinas.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.lueMaquinas.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.lueMaquinas.Properties.ItemCheck += new System.EventHandler<DevExpress.XtraEditors.Controls.ItemCheckEventArgs>(this.lueMaquinas_Properties_ItemCheck);
+            this.lueMaquinas.Properties.EditValueChanged += new System.EventHandler(this.lueMaquinas_Properties_EditValueChanged);
             this.lueMaquinas.Size = new System.Drawing.Size(358, 29);
             this.lueMaquinas.TabIndex = 11;
             // 
@@ -729,9 +804,10 @@
             // 
             this.cbMantener.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbMantener.BackColor = System.Drawing.Color.Transparent;
-            this.cbMantener.Location = new System.Drawing.Point(260, 2);
+            this.cbMantener.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.cbMantener.Location = new System.Drawing.Point(261, 2);
             this.cbMantener.Name = "cbMantener";
-            this.cbMantener.Size = new System.Drawing.Size(97, 18);
+            this.cbMantener.Size = new System.Drawing.Size(96, 18);
             this.cbMantener.TabIndex = 10;
             this.cbMantener.Text = "Fijar nombre";
             this.cbMantener.UseVisualStyleBackColor = false;
@@ -766,14 +842,14 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(7, 522);
+            this.panel11.Size = new System.Drawing.Size(7, 592);
             this.panel11.TabIndex = 1;
             // 
             // formAgregarItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(395, 553);
+            this.ClientSize = new System.Drawing.Size(395, 623);
             this.Controls.Add(this.gcAgregar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "formAgregarItems";
@@ -797,6 +873,9 @@
             this.gcAgregarItem.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
@@ -859,7 +938,12 @@
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private System.Windows.Forms.RadioButton rbValor;
         private System.Windows.Forms.RadioButton rbConstante;
-        private System.Windows.Forms.CheckBox cbCertificado;
         private DevExpress.XtraEditors.CheckedComboBoxEdit lueMaquinas;
+        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.RadioButton rbAuditoria;
+        private System.Windows.Forms.RadioButton rbProduccion;
+        private System.Windows.Forms.CheckBox cbCertificado;
+        private System.Windows.Forms.Label label1;
     }
 }

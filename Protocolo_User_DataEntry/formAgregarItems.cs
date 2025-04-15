@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -70,7 +71,6 @@ namespace ProtoculoSLF
             maquinas = FormVistaAuditor.instancia.br.GetMaquinas();
             lueMaquinas.Properties.DataSource = maquinas;
             lueMaquinas.Properties.RefreshDataSource();
-
         }
         private void GetItems()
         {
@@ -482,6 +482,54 @@ namespace ProtoculoSLF
                 }
                 e.Handled = true;
             }
+        }
+
+        string nombreItem = "";
+
+        private void ActualizarEtiqueta()
+        {
+
+            var seleccionados = lueMaquinas.Properties.Items
+                             .Cast<CheckedListBoxItem>()
+                             .Where(x => x.CheckState == CheckState.Checked)
+                             .Select(x => x.Value.ToString())
+                             .ToList();
+
+            HashSet<string> etiquetas = new HashSet<string>();
+
+            foreach (var item in seleccionados)
+            {
+                string categoria = DetectarCategoria(item);
+                if (categoria != "Desconocido")
+                    etiquetas.Add(categoria);
+            }
+
+            label1.Text = string.Join(", ", etiquetas);
+
+        }
+        private string DetectarCategoria(string item)
+        {
+            if (item.StartsWith("Wick")) return "Wicket";
+            if (item == "Italiana" || item.StartsWith("Manual") || item.StartsWith("Poli") || item.StartsWith("Rappard")) return "Confeccion";
+            if (int.TryParse(item, out _)) return "Extrusion";
+            if (item.StartsWith("Rebobinadora")) return "Rebobinado";
+
+            return "Desconocido";
+        }
+
+        private void lueMaquinas_Properties_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
+        {
+            ActualizarEtiqueta();
+        }
+
+        private void Properties_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void lueMaquinas_Properties_EditValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
