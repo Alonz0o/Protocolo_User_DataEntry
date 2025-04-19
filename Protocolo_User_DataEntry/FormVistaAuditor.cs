@@ -81,7 +81,6 @@ namespace Protocolo_User_DataEntry
 
             gcItemsValor.AllowDrop = true;
 
-            gvItemsValor.MouseMove += GridView1_MouseMove;
             gcItemsValor.DragOver += GridView1_DragOver;
             gcItemsValor.DragDrop += GridView1_DragDrop;
 
@@ -107,14 +106,6 @@ namespace Protocolo_User_DataEntry
                 return index != -1 ? index : 0;
             }
             return 0;
-        }
-
-        private void GridView1_MouseMove(object sender, MouseEventArgs e)
-        {
-            //if (e.Button == MouseButtons.Left)
-            //{
-            //    gvItemsValor.GridControl.DoDragDrop(gvItemsValor.GetFocusedRow(), DragDropEffects.Move);
-            //}
         }
 
         private void GridView1_DragOver(object sender, DragEventArgs e)
@@ -223,12 +214,12 @@ namespace Protocolo_User_DataEntry
             cTurno.UnboundDataType = typeof(string);
             cTurno.OptionsColumn.AllowEdit = false;
 
-            //GridColumn cIdEnsayo = new GridColumn();
-            //cIdEnsayo.FieldName = "IdEnsayo";
-            //cIdEnsayo.Caption = "Ensayo N°";
-            //cIdEnsayo.UnboundDataType = typeof(int);
-            //cIdEnsayo.OptionsColumn.AllowEdit = false;
-            //cIdEnsayo.Visible = true;
+            GridColumn cLegajo = new GridColumn();
+            cLegajo.FieldName = "Legajo";
+            cLegajo.Caption = "Leg N°";
+            cLegajo.UnboundDataType = typeof(int);
+            cLegajo.OptionsColumn.AllowEdit = false;
+            cLegajo.Visible = true;
 
             GridColumn cNumPaquete = new GridColumn();
             cNumPaquete.FieldName = "PaqueteNum";
@@ -237,7 +228,7 @@ namespace Protocolo_User_DataEntry
             cNumPaquete.OptionsColumn.AllowEdit = false;
             cNumPaquete.Visible = true;
 
-            gvEnsayos.Columns.AddRange(new GridColumn[] { cId, cNombre, cValor, cCreado, cTurno, cNumPaquete /*cIdEnsayo*/ });
+            gvEnsayos.Columns.AddRange(new GridColumn[] { cId, cNombre, cLegajo, cValor, cCreado, cTurno, cNumPaquete });
             gcEnsayos.DataSource = ensayos;
             gvEnsayos.Columns["Creado"].DisplayFormat.FormatString = "dd/MM/yyyy HH:mm";
             GridColumnSortInfo[] sortInfo = {

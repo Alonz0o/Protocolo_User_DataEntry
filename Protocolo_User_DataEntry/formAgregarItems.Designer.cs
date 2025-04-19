@@ -492,6 +492,7 @@
             this.groupControl2.Size = new System.Drawing.Size(362, 47);
             this.groupControl2.TabIndex = 79;
             this.groupControl2.Text = "  Entrada de datos";
+            this.groupControl2.Visible = false;
             // 
             // tableLayoutPanel3
             // 
@@ -689,11 +690,16 @@
             // lueMaquinas
             // 
             this.lueMaquinas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lueMaquinas.EditValue = "";
             this.lueMaquinas.Location = new System.Drawing.Point(2, 23);
             this.lueMaquinas.Name = "lueMaquinas";
             this.lueMaquinas.Properties.AutoHeight = false;
             this.lueMaquinas.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lueMaquinas.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("valon01"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("valon02"),
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("valon03")});
             this.lueMaquinas.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.lueMaquinas.Properties.ItemCheck += new System.EventHandler<DevExpress.XtraEditors.Controls.ItemCheckEventArgs>(this.lueMaquinas_Properties_ItemCheck);
             this.lueMaquinas.Properties.EditValueChanged += new System.EventHandler(this.lueMaquinas_Properties_EditValueChanged);

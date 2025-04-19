@@ -40,11 +40,14 @@ namespace ProtoculoSLF
                 new Unidad{ Nombre="Decimal", Descripcion="d" },
                 new Unidad{ Nombre="Milimetro", Descripcion="mm" },
                 new Unidad{ Nombre="Kilogramo", Descripcion="kg" },
+                new Unidad{ Nombre="KG/pulgada", Descripcion="kg/in" },
                 new Unidad{ Nombre="Gramos", Descripcion="gr" },
                 new Unidad{ Nombre="Micron", Descripcion="µm" },
                 new Unidad{ Nombre="Porcentaje", Descripcion="%" },
                 new Unidad{ Nombre="Pulgada", Descripcion="in" },
                 new Unidad{ Nombre="Fuelle", Descripcion="f" },
+                new Unidad{ Nombre="Sin Unidad", Descripcion="SU" },
+
             };
             List<Simbolo> simbolos = new List<Simbolo> {
                 new Simbolo{ Caracter ="=",Significado="Igual a" },
@@ -510,6 +513,8 @@ namespace ProtoculoSLF
         private string DetectarCategoria(string item)
         {
             if (item.StartsWith("Wick")) return "Wicket";
+            if (item.StartsWith("valo")) return "Prueba";
+
             if (item == "Italiana" || item.StartsWith("Manual") || item.StartsWith("Poli") || item.StartsWith("Rappard")) return "Confeccion";
             if (int.TryParse(item, out _)) return "Extrusion";
             if (item.StartsWith("Rebobinadora")) return "Rebobinado";
@@ -519,7 +524,18 @@ namespace ProtoculoSLF
 
         private void lueMaquinas_Properties_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
         {
-            ActualizarEtiqueta();
+            foreach (CheckedListBoxItem item in lueMaquinas.Properties.Items)
+            {
+                var maquina = item.Value as Maquina;
+                if (maquina != null)
+                {
+                    if (item.CheckState == CheckState.Checked) {
+                        maquinas.FirstOrDefault(m => m.Nombre == maquina.Nombre).Seleccionado = true;
+                    }
+                }
+            }
+            var pp = 0;
+            //ActualizarEtiqueta();
         }
 
         private void Properties_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)

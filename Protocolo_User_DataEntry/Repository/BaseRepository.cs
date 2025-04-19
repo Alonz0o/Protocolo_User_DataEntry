@@ -545,7 +545,7 @@ namespace Protocolo_User_DataEntry.Repository
                         Maquina pi = new Maquina
                         {
                             Nombre = reader.IsDBNull(0) ? "" : reader.GetString(0),
-                            Seleccionado = CheckState.Unchecked,
+                            Seleccionado = false,
                         };
                         pis.Add(pi);
                     }
@@ -787,7 +787,7 @@ namespace Protocolo_User_DataEntry.Repository
                 command.Connection = conexion;
                 if (esPorPaquete != 0)
                 {
-                    command.CommandText = @"SELECT fi.nombre,fiv.valor,fe.creado,fiv.id_bobina_madre,fe.turno,fi.constante,fiv.valor_constante,fiv.id_ensayo,fe.paquete_numero
+                    command.CommandText = @"SELECT fi.nombre,fiv.valor,fe.creado,fiv.id_bobina_madre,fe.turno,fi.constante,fiv.valor_constante,fiv.id_ensayo,fe.paquete_numero,fe.legajo
                                             FROM formato_ensayo_auditor fe
 											JOIN formato_item_valor_auditor fiv ON fe.id = fiv.id_ensayo
                                             JOIN formato_item fi ON fiv.id_item = fi.id
@@ -795,7 +795,7 @@ namespace Protocolo_User_DataEntry.Repository
                 }
                 else
                 {
-                    command.CommandText = @"SELECT fi.nombre,fiv.valor,fe.creado,fiv.id_bobina_madre,fe.turno,fi.constante,fiv.valor_constante,fiv.id_ensayo,fe.paquete_numero
+                    command.CommandText = @"SELECT fi.nombre,fiv.valor,fe.creado,fiv.id_bobina_madre,fe.turno,fi.constante,fiv.valor_constante,fiv.id_ensayo,fe.paquete_numero,fe.legajo
                                             FROM formato_ensayo_auditor fe
 											JOIN formato_item_valor_auditor fiv ON fe.id = fiv.id_ensayo
                                             JOIN formato_item fi ON fiv.id_item = fi.id
@@ -821,6 +821,7 @@ namespace Protocolo_User_DataEntry.Repository
                             Turno = reader.IsDBNull(4) ? "" : reader.GetString(4),
                             IdEnsayo = reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
                             PaqueteNum = reader.IsDBNull(8) ? 0 : reader.GetInt32(8),
+                            Legajo = reader.IsDBNull(9) ? 0 : reader.GetInt32(9),
                         };
                         pis.Add(pi);
                     }
