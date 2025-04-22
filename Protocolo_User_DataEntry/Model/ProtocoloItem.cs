@@ -10,7 +10,7 @@ namespace Protocolo_User_DataEntry.Model
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string Proceso { get; set; }
+        public string Sector { get; set; }
         public string Medida { get; set; }
         public string Auditor { get; set; }
         public string Simbolo { get; set; }
@@ -31,6 +31,7 @@ namespace Protocolo_User_DataEntry.Model
         public int IdEnsayo { get; set; }
         public int Legajo { get; set; }
         public int PaqueteNum { get; set; }
+        public string EntradaDatos { get; set; }
         public string OP { get; set; }
         public string Turno { get; set; }
         public string Maquina { get; set; }

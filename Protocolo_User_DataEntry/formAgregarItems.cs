@@ -1,6 +1,8 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.XtraBars.Alerter;
+using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraExport.Xls;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using Protocolo_User_DataEntry;
@@ -16,6 +18,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace ProtoculoSLF
@@ -148,8 +151,8 @@ namespace ProtoculoSLF
             gcItems.DataSource = items;
 
             RepositoryItemButtonEdit botonBorrar = new RepositoryItemButtonEdit();
-            botonBorrar.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
-            botonBorrar.Buttons[0].Kind = DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph;
+            botonBorrar.TextEditStyle = TextEditStyles.HideTextEditor;
+            botonBorrar.Buttons[0].Kind = ButtonPredefines.Glyph;
             botonBorrar.Buttons[0].Image = Protocolo_User_DataEntry.Properties.Resources.clear_16x16;
             gcItems.RepositoryItems.Add(botonBorrar);
             gvItems.Columns["FNBorrar"].ColumnEdit = botonBorrar;
@@ -181,8 +184,8 @@ namespace ProtoculoSLF
             };
 
             RepositoryItemButtonEdit botonModificar = new RepositoryItemButtonEdit();
-            botonModificar.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
-            botonModificar.Buttons[0].Kind = DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph;
+            botonModificar.TextEditStyle = TextEditStyles.HideTextEditor;
+            botonModificar.Buttons[0].Kind = ButtonPredefines.Glyph;
             botonModificar.Buttons[0].Image = Protocolo_User_DataEntry.Properties.Resources.editname_16x16;
             gcItems.RepositoryItems.Add(botonModificar);
             gvItems.Columns["FNModificar"].ColumnEdit = botonModificar;
@@ -218,14 +221,13 @@ namespace ProtoculoSLF
                                 lueMaquinas.Properties.Items.OfType<CheckedListBoxItem>().ToList().ForEach(item => item.CheckState = CheckState.Unchecked);
                             }
 
-                            if (pi.EsValor) rbValor.Checked = true;
                             if (pi.EsConstante) rbConstante.Checked = true;
-                            else
-                            {
-                                rbValor.Checked = true;
-                            }
+                            else rbValor.Checked = true;
+                            
                             btnAgregarItem.Text = "Modificar";
                             gcAgregarItem.Text = "  Modificar protocolo ítem";
+                            if (pi.EntradaDatos.Contains("auditoria")) cbAuditoria.Checked = true;
+                            if (pi.EntradaDatos.Contains("produccion")) cbProduccion.Checked = true;
 
                             protocoloItemSeleccionado = pi;
 
@@ -291,9 +293,20 @@ namespace ProtoculoSLF
 
         private bool ValidarFormularioItems()
         {
+            piAgregar = new ProtocoloItem();
+            piAgregar.Id = protocoloItemSeleccionado.Id;
+
+            var legajo = FormVistaAuditor.instancia.legajo;
+            piAgregar.Auditor = legajo;
+            if (legajo == "")
+            {
+                MostrarNotificacionAgregarItem("Debe seleccionar Auditor para agregar o modificar item.");
+                return false;
+            }
+
             if (string.IsNullOrEmpty(tbNombre.Texts))
             {
-                MostrarNotificacion("Debe introducir nombre de control");
+                MostrarNotificacionAgregarItem("Debe introducir nombre de control");
                 tbNombre.Focus();
                 return false;
             }
@@ -304,8 +317,7 @@ namespace ProtoculoSLF
                 var lueSimboloA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
                 if (lueSimboloA == null)
                 {
-                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar símbolo.");
-                    noti.Show();
+                    MostrarNotificacionAgregarItem("Debe seleccionar símbolo.");
                     lueItemSimbolos.Focus();
                     return false;
                 }
@@ -313,7 +325,7 @@ namespace ProtoculoSLF
                 var lueUnidadA = lueItemUnidades.GetSelectedDataRow() as Unidad;
                 if (lueUnidadA == null)
                 {
-                    MostrarNotificacion("Debe seleccionar Unidad.");
+                    MostrarNotificacionAgregarItem("Debe seleccionar Unidad.");
                     lueItemUnidades.Focus();
                     return false;
                 }
@@ -323,15 +335,32 @@ namespace ProtoculoSLF
 
             if (string.IsNullOrEmpty(lueMaquinas.Text))
             {
-                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar al menos un proceso.");
-                noti.Show();
+                MostrarNotificacionAgregarItem("Debe seleccionar al menos una maquina.");
                 lueMaquinas.Focus();
+                return false;
+            }           
+            piAgregar.Sector = ActualizarEtiqueta();
+
+            string maqSeleccionadas = string.Join(",", lueMaquinas.Properties.GetCheckedItems()
+                          .ToString()
+                          .Split(',')
+                          .Select(item => item.Trim()));
+
+            piAgregar.Maquina = maqSeleccionadas;
+
+            if (cbAuditoria.Checked == false && cbProduccion.Checked==false)
+            {
+                MostrarNotificacionAgregarItem("Debe seleccionar entrada de datos.");
+                cbAuditoria.Focus();
                 return false;
             }
 
+            piAgregar.EsCertificado = cbCertificado.Checked;
+            piAgregar.EsConstante = rbConstante.Checked;
+            piAgregar.EntradaDatos = ActualizarLabel();
             return true;
         }
-        private void MostrarNotificacion(string mensaje)
+        private void MostrarNotificacionAgregarItem(string mensaje)
         {
             formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", mensaje);
             noti.Show();
@@ -340,26 +369,8 @@ namespace ProtoculoSLF
         ProtocoloItem piAgregar = new ProtocoloItem();
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
-        {         
-            var legajo = FormVistaAuditor.instancia.legajo;
-            piAgregar = new ProtocoloItem();
+        {
             if (!ValidarFormularioItems()) return;
-            piAgregar.EsCertificado = cbCertificado.Checked;
-            piAgregar.EsConstante = rbConstante.Checked;
-            if (legajo == "")
-            {
-                MessageBox.Show("Debe seleccionar Auditor para agregar o modificar item.");
-                return;
-            }
-
-            piAgregar.Auditor = legajo;
-            string maqSeleccionadas = string.Join(",", lueMaquinas.Properties.GetCheckedItems()
-                                .ToString()
-                                .Split(',')
-                                .Select(item => item.Trim()));
-
-
-            piAgregar.Maquina = maqSeleccionadas;
 
             if (confirmar == "UPDATEITEM")
             {
@@ -384,6 +395,15 @@ namespace ProtoculoSLF
             }
 
         }
+
+        private string ActualizarLabel()
+        {
+            List<string> textos = new List<string>();
+            if (cbProduccion.Checked) textos.Add("produccion");
+            if (cbAuditoria.Checked) textos.Add("auditoria");
+            return string.Join(",", textos);
+        }
+
         private void LimpiarFormularioAgregarItem()
         {
             gcAgregarItem.Text = "  Agregar protocolo ítem";
@@ -399,25 +419,12 @@ namespace ProtoculoSLF
         {
             if (confirmar == "UPDATEITEM")
             {
-                piAgregar = new ProtocoloItem();
                 if (!ValidarFormularioItems()) return;
-
                 if (!FormVistaAuditor.instancia.br.GetNombreItemDuplicado(piAgregar.Nombre.Trim().ToLower()) && !cbMantener.Checked)
                 {
-                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "El nombre de control esta en uso, seleccione 'Fijar nombre' si no desea modificar el nombre.");
-                    noti.Show();
+                    MostrarNotificacionAgregarItem("El nombre de control esta en uso, seleccione 'Fijar nombre' si no desea modificar el nombre.");
                     return;
                 }
-
-                piAgregar.EsCertificado = cbCertificado.Checked;
-                piAgregar.EsConstante = rbConstante.Checked;
-                piAgregar.Id = protocoloItemSeleccionado.Id;
-
-                string maqSeleccionadas = string.Join(",", lueMaquinas.Properties.GetCheckedItems()
-                                .ToString()
-                                .Split(',')
-                                .Select(item => item.Trim()));
-                piAgregar.Maquina = maqSeleccionadas;
 
                 if (FormVistaAuditor.instancia.br.UpdateItem("NO", piAgregar))
                 {
@@ -425,8 +432,7 @@ namespace ProtoculoSLF
                     noti.Show();
                     gcConfirmar.Visible = false;
                     GetItems();
-                    LimpiarFormularioAgregarItem();
-                    
+                    LimpiarFormularioAgregarItem();                 
                 }
             }
 
@@ -486,12 +492,8 @@ namespace ProtoculoSLF
                 e.Handled = true;
             }
         }
-
-        string nombreItem = "";
-
-        private void ActualizarEtiqueta()
+        private string ActualizarEtiqueta()
         {
-
             var seleccionados = lueMaquinas.Properties.Items
                              .Cast<CheckedListBoxItem>()
                              .Where(x => x.CheckState == CheckState.Checked)
@@ -506,46 +508,18 @@ namespace ProtoculoSLF
                 if (categoria != "Desconocido")
                     etiquetas.Add(categoria);
             }
-
-            label1.Text = string.Join(", ", etiquetas);
+            return string.Join(",", etiquetas);
 
         }
         private string DetectarCategoria(string item)
         {
-            if (item.StartsWith("Wick")) return "Wicket";
-            if (item.StartsWith("valo")) return "Prueba";
-
-            if (item == "Italiana" || item.StartsWith("Manual") || item.StartsWith("Poli") || item.StartsWith("Rappard")) return "Confeccion";
-            if (int.TryParse(item, out _)) return "Extrusion";
-            if (item.StartsWith("Rebobinadora")) return "Rebobinado";
+            if (int.TryParse(item, out _)) return "extrusion";
+            if (item == "Comexi" || item == "MG") return "impresion";
+            if (item.StartsWith("Wick")) return "wicket";
+            if (item == "Italiana" || item.StartsWith("Manual") || item == "Polimaquina"|| item == "Molinete" || item.StartsWith("Rappard") || item == "Rudra") return "confeccion";
+            if (item.StartsWith("Rebobinadora") || item == "MegaSteel") return "rebobinado";
 
             return "Desconocido";
-        }
-
-        private void lueMaquinas_Properties_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
-        {
-            foreach (CheckedListBoxItem item in lueMaquinas.Properties.Items)
-            {
-                var maquina = item.Value as Maquina;
-                if (maquina != null)
-                {
-                    if (item.CheckState == CheckState.Checked) {
-                        maquinas.FirstOrDefault(m => m.Nombre == maquina.Nombre).Seleccionado = true;
-                    }
-                }
-            }
-            var pp = 0;
-            //ActualizarEtiqueta();
-        }
-
-        private void Properties_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void lueMaquinas_Properties_EditValueChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -48,34 +48,100 @@ namespace Protocolo_User_DataEntry.Repository
             return us;
         }
 
-        internal Especificacion GetFichaTecnicaConfeccionAncho(int idCodigo)
+        internal Especificacion GetFichaTecnicaAnchoBolsa(int idCodigo, int ultimoproceso)
         {
+            string Qry = string.Empty;
             Especificacion esp = new Especificacion();
-
             using (var conexion = new MySqlConnection(connectionString))
             using (var command = new MySqlCommand())
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT ancho,ancho_min,ancho_max
+                if (ultimoproceso == 3)
+                {
+                    Qry = @"SELECT ancho,ancho_min,ancho_max
                                         FROM confeccion 
                                         WHERE idcodigo = @pIdCodigo;";
+                }
+                if (ultimoproceso == 5)
+                {
+                    Qry = @"SELECT c.ancho,cw.ancho_bolsat,cw.ancho_bolsat
+                                        FROM confeccion c
+                                        JOIN confeccion_wicketera cw ON c.idcodigo= cw.Idcodigo
+                                        WHERE c.idcodigo = @pIdCodigo;";
+                }
+                command.CommandText = Qry;
                 command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
-                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1) * 10;
-                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2) * 10;
+                        switch (ultimoproceso)
+                        {
+                            case 3:
+                                esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                                esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1) * 10;
+                                esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2) * 10;
+                                break;
+
+                            case 5:
+                                esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                                esp.Minimo = reader.IsDBNull(1) ? 0.0 : Convert.ToDouble(reader.GetInt32(1));
+                                esp.Maximo = reader.IsDBNull(2) ? 0.0 : Convert.ToDouble(reader.GetInt32(2));
+                                break;
+                        }
                     }
-
                 }
-
                 return esp;
             }
         }
+        internal Especificacion GetFichaTecnicaLargoBolsa(int idCodigo,int ultimoproceso)
+        {
+            string Qry = string.Empty;
+            Especificacion esp = new Especificacion();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                if (ultimoproceso == 3)
+                {
+                    Qry = @"SELECT largo,largo_min,largo_max
+                                        FROM confeccion 
+                                        WHERE idcodigo = @pIdCodigo;";
+                }
+                if (ultimoproceso == 5)
+                {
+                    Qry = @"SELECT c.largo,cw.largo_bolsat,cw.largo_bolsat
+                                        FROM confeccion c
+                                        JOIN confeccion_wicketera cw ON c.idcodigo= cw.Idcodigo
+                                        WHERE c.idcodigo = @pIdCodigo;";
+                }
+                command.CommandText = Qry;
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        switch (ultimoproceso)
+                        {
+                            case 3:
+                                esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                                esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1) * 10;
+                                esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2) * 10;
+                                break;
 
+                            case 5:
+                                esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                                esp.Minimo = reader.IsDBNull(1) ? 0.0 : Convert.ToDouble(reader.GetInt32(1));
+                                esp.Maximo = reader.IsDBNull(2) ? 0.0 : Convert.ToDouble(reader.GetInt32(2));
+                                break;
+                        }
+                    }
+                }
+                return esp;
+            }
+        }
         internal Muestreo VerificarMuestreo(int idOrden, int aConfeccionar)
         {
             Muestreo m = new Muestreo();
@@ -105,33 +171,7 @@ namespace Protocolo_User_DataEntry.Repository
             return m;
         }
 
-        internal Especificacion GetFichaTecnicaConfeccionLargo(int idCodigo)
-        {
-            Especificacion esp = new Especificacion();
-
-            using (var conexion = new MySqlConnection(connectionString))
-            using (var command = new MySqlCommand())
-            {
-                conexion.Open();
-                command.Connection = conexion;
-                command.CommandText = @"SELECT largo,largo_min,largo_max
-                                        FROM confeccion 
-                                        WHERE idcodigo = @pIdCodigo;";
-                command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
-                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1) * 10;
-                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2) * 10;
-                    }
-
-                }
-
-                return esp;
-            }
-        }
+       
         internal Codigo GetDatosDelCodigo(int idCodigo)
         {
             Codigo pis = new Codigo();
@@ -218,7 +258,7 @@ namespace Protocolo_User_DataEntry.Repository
                             Medida = reader.IsDBNull(2) ? "" : reader.GetString(2),
                             EsCertificado = reader.IsDBNull(3) ? false : Convert.ToBoolean(reader.GetInt32(3)),
                             Simbolo = reader.IsDBNull(4) ? "" : reader.GetString(4),
-                            Proceso = reader.IsDBNull(5) ? "" : reader.GetString(5),
+                            Sector = reader.IsDBNull(5) ? "" : reader.GetString(5),
                             Especificacion = reader[6] != DBNull.Value ? reader.GetDouble(6) : 0.0,
                             EspecificacionMin = reader[7] != DBNull.Value ? reader.GetDouble(7) : 0.0,
                             EspecificacionMax = reader[8] != DBNull.Value ? reader.GetDouble(8) : 0.0,
@@ -230,6 +270,49 @@ namespace Protocolo_User_DataEntry.Repository
                 }
             }
             return pis;
+        }
+        internal bool AgregarItem(ProtocoloItem pi)
+        {
+            bool res = false;
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var transaction = conexion.BeginTransaction())
+                {
+                    using (var command = conexion.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        try
+                        {
+                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante,simbolo,maquina,datos_entrantes) 
+                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante,@pSimbolo,@pMaquina,@pEntradaDatos); SELECT LAST_INSERT_ID();";
+                            command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
+                            command.Parameters.Add("@pUnidad", MySqlDbType.String).Value = pi.Medida;
+                            command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = pi.Auditor;
+                            command.Parameters.Add("@pCertifica", MySqlDbType.Int32).Value = pi.EsCertificado;
+                            command.Parameters.Add("@pConstante", MySqlDbType.Int32).Value = pi.EsConstante;
+                            command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
+                            command.Parameters.Add("@pMaquina", MySqlDbType.String).Value = pi.Maquina;
+                            command.Parameters.Add("@pEntradaDatos", MySqlDbType.String).Value = pi.EntradaDatos;
+
+                            if (command.ExecuteNonQuery() != 1)
+                            {
+                                throw new Exception("Error al insertar itemProtocolo");
+                            }
+
+                            transaction.Commit();
+                            res = true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            res = false;
+                        }
+                    }
+                }
+            }
+
+            return res;
         }
 
         internal bool UpdateItem(string qryUpdate, ProtocoloItem pi)
@@ -251,7 +334,8 @@ namespace Protocolo_User_DataEntry.Repository
                                                                             certifica = @pCertifica,
                                                                             constante = @pConstante,
                                                                             simbolo = @pSimbolo,
-                                                                            maquina = @pMaquina                                                                                     
+                                                                            maquina = @pMaquina,
+                                                                            datos_entrantes = @pEntradaDatos
                                                                             WHERE id = (@pId);";
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
                             command.Parameters.Add("@pMedida", MySqlDbType.String).Value = pi.Medida;
@@ -261,6 +345,8 @@ namespace Protocolo_User_DataEntry.Repository
                             command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
                             command.Parameters.Add("@pMaquina", MySqlDbType.Double).Value = pi.Maquina;
                             command.Parameters.Add("@pId", MySqlDbType.Int32).Value = pi.Id;
+                            command.Parameters.Add("@pEntradaDatos", MySqlDbType.String).Value = pi.EntradaDatos;
+
                             if (command.ExecuteNonQuery() != 1)
                             {
                                 throw new Exception("Error al modificar ITEM");
@@ -381,7 +467,7 @@ namespace Protocolo_User_DataEntry.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo,fi.posicion,fi.maquina
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo,fi.posicion,fi.maquina,fi.datos_entrantes
                                         FROM formato_item fi;";
 
                 using (var reader = command.ExecuteReader())
@@ -400,6 +486,7 @@ namespace Protocolo_User_DataEntry.Repository
                             Simbolo = reader.IsDBNull(5) ? "" : reader.GetString(5),
                             Posicion = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
                             Maquina = reader.IsDBNull(7) ? "" : reader.GetString(7),
+                            EntradaDatos = reader.IsDBNull(8) ? "" : reader.GetString(8),
                         };
                         if (pi.Id == 9) {
                             pi.EspecificacionDato = FormVistaAuditor.instancia.espAncho.Medio + "±" + FormVistaAuditor.instancia.espAncho.Maximo;
@@ -415,7 +502,7 @@ namespace Protocolo_User_DataEntry.Repository
             return pis;
         }
 
-        internal List<ProtocoloItem> GetItemsPorMaquina(string maquina)
+        internal List<ProtocoloItem> GetItemsPorMaquina(string maquina,string datosEntrantes)
         {
             List<ProtocoloItem> pis = new List<ProtocoloItem>();
             using (var conexion = new MySqlConnection(connectionString))
@@ -425,7 +512,7 @@ namespace Protocolo_User_DataEntry.Repository
                 command.Connection = conexion;
                 command.CommandText = $@"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo,fi.posicion,fi.sector
                                         FROM formato_item fi 
-                                        WHERE fi.maquina like '%{maquina}%';";
+                                        WHERE fi.maquina LIKE '%{maquina}%' AND fi.datos_entrantes LIKE '%{datosEntrantes}%';";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -441,7 +528,7 @@ namespace Protocolo_User_DataEntry.Repository
                             EsCertificadoSiNo = esCertificado ? "SI" : "NO",
                             Simbolo = reader.IsDBNull(5) ? "" : reader.GetString(5),
                             Posicion = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
-                            Proceso = reader.IsDBNull(7) ? "" : reader.GetString(7),
+                            Sector = reader.IsDBNull(7) ? "" : reader.GetString(7),
                         };
                         if (pi.Id == 9)
                         {
@@ -721,6 +808,18 @@ namespace Protocolo_User_DataEntry.Repository
             }
             return idProtocoloItem;
         }
+        internal int GetCodigoUltimoProceso(int idCodigo)
+        {
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT ultimoproceso FROM extrusion WHERE idcodigo = @pIdCodigo;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idCodigo;
+                return Convert.ToInt32(command.ExecuteScalar() ?? "0");
+            }
+        }
         internal bool GetNombreItemDuplicado(string nombre)
         {
             using (var conexion = new MySqlConnection(connectionString))
@@ -735,48 +834,7 @@ namespace Protocolo_User_DataEntry.Repository
                 else return false;
             }
         }
-        internal bool AgregarItem(ProtocoloItem pi)
-        {
-            bool res = false;
-            using (var conexion = new MySqlConnection(connectionString))
-            {
-                conexion.Open();
-                using (var transaction = conexion.BeginTransaction())
-                {
-                    using (var command = conexion.CreateCommand())
-                    {
-                        command.Transaction = transaction;
-                        try
-                        {
-                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante,simbolo,maquina) 
-                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante,@pSimbolo,@pMaquina); SELECT LAST_INSERT_ID();";
-                            command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
-                            command.Parameters.Add("@pUnidad", MySqlDbType.String).Value = pi.Medida;
-                            command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = pi.Auditor;
-                            command.Parameters.Add("@pCertifica", MySqlDbType.Int32).Value = pi.EsCertificado;
-                            command.Parameters.Add("@pConstante", MySqlDbType.Int32).Value = pi.EsConstante;
-                            command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
-                            command.Parameters.Add("@pMaquina", MySqlDbType.String).Value = pi.Maquina;
-
-                            if (command.ExecuteNonQuery() != 1)
-                            {
-                                throw new Exception("Error al insertar itemProtocolo");
-                            }
-
-                            transaction.Commit();
-                            res = true;
-                        }
-                        catch (Exception)
-                        {
-                            transaction.Rollback();
-                            res = false;
-                        }
-                    }
-                }
-            }
-
-            return res;
-        }
+       
         internal List<ProtocoloItem> GetEnsayosPorPaqueteAuditoria(string op, int numPaquete, int esPorPaquete)
         {
             List<ProtocoloItem> pis = new List<ProtocoloItem>();

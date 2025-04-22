@@ -21,7 +21,9 @@ namespace Protocolo_User_DataEntry
         public string legajo = "";
         List<ProtocoloItem> ensayos = new List<ProtocoloItem>();
         OP opSeleccionada = new OP();
-
+        private List<ProtocoloItem> items = new List<ProtocoloItem>();
+        public Especificacion espAncho = new Especificacion();
+        public Especificacion espLargo = new Especificacion();
         private void lueMaquina_EditValueChanged(object sender, EventArgs e)
         {
             var ops = br.GetOps(lueMaquina.Text);
@@ -29,7 +31,11 @@ namespace Protocolo_User_DataEntry
             {
                 MessageBox.Show("Esta maquina no tiene ordenes de produccion.");
                 groupControl1.Enabled = false;
-
+                groupControl4.Enabled = false;
+                groupControl4.Text = "Objeto";
+                lueOP.Properties.DataSource = ops;
+                tbNumPaquete.Texts = "";
+                gcItemsValor.DataSource = null;
             }
             else
             {
@@ -45,16 +51,29 @@ namespace Protocolo_User_DataEntry
                 MessageBox.Show("Debe ingresar OP.");
                 return;
             }
+            var ultimoProceso = br.GetCodigoUltimoProceso(opSeleccionada.Codigo);
 
-            var paquetes = br.GetPaquetesPorOP(opSeleccionada.CantProduccion);
+            VerificarObjetoEnsayado(ultimoProceso);
+          
             lblTitulo.Text = "Ensayo para: " + lueOP.Text;
             groupControl4.Enabled = true;
-            espAncho = br.GetFichaTecnicaConfeccionAncho(opSeleccionada.Codigo);
-            espLargo = br.GetFichaTecnicaConfeccionLargo(opSeleccionada.Codigo);
+            espAncho = br.GetFichaTecnicaAnchoBolsa(opSeleccionada.Codigo, ultimoProceso);
+            espLargo = br.GetFichaTecnicaLargoBolsa(opSeleccionada.Codigo, ultimoProceso);
             GetItems(lueMaquina.Text);
 
 
         }
+
+        private void VerificarObjetoEnsayado(int ultimoProceso)
+        {
+            groupControl4.Text = ultimoProceso == 1 ? "Bobina Extrusión N°" :
+                                 ultimoProceso == 2 ? "Bobina Impresión N°" :
+                                 ultimoProceso == 3 ? "Bulto N°" :
+                                 ultimoProceso == 4 ? "Bobina Rebobinado N°" :
+                                 ultimoProceso == 5 ? "Caja N°" : "Otros";
+
+        }
+
         private void EsconderTab(TabControl tabControl)
         {
             tabControl.Appearance = TabAppearance.FlatButtons;
@@ -62,9 +81,7 @@ namespace Protocolo_User_DataEntry
             tabControl.SizeMode = TabSizeMode.Fixed;
         }
 
-        private List<ProtocoloItem> items = new List<ProtocoloItem>();
-        public Especificacion espAncho = new Especificacion();
-        public Especificacion espLargo = new Especificacion();
+      
         public FormVistaAuditor()
         {
             InitializeComponent();
@@ -74,16 +91,6 @@ namespace Protocolo_User_DataEntry
             lueMaquina.Properties.DataSource = br.GetMaquinas().OrderBy(e => e.Nombre);
             lueLegAuditor.Properties.DataSource = br.GetAuditores();
             EsconderTab(tcItemDatos);
-
-            // Habilitar arrastrar y soltar
-            gvItemsValor.GridControl.AllowDrop = true;
-            gvItemsValor.OptionsSelection.MultiSelect = false;
-
-            gcItemsValor.AllowDrop = true;
-
-            gcItemsValor.DragOver += GridView1_DragOver;
-            gcItemsValor.DragDrop += GridView1_DragDrop;
-
             List<string> turnos = new List<string> {
                 "F",
                 "A",
@@ -107,7 +114,16 @@ namespace Protocolo_User_DataEntry
             }
             return 0;
         }
-
+        private int BuscarMaquinaIndex(string maquina)
+        {
+            var dataSource = lueMaquina.Properties.DataSource as List<Maquina>;
+            if (dataSource != null)
+            {
+                var index = dataSource.FindIndex(e => maquina == e.Nombre);
+                return index != -1 ? index : 0;
+            }
+            return 0;
+        }
         private void GridView1_DragOver(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
@@ -240,7 +256,7 @@ namespace Protocolo_User_DataEntry
         }
         private void GetItems(string maquina)
         {
-            items = br.GetItemsPorMaquina(maquina).OrderBy(e => e.Posicion).ToList();
+            items = br.GetItemsPorMaquina(maquina,"auditoria").OrderBy(e => e.Posicion).ToList();
             gcItemsValor.DataSource = items;
             gvItemsValor.BestFitColumns();
         }
@@ -334,7 +350,7 @@ namespace Protocolo_User_DataEntry
             }
             if (valores.Count == 0)
             {
-                MessageBox.Show("Debe ingresar al menos un valor de ensaño.");
+                MessageBox.Show("Debe ingresar al menos un valor de ensayo.");
                 return;
             }
             if (br.InsertEnsayoLoteAuditor(valores, ensayo))
@@ -515,16 +531,21 @@ namespace Protocolo_User_DataEntry
             var idOrden = Convert.ToInt32(tbOP.Texts.Split('/')[0]);
             var idCodigo = Convert.ToInt32(tbOP.Texts.Split('/')[1]);
             opSeleccionada = br.GetOp(idOrden, idCodigo);
+
+            var ultimoProceso = br.GetCodigoUltimoProceso(opSeleccionada.Codigo);
+
+            VerificarObjetoEnsayado(ultimoProceso);
+
             if (opSeleccionada.CantProduccion == 0) {
                 MessageBox.Show("No se encontra OP.");
                 return;
             }
            
             var paquetes = br.GetPaquetesPorOP(opSeleccionada.CantProduccion);
-            lblTitulo.Text = "Ensayo para: " + opSeleccionada.Orden + opSeleccionada.Codigo;
+            lblTitulo.Text = "Ensayo para: " + opSeleccionada.Orden +"/"+ opSeleccionada.Codigo;
             groupControl4.Enabled = true;
-            espAncho = br.GetFichaTecnicaConfeccionAncho(opSeleccionada.Codigo);
-            espLargo = br.GetFichaTecnicaConfeccionLargo(opSeleccionada.Codigo);
+            espAncho = br.GetFichaTecnicaAnchoBolsa(opSeleccionada.Codigo, ultimoProceso);
+            espLargo = br.GetFichaTecnicaLargoBolsa(opSeleccionada.Codigo, ultimoProceso);
             GetItems(lueMaquina.Text);
         }
     }

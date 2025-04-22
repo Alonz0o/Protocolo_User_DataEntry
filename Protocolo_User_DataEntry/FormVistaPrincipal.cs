@@ -55,9 +55,9 @@ namespace Protocolo_User_DataEntry
             lblEnsayosNecesarios.Text = muestreo.Realizadas + "/" + muestreo.Requeridas;
 
             lblTitulo.Text = "Ensayo para: " + orden + "/" + codigo;
-            espAncho = br.GetFichaTecnicaConfeccionAncho(codigo);
+            ////espAncho = br.GetFichaTecnicaConfeccionAncho(codigo);
             btnEspAncho.Text = espAncho.Medio + "±" + espAncho.Maximo;
-            espLargo = br.GetFichaTecnicaConfeccionLargo(codigo);
+            //espLargo = br.GetFichaTecnicaLargoBolsa(codigo);
             btnEspLargo.Text = espLargo.Medio + "±" + espLargo.Maximo;
 
             lblLargoMin.Text = "Largo Mínimo:" + (espLargo.Medio - espLargo.Minimo) + "";
