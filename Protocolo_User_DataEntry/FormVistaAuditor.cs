@@ -24,6 +24,8 @@ namespace Protocolo_User_DataEntry
         private List<ProtocoloItem> items = new List<ProtocoloItem>();
         public Especificacion espAncho = new Especificacion();
         public Especificacion espLargo = new Especificacion();
+        public Especificacion espEspesor = new Especificacion();
+
         private void lueMaquina_EditValueChanged(object sender, EventArgs e)
         {
             var ops = br.GetOps(lueMaquina.Text);
@@ -59,6 +61,7 @@ namespace Protocolo_User_DataEntry
             groupControl4.Enabled = true;
             espAncho = br.GetFichaTecnicaAnchoBolsa(opSeleccionada.Codigo, ultimoProceso);
             espLargo = br.GetFichaTecnicaLargoBolsa(opSeleccionada.Codigo, ultimoProceso);
+            espEspesor = br.GetFichaTecnicaEspesorBolsa(opSeleccionada.Codigo, ultimoProceso);
             GetItems(lueMaquina.Text);
 
 
@@ -546,6 +549,7 @@ namespace Protocolo_User_DataEntry
             groupControl4.Enabled = true;
             espAncho = br.GetFichaTecnicaAnchoBolsa(opSeleccionada.Codigo, ultimoProceso);
             espLargo = br.GetFichaTecnicaLargoBolsa(opSeleccionada.Codigo, ultimoProceso);
+            espEspesor = br.GetFichaTecnicaEspesorBolsa(opSeleccionada.Codigo, ultimoProceso);
             GetItems(lueMaquina.Text);
         }
     }

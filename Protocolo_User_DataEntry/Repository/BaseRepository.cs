@@ -95,6 +95,7 @@ namespace Protocolo_User_DataEntry.Repository
                 return esp;
             }
         }
+
         internal Especificacion GetFichaTecnicaLargoBolsa(int idCodigo,int ultimoproceso)
         {
             string Qry = string.Empty;
@@ -142,6 +143,56 @@ namespace Protocolo_User_DataEntry.Repository
                 return esp;
             }
         }
+
+        internal Especificacion GetFichaTecnicaEspesorBolsa(int idCodigo, int ultimoproceso)
+        {
+            string Qry = string.Empty;
+            Especificacion esp = new Especificacion();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                if (ultimoproceso == 3)
+                {
+                    Qry = @"SELECT e.Espesor,e.Espesor_Min,e.Espesor_Max
+                            FROM extrusion e 
+                            WHERE e.idcodigo = @pIdCodigo;";
+                }
+                if (ultimoproceso == 5)
+                {
+                    Qry = @"SELECT e.Espesor,e.Espesor_Min,e.Espesor_Max
+                            FROM extrusion e 
+                            WHERE e.idcodigo = @pIdCodigo;";
+                }
+                command.CommandText = Qry;
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        switch (ultimoproceso)
+                        {
+                            case 3:
+                                esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0);
+                                esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
+                                esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                                break;
+
+                            case 5:
+                                esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0);
+                                esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
+                                esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                                break;
+                        }
+                    }
+                }
+                return esp;
+            }
+        }
+
+
+
         internal Muestreo VerificarMuestreo(int idOrden, int aConfeccionar)
         {
             Muestreo m = new Muestreo();
@@ -537,6 +588,10 @@ namespace Protocolo_User_DataEntry.Repository
                         if (pi.Id == 7)
                         {
                             pi.EspecificacionDato = FormVistaAuditor.instancia.espLargo.Medio + "±" + FormVistaAuditor.instancia.espLargo.Maximo;
+                        }
+                        if (pi.Id == 8)
+                        {
+                            pi.EspecificacionDato = FormVistaAuditor.instancia.espEspesor.Medio + "±" + FormVistaAuditor.instancia.espEspesor.Maximo;
                         }
                         pis.Add(pi);
                     }
